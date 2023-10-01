@@ -4,10 +4,10 @@
 @endsection
 @section('content')
     <h1>Danh sách sinh viên đăng ký môn học</h1>
-    <a href="{{route('registers.create')}}" class="btn btn-info">Add</a>
-    <form action="list.html" method="GET">
+    <a href="{{ route('registers.create') }}" class="btn btn-info">Add</a>
+    <form action="{{route('registers.index')}}" method="GET">
         <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control"
-                value="">
+                value="{{request()->search}}">
             <button class="btn btn-danger">Tìm</button>
         </label>
         <input type="hidden" name="c" value="register">
@@ -34,8 +34,11 @@
                     <td>{{ $re->subject_id }}</td>
                     <td>{{ $re->subject->name }}</td>
                     <td>{{ $re->score }}</td>
-                    <td><a href="edit.html">Cập nhật điểm</a></td>
-                    <td><a onclick="return confirm('Bạn muốn xóa đăng ký này phải không?')" href="list.html">Xóa</a></td>
+                    <td><a href="{{ route('registers.edit', ['register' => $re->id]) }}">Cập nhật điểm</a></td>
+                    <td>
+                        <button class="btn btn-danger delete"
+                            url="{{ route('registers.destroy', ['register' => $re->id]) }}">Xóa</button>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
@@ -44,6 +47,6 @@
         {{ $registers->links() }}
     </div>
     <div>
-        <span>Số lượng: {{count($registers)}} / {{$registers->total()}}</span>
+        <span>Số lượng: {{ count($registers) }} / {{ $registers->total() }}</span>
     </div>
 @endsection

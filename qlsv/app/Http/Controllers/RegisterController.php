@@ -4,18 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Register;
 use App\Models\Student;
+use Exception;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    protected $pattern = [
+        'score' => 'numeric|between:0,10'
+    ];
+    protected $messenger = [
+        'numeric' => ':attribute phải là số',
+        'between' => ':attribute phải từ 0 đến 10'
+    ];
+    protected $customName = [
+        'score' => 'Điểm'
+    ];
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $registers = Register::paginate(10)->withQueryString();
+        $itemPerPage = env("ITEM_PER_PAGE", 2);
+        $registers = Register::join('students', 'registers.student_id', '=', 'students.id')
+            ->join('subjects', 'registers.subject_id', '=', 'subjects.id')
+            ->where('students.name', 'LIKE', "%$request->search%")
+            ->orWhere('subjects.name', 'LIKE', "%$request->search%")
+            ->select('registers.*')
+            ->paginate($itemPerPage)->withQueryString();
         return view('register.index', ["registers" => $registers]);
     }
 
@@ -66,7 +83,7 @@ class RegisterController extends Controller
      */
     public function edit(Register $register)
     {
-        //
+        return view('register.edit', ['register' => $register]);
     }
 
     /**
@@ -78,7 +95,13 @@ class RegisterController extends Controller
      */
     public function update(Request $request, Register $register)
     {
-        //
+        $this->validate($request, $this->pattern, $this->messenger, $this->customName);
+        $data = $request->all();
+        $register->score = $data['score'];
+        $register->save();
+        request()->session()->put("success", "Cập nhật điểm môn học {$register->subject->name}
+       thành công cho sinh viên {$register->student->name}");
+        return redirect()->route('registers.index');
     }
 
     /**
@@ -89,6 +112,12 @@ class RegisterController extends Controller
      */
     public function destroy(Register $register)
     {
-        //
+        try {
+            $register->forceDelete();
+            request()->session()->put("success", "Xóa thành công sv {$register->student->name} môn {$register->subject->name} thành công");
+        } catch (Exception $e) {
+            request()->session()->put("error", $e->getMessage());
+        }
+        return redirect()->route('registers.index');
     }
 }

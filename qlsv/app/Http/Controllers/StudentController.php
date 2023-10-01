@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\StudentExport;
+use App\Imports\StudentImport;
 class StudentController extends Controller
 {
     protected $pattern = [
@@ -34,8 +36,9 @@ class StudentController extends Controller
     // Hàm lấy danh sách
     public function index(Request $request)
     {
+        $itemPerPage = env("ITEM_PER_PAGE", 2);
         $search = $request->input('search');
-        $students = Student::where('name', 'LIKE', "%$search%")->paginate(10)->withQueryString();
+        $students = Student::where('name', 'LIKE', "%$search%")->paginate($itemPerPage)->withQueryString();
         return view('student.index', ['students' => $students, 'search' => $search]);
     }
 
@@ -127,5 +130,19 @@ class StudentController extends Controller
         }
 
         return redirect()->route('students.index');
+    }
+    public function export()
+    {
+        return Excel::download(new StudentExport, 'StudentList.xlsx');
+    }
+    public function formImport()
+    {
+        return view('student.formimport');
+    }
+
+    public function import()
+    {
+        Excel::import(new StudentImport, request()->file('excel'));
+        return redirect()->route("students.index");
     }
 }

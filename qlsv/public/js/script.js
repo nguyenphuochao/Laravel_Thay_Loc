@@ -29,41 +29,8 @@ $("#student_id").change(function (event) {
 
 });
 
-$(".delete").click(function (event) {
-    /* Act on the event */
-    $(".error").empty();
-    $(".message").empty();
-    var type = $(this).attr("type");
-    var message = "Bạn muốn xóa sinh viên này phải không?";
-    if (type == "subject") {
-        message = "Bạn muốn xóa môn học này phải không?";
-    }
-    if (!confirm(message)) {
-        return false;//không chạy href
-    }
-    //Chuẩn bị ajax để check
-    var id = $(this).attr("data");
-    var self = this;
-    $.ajax({
-        url: 'index.php?c=' + type + '&a=hasRegister',
-        data: { id: id },
-    })
-        .done(function (data) {
-            data = JSON.parse(data);
-            if (data.existing == 1) {
-                $(".error").html(data.error);
-
-                return false;
-            }
-            window.location.href = self.href;
-            console.log("success");
-        })
-        .fail(function () {
-            console.log("error");
-        })
-        .always(function () {
-            console.log("complete");
-        });
-
-    return false;
+$(".delete").click(function () {
+    var form = $("#modalDeletingConfirmation form");
+    $(form).attr("action", $(this).attr("url"));
+    $("#modalDeletingConfirmation").modal('show');
 });

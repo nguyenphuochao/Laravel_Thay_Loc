@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -12,9 +14,10 @@ class SubjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $subjects = Subject::where("name", "LIKE", "%$request->search%")->paginate(4)->withQueryString();
+        return view('subject.index', ['subjects' => $subjects]);
     }
 
     /**
@@ -24,7 +27,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('subject.create');
     }
 
     /**
@@ -35,7 +38,13 @@ class SubjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $subject = new Subject();
+        $subject->name = $data['name'];
+        $subject->number_of_credit = $data['number_of_credit'];
+        $subject->save();
+        request()->session()->put("success", "Thêm thành công môn {$subject->name}");
+        return redirect()->route('subjects.index');
     }
 
     /**
@@ -80,7 +89,17 @@ class SubjectController extends Controller
      */
     public function destroy(Subject $subject)
     {
-        //
+        try {
+            $subject->forceDelete();
+            request()->session()->put("success", "Xóa thành công môn học");
+        } catch (QueryException $e) {
+            if ($e->getCode() == 23000) {
+                request()->session()->put("error", "Môn học này đã được sinh viên đăng kí không thể xóa");
+            } else {
+                request()->session()->put("error", $e->getMessage());
+            }
+        }
+        return redirect()->route('subjects.index');
     }
     public function unregistered($id)
     {

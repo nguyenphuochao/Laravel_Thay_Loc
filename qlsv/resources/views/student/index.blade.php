@@ -5,18 +5,14 @@
 @section('content')
     <h1>Danh sách sinh viên</h1>
     <a href="{{ route('students.create') }}" class="btn btn-info">Add</a>
+    <a href="{{ route('students.export') }}" class="btn btn-success">Export</a>
+    <a href="{{ route('students.formImport') }}" class="btn btn-dark">Import</a>
     <form action="{{ route('students.index') }}" method="GET">
         <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control"
                 value="{{ $search }}">
             <button class="btn btn-danger">Tìm</button>
         </label>
     </form>
-    @if (request()->session()->has('success'))
-        <div class="alert alert-success">{{ request()->session()->pull('success') }}</div>
-    @endif
-    @if (request()->session()->has('error'))
-        <div class="alert alert-danger">{{ request()->session()->pull('error') }}</div>
-    @endif
     <table class="table table-hover">
         <thead>
             <tr>
@@ -39,12 +35,8 @@
                     <td>
                         <a href="{{ route('students.edit', ['student' => $student->id]) }}" class="btn btn-warning"
                             role="button">Sửa</a>
-                        <form action="{{ route('students.destroy', ['student' => $student->id]) }}" method="POST"
-                            style="display: inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger" onclick="return confirm('Bạn chắc xóa')">Xóa</button>
-                        </form>
+                        <button class="btn btn-danger delete"
+                            url="{{ route('students.destroy', ['student' => $student->id]) }}">Xóa</button>
                     </td>
                 </tr>
             @endforeach
