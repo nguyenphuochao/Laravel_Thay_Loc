@@ -8,8 +8,15 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\StudentExport;
 use App\Imports\StudentImport;
+
 class StudentController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
+
     protected $pattern = [
         'name' => 'required|max:50',
         'birthday' => 'required|date',
@@ -36,7 +43,7 @@ class StudentController extends Controller
     // Hàm lấy danh sách
     public function index(Request $request)
     {
-        $itemPerPage = env("ITEM_PER_PAGE", 2);
+        $itemPerPage = env("ITEM_PER_PAGE", 4);
         $search = $request->input('search');
         $students = Student::where('name', 'LIKE', "%$search%")->paginate($itemPerPage)->withQueryString();
         return view('student.index', ['students' => $students, 'search' => $search]);

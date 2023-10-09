@@ -11,6 +11,31 @@ use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
+    protected $pattern = [
+        'name' => 'required|regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i|max:255',
+        'email' => 'required|email|unique:users|max:255',
+        'password' => 'required|min:6|required_with:password_confirmation|same:password_confirmation',
+        'password_confirmation' => 'required|min:6',
+    ];
+
+
+    protected $messenger = [
+        'required' => ':attribute không được để trống',
+        'regex' => ':attribute không được chứa số hoặc ký tự đặc biệt',
+        'email' => ':attribute phải là định dạng email.',
+        'min' => ':attribute không được ít hơn :min ký tự',
+        'max' => ':attribute không được lớn hơn :max ký tự',
+        'unique' => ':attribute đã tồn tại',
+        'same' => ':attribute phải trùng khớp với xác nhận mật khẩu',
+    ];
+
+    protected $customName = [
+        'name' => 'Họ và tên',
+        'email' => 'Địa chỉ email',
+        'password' => 'Mật khẩu',
+        'password_confirmation' => 'Xác nhận mật khẩu',
+    ];
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -49,11 +74,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        return Validator::make($data, $this->pattern, $this->messenger, $this->customName);
     }
 
     /**

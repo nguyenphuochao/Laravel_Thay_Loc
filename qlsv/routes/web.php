@@ -3,6 +3,7 @@
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\SubjectController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,7 @@ Route::resource('registers', RegisterController::class);
 
 Route::redirect('/', route("students.index"), 301);
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::redirect('/home',route('students.index'),301);
+

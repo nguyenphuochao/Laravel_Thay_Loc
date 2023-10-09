@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     protected $pattern = [
         'score' => 'numeric|between:0,10'
     ];
@@ -26,7 +32,7 @@ class RegisterController extends Controller
      */
     public function index(Request $request)
     {
-        $itemPerPage = env("ITEM_PER_PAGE", 2);
+        $itemPerPage = env("ITEM_PER_PAGE", 4);
         $registers = Register::join('students', 'registers.student_id', '=', 'students.id')
             ->join('subjects', 'registers.subject_id', '=', 'subjects.id')
             ->where('students.name', 'LIKE', "%$request->search%")

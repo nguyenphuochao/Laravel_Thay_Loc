@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware(['auth', 'verified']);
+    }
+
     /**
      * Display a listing of the resource.
      *
