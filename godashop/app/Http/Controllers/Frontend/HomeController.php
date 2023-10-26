@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         // Cách 2
         // foreach ($categories as $category) {
-        //     $productCate[$category->name] = $category->products;
+        //     $productCate[$category->name] = $category->products->take(4)->all();
         // }
         return view('frontend.home', compact('product_featured', 'product_last', 'productCate'));
     }

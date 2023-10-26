@@ -5,23 +5,26 @@
     <title>Trang chủ - Mỹ Phẩm Goda</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="../images/logo.jpg" />
-    <link rel="stylesheet" href="../vendor/fontawesome-free-5.11.2-web/css/all.min.css">
-    <link rel="stylesheet" href="../vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="../vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="../vendor/star-rating/css/star-rating.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <script src="../vendor/jquery.min.js"></script>
-    <script src="../vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="../vendor/star-rating/js/star-rating.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset("")}}/images/logo.jpg" />
+    <link rel="stylesheet" href="{{asset("")}}/vendor/fontawesome-free-5.11.2-web/css/all.min.css">
+    <link rel="stylesheet" href="{{asset("")}}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{asset("")}}/vendor/star-rating/css/star-rating.min.css">
+    <link rel="stylesheet" href="{{asset("")}}/css/style.css">
+    <script src="{{asset("")}}/vendor/jquery.min.js"></script>
+    <script src="{{asset("")}}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="{{asset("")}}/vendor/star-rating/js/star-rating.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="../vendor/format/number_format.js"></script>
-    <script type="text/javascript" src="../js/script.js"></script>
+    <script src="{{asset("")}}/vendor/format/number_format.js"></script>
+    <script type="text/javascript" src="{{asset("")}}/js/script.js"></script>
 </head>
 
 <body>
+    @php
+        $routeName = Route::currentRouteName();
+    @endphp
     <header>
         <!-- use for ajax -->
         <input type="hidden" id="reference" value="">
@@ -29,12 +32,12 @@
         <div class="top-navbar container-fluid">
             <div class="menu-mb">
                 <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
-                <a class="active" href="{{route('fe.home')}}">Trang chủ</a>
-                <a href="san-pham.html">Sản phẩm</a>
-                <a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a>
-                <a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a>
-                <a href="chinh-sach-giao-hang.html">Chính sách giao hàng</a>
-                <a href="lien-he.html">Liên hệ</a>
+                <a class="{{ $routeName == 'fe.home' ? 'active' : '' }}" href="{{ route('fe.home') }}">Trang chủ</a>
+                <a class="{{ $routeName == 'fe.product' ? 'active' : '' }}" href="{{ route('fe.product') }}">Sản phẩm</a>
+                <a class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}" href="{{ route('fe.exchange') }}">Chính sách đổi trả</a>
+                <a class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">Chính sách thanh toán</a>
+                <a class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">Chính sách giao hàng</a>
+                <a class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">Liên hệ</a>
             </div>
             <div class="row">
                 <div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -69,10 +72,11 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                    <a href="{{route('fe.home')}}"><img src="../images/goda450x170_1.jpg" class="img-responsive"></a>
+                    <a href="{{ route('fe.home') }}"><img src="{{asset("")}}/images/goda450x170_1.jpg" class="img-responsive"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                    <a href="{{route('fe.home')}}"><img src="../images/godakeben450x170.jpg" class="img-responsive"></a>
+                    <a href="{{ route('fe.home') }}"><img src="{{asset("")}}/images/godakeben450x170.jpg"
+                            class="img-responsive"></a>
                 </div>
                 <!-- HOTLINE AND SERCH -->
                 <div class="col-lg-4 col-md-4 hotline-search">
@@ -107,20 +111,29 @@
     <nav class="navbar navbar-default desktop-menu">
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-                <li class="@if(request()->segment(1)=="") {{"active"}}  @endif">
-                    <a href="{{route('fe.home')}}">Trang chủ</a>
+                <li class="{{ $routeName == 'fe.home' ? 'active' : '' }}">
+                    <a href="{{ route('fe.home') }}">Trang chủ</a>
                 </li>
-                <li class="@if(request()->segment(1)=="san-pham") {{"active"}}  @endif">
-                    <a href="{{route('fe.product')}}">Sản phẩm</a>
+                <li class="{{ $routeName == 'fe.product' ? 'active' : '' }}">
+                    <a href="{{ route('fe.product') }}">Sản phẩm</a>
                 </li>
-                <li><a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
-                <li><a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a></li>
-                <li><a href="chinh-sach-giao-hang.html">Chính sách giao hàng</a></li>
-                <li><a href="lien-he.html">Liên hệ</a></li>
+                <li class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}">
+                    <a href="{{route('fe.exchange')}}">Chính sách đổi trả</a>
+                </li>
+                <li class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">
+                    <a href="{{route('fe.pay')}}">Chính sách thanh toán</a>
+                </li>
+                <li class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">
+                    <a href="{{route('fe.delivery')}}">Chính sách giao hàng</a>
+                </li>
+                <li class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">
+                    <a href="{{route('fe.contact')}}">Liên hệ</a>
+                </li>
             </ul>
             <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul class="nav navbar-nav navbar-right">
-                <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i class="fa fa-shopping-cart"></i> <span class="number-total-product">6</span></a></li>
+                <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i
+                            class="fa fa-shopping-cart"></i> <span class="number-total-product">6</span></a></li>
             </ul>
         </div>
     </nav>

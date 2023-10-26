@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\ViewProduct;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,9 +14,23 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($slug = null)
     {
-        return view('frontend.product');
+        $conds = [];
+        //hiển thị sản phẩm theo danh mục
+        if ($slug) {
+            $tmp = explode('-', $slug);
+            $catId = array_pop($tmp);
+            $conds[] = ["category_id", "=", $catId];
+        }
+
+        $products = ViewProduct::where($conds)->get();
+        $categories = Category::all();
+        $data = [
+            'products' => $products,
+            'categories' => $categories
+        ];
+        return view('frontend.product', $data);
     }
 
     /**
