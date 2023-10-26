@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-// Front-end
-Route::get('/', [HomeController::class, 'index']);
+//-------------------- Front-end----------------------------------
+Route::get('/', [HomeController::class, 'index'])->name('fe.home');
+Route::get('san-pham', [ProductController::class, 'index'])->name('fe.product');
+
+
+
+
+
+//--------------------- Back-end----------------------------------

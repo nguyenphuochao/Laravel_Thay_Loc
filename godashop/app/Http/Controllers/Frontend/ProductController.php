@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\ViewProduct;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Lấy sản phẩm nổi bật
-        $product_featured = ViewProduct::where('featured', 1)->take(4)->get();
-        // Lấy sản phẩm mới nhất
-        $product_last = ViewProduct::orderBy('created_date', 'DESC')->take(4)->get();
-        // Lấy sản phẩm theo danh mục
-        $categories = Category::all();
-        $productCate = [];
-        foreach ($categories as $category) {
-            $product_category = ViewProduct::where('category_id', $category->id)->take(4)->get();
-            $productCate[$category->name] = $product_category;
-        }
-
-        // Cách 2
-        // foreach ($categories as $category) {
-        //     $productCate[$category->name] = $category->products;
-        // }
-        return view('frontend.home', compact('product_featured', 'product_last', 'productCate'));
+        return view('frontend.product');
     }
 
     /**

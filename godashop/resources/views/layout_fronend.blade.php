@@ -29,7 +29,7 @@
         <div class="top-navbar container-fluid">
             <div class="menu-mb">
                 <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
-                <a class="active" href="index.html">Trang chủ</a>
+                <a class="active" href="{{route('fe.home')}}">Trang chủ</a>
                 <a href="san-pham.html">Sản phẩm</a>
                 <a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a>
                 <a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a>
@@ -69,10 +69,10 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                    <a href="#"><img src="../images/goda450x170_1.jpg" class="img-responsive"></a>
+                    <a href="{{route('fe.home')}}"><img src="../images/goda450x170_1.jpg" class="img-responsive"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                    <a href="#"><img src="../images/godakeben450x170.jpg" class="img-responsive"></a>
+                    <a href="{{route('fe.home')}}"><img src="../images/godakeben450x170.jpg" class="img-responsive"></a>
                 </div>
                 <!-- HOTLINE AND SERCH -->
                 <div class="col-lg-4 col-md-4 hotline-search">
@@ -107,10 +107,12 @@
     <nav class="navbar navbar-default desktop-menu">
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-                <li class="active">
-                    <a href="index.html">Trang chủ</a>
+                <li class="@if(request()->segment(1)=="") {{"active"}}  @endif">
+                    <a href="{{route('fe.home')}}">Trang chủ</a>
                 </li>
-                <li><a href="san-pham.html">Sản phẩm </a></li>
+                <li class="@if(request()->segment(1)=="san-pham") {{"active"}}  @endif">
+                    <a href="{{route('fe.product')}}">Sản phẩm</a>
+                </li>
                 <li><a href="chinh-sach-doi-tra.html">Chính sách đổi trả</a></li>
                 <li><a href="chinh-sach-thanh-toan.html">Chính sách thanh toán</a></li>
                 <li><a href="chinh-sach-giao-hang.html">Chính sách giao hàng</a></li>
