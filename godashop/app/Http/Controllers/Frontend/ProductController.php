@@ -14,17 +14,44 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($slug = null)
+    public function index($slug = null, Request $request)
     {
         $conds = [];
-        //hiển thị sản phẩm theo danh mục
+        // hiển thị sản phẩm theo danh mục
         if ($slug) {
             $tmp = explode('-', $slug);
             $catId = array_pop($tmp);
             $conds[] = ["category_id", "=", $catId];
         }
-
-        $products = ViewProduct::where($conds)->get();
+        // lọc sản phẩm theo khoảng giá
+        if ($request->has("price-range")) {
+            $priceRange = $request->input("price-range");
+            $tmp = explode("-", $priceRange);
+            $start = $tmp[0];
+            $end = $tmp[1];
+            $conds[] = ["sale_price", ">=", $start];
+            // sale_price >= 100000
+            // bởi vì price-range=1000000-greater
+            if (is_numeric($end)) {
+                $conds[] = ["sale_price", "<=", $end];
+            }
+        }
+        // sắp xếp sản phẩm theo tiêu chí
+        $col = 'name';
+        $sortType = "ASC";
+        if ($request->has("sort")) {
+            $sort = $request->input('sort');
+            $colMap = ['alpha' => 'name', 'created' => 'created_date', 'price' => 'sale_price'];
+            $temp = explode('-', $sort);
+            $col = $colMap[$temp[0]];
+            $sortType = $temp[1];
+        }
+        // Tìm kiếm sản phẩm
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $conds[] = ["name", "like", "%$search%"];
+        }
+        $products = ViewProduct::where($conds)->orderBy($col, $sortType)->paginate(12)->withQueryString();
         $categories = Category::all();
         $data = [
             'products' => $products,
@@ -62,7 +89,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = [];
+        return view('frontend.detail', $data);
     }
 
     /**

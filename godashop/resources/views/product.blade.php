@@ -4,7 +4,11 @@
     </div>
     <div class="product-meta">
         <h5 class="name">
-            <a class="product-name" href="chi-tiet-san-pham.html"
+            @php
+                $slugName=\Str::slug($pro->name);
+                $slug="{$slugName}-{$pro->id}";
+            @endphp
+            <a class="product-name" href="{{route('fe.detail',['slug'=>$slug])}}"
                 title="{{ $pro->name }}">{{ $pro->name }}</a>
         </h5>
         <div class="product-item-price">
@@ -22,7 +26,7 @@
             </a>
         </div>
         <div class="quickview icon">
-            <a class="btn btn-outline-inverse" href="chi-tiet-san-pham.html" title="Xem nhanh">
+            <a class="btn btn-outline-inverse" href="{{route('fe.detail',['slug'=>$slug])}}" title="Xem nhanh">
                 Xem chi tiết <i class="fa fa-eye"></i>
             </a>
         </div>

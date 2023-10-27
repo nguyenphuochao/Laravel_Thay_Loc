@@ -82,12 +82,12 @@
                 <div class="col-lg-4 col-md-4 hotline-search">
                     <div>
                         <p class="hotline-phone"><span><strong>Hotline: </strong><a
-                                    href="tel:0932.538.468">0932.538.468</a></span></p>
+                                    href="tel:058.4228.904">058.4228.904</a></span></p>
                         <p class="hotline-email"><span><strong>Email: </strong><a
-                                    href="mailto:nguyenhuulocla2006@gmail.com">nguyenhuulocla2006@gmail.com</a></span>
+                                    href="mailto:nguyenphuochao123@gmail.com">nguyenphuochao123@gmail.com</a></span>
                         </p>
                     </div>
-                    <form class="header-form" action="">
+                    <form class="header-form" action="{{route('fe.product')}}">
                         <div class="input-group">
                             <input type="search" class="form-control search" placeholder="Nhập từ khóa tìm kiếm"
                                 name="search" autocomplete="off" value="">
@@ -114,7 +114,7 @@
                 <li class="{{ $routeName == 'fe.home' ? 'active' : '' }}">
                     <a href="{{ route('fe.home') }}">Trang chủ</a>
                 </li>
-                <li class="{{ $routeName == 'fe.product' ? 'active' : '' }}">
+                <li class="{{ in_array($routeName,['fe.product','fe.category']) ? 'active' : '' }}">
                     <a href="{{ route('fe.product') }}">Sản phẩm</a>
                 </li>
                 <li class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}">
@@ -175,9 +175,9 @@
                             <div class="footerLink">
                                 <h4>Liên hệ với chúng tôi </h4>
                                 <ul class="list-unstyled">
-                                    <li>Phone: 0932.538.468</li>
-                                    <li><a href="mailto:nguyenhuulocla2006@gmail.com">Mail:
-                                            nguyenhuulocla2006@gmail.com</a></li>
+                                    <li>Phone: 058.4228.904</li>
+                                    <li><a href="mailto:nguyenphuochao123@gmail.com">Mail:
+                                            nguyenphuochao123@gmail.com</a></li>
                                 </ul>
                                 <ul class="list-inline">
                                     <li><a href="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i
