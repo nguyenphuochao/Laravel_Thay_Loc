@@ -21,6 +21,7 @@ Route::get('/', [HomeController::class, 'index'])->name('fe.home');
 Route::get('san-pham', [ProductController::class, 'index'])->name('fe.product');
 Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('fe.category');
 Route::get('chi-tiet-san-pham/{slug}.html', [ProductController::class, 'show'])->name('fe.detail');
+Route::get('san-pham/search', [ProductController::class, 'search'])->name('fe.search');
 
 Route::get('chinh-sach-doi-tra', function () {
     return view('frontend.exchange');

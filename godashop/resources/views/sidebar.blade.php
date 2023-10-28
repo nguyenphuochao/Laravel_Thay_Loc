@@ -13,7 +13,7 @@
                         $slugName = \Str::slug($cate->name);
                         $slug = "{$slugName}-{$cate->id}";
                     @endphp
-                    <li class="{{ request()->segment(2) == $slug ? 'active' : '' }}">
+                    <li class="{{!empty($catId) && $cate->id == $catId ? "active": ""}}">
                         <a href="{{ route('fe.category', ['slug' => $slug]) }}" title="{{ $cate->name }}"
                             target="_self">{{ $cate->name }}</a>
                     </li>

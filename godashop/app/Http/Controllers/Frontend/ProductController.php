@@ -16,6 +16,7 @@ class ProductController extends Controller
      */
     public function index($slug = null, Request $request)
     {
+        $catId="";
         $conds = [];
         // hiển thị sản phẩm theo danh mục
         if ($slug) {
@@ -46,7 +47,7 @@ class ProductController extends Controller
             $col = $colMap[$temp[0]];
             $sortType = $temp[1];
         }
-        // Tìm kiếm sản phẩm
+        // Tìm kiếm sản phẩm theo tên
         if ($request->has('search')) {
             $search = $request->input('search');
             $conds[] = ["name", "like", "%$search%"];
@@ -55,7 +56,8 @@ class ProductController extends Controller
         $categories = Category::all();
         $data = [
             'products' => $products,
-            'categories' => $categories
+            'categories' => $categories,
+            'catId' => $catId
         ];
         return view('frontend.product', $data);
     }
@@ -87,9 +89,17 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $data = [];
+        $tmp = explode('-', $slug);
+        $id = array_pop($tmp);
+        $product = ViewProduct::find($id);
+        $categories = Category::all();
+        $data = [
+            'product' => $product,
+            'categories' => $categories,
+            'catId' => $product->category_id
+        ];
         return view('frontend.detail', $data);
     }
 
@@ -125,5 +135,13 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function search(Request $request)
+    {
+        $search = $request->input("pattern");
+        $conds = [];
+        $conds[] = ["name", "LIKE", "%$search%"];
+        $products = ViewProduct::where($conds)->get();
+        return view('frontend.search', ["products" => $products]);
     }
 }

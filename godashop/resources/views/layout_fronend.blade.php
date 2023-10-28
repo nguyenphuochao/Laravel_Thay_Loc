@@ -89,15 +89,16 @@
                     </div>
                     <form class="header-form" action="{{route('fe.product')}}">
                         <div class="input-group">
+                            @php
+                                $search = request()->has('search');
+                            @endphp
                             <input type="search" class="form-control search" placeholder="Nhập từ khóa tìm kiếm"
-                                name="search" autocomplete="off" value="">
+                                name="search" autocomplete="off" value="{{$search ? request()->input('search') : ''}}">
                             <div class="input-group-btn">
                                 <button class="btn bt-search bg-color" type="submit"><i class="fa fa-search"
                                         style="color:#fff"></i>
                                 </button>
                             </div>
-                            <input type="hidden" name="c" value="product">
-                            <input type="hidden" name="a" value="list">
                         </div>
                         <div class="search-result">
                         </div>

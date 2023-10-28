@@ -9,6 +9,26 @@ function closeMenuMobile() {
 }
 
 $(function () {
+    // Ajax search
+    var timeout = null;
+    $("header form.header-form .search").keyup(function (event) {
+        clearTimeout(timeout);
+        var pattern = $(this).val();
+        $(".search-result").empty();
+        timeout = setTimeout(function () {
+            if (pattern) {
+                $.ajax({
+                    type: "GET",
+                    url: "/san-pham/search",
+                    data: { pattern: pattern }
+                })
+                    .done(function (data) {
+                        $(".search-result").html(data);
+                        $(".search-result").show();
+                    });
+            }
+        }, 200);
+    });
     // Tìm kiếm và sắp xếp theo sản phẩm
     $("#sort-select").change(function (event) {
         var dataUrl = $(this).children("option:selected").attr("data-url");
