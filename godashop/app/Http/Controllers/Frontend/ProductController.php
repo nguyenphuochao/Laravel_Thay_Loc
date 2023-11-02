@@ -16,12 +16,14 @@ class ProductController extends Controller
      */
     public function index($slug = null, Request $request)
     {
-        $catId="";
+        $catId = "";
+        $cateName = "Tất cả sản phẩm";
         $conds = [];
         // hiển thị sản phẩm theo danh mục
         if ($slug) {
             $tmp = explode('-', $slug);
             $catId = array_pop($tmp);
+            $cateName = Category::find($catId)->name;
             $conds[] = ["category_id", "=", $catId];
         }
         // lọc sản phẩm theo khoảng giá
@@ -57,7 +59,8 @@ class ProductController extends Controller
         $data = [
             'products' => $products,
             'categories' => $categories,
-            'catId' => $catId
+            'catId' => $catId,
+            'cateName'=>$cateName
         ];
         return view('frontend.product', $data);
     }

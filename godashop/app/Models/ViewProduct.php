@@ -29,4 +29,22 @@ class ViewProduct extends Model
     {
         return $this->hasMany(ImageItem::class, 'product_id', 'id');
     }
+    /**
+     * Get the user that owns the ViewProduct
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
+    }
+    /**
+     * Get the user that owns the ViewProduct
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class, 'product_id', 'id');
+    }
 }

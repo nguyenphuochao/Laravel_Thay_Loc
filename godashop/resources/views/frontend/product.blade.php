@@ -7,7 +7,7 @@
                     <ol class="breadcrumb">
                         <li><a href="/" target="_self">Trang chủ</a></li>
                         <li><span>/</span></li>
-                        <li class="active"><span>Tất cả sản phẩm</span></li>
+                        <li class="active"><span>{{$cateName}}</span></li>
                     </ol>
                 </div>
                 <div class="col-xs-3 hidden-lg hidden-md">

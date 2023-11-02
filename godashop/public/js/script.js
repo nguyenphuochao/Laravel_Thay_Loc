@@ -9,6 +9,28 @@ function closeMenuMobile() {
 }
 
 $(function () {
+    // Submit đánh giá sản phẩm
+    $("form.form-comment").submit(function (event) {
+        /* Act on the event */
+        event.preventDefault(); //prevent default action
+        var post_url = $(this).attr("action"); //get form action url
+        var request_method = $(this).attr("method"); //get form GET/POST method
+        var form_data = $(this).serialize(); //Encode form elements for submission
+
+        $.ajax({
+            url: post_url,
+            type: request_method,
+            data: form_data,
+        })
+            .done(function (data) {
+                Swal.fire(
+                    'Cảm ơn bạn đã bình luận!',
+                    'success'
+                  );
+                $(".comment-list").html(data);
+                updateAnsweredRating();
+            });
+    });
     // Ajax search
     var timeout = null;
     $("header form.header-form .search").keyup(function (event) {
@@ -155,7 +177,7 @@ $(function () {
 
     // Hiển thị carousel for relative products
     $('main .product-detail .product-related .owl-carousel').owlCarousel({
-        loop: true,
+        loop: false,
         margin: 10,
         nav: true,
         dots: false,
@@ -184,4 +206,19 @@ function onSignIn(googleUser) {
         console.log('Signed in as: ' + xhr.responseText);
     };
     xhr.send('idtoken=' + id_token);
+}
+
+// Hiển thị những rating của những đánh giá
+function updateAnsweredRating() {
+    $('main .product-detail .product-description .answered-rating-input').rating({
+        min: 0,
+        max: 5,
+        step: 1,
+        size: 'md',
+        stars: "5",
+        showClear: false,
+        showCaption: false,
+        displayOnly: false,
+        hoverEnabled: true
+    });
 }

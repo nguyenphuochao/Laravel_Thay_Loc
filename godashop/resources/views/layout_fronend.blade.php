@@ -5,20 +5,23 @@
     <title>Trang chủ - Mỹ Phẩm Goda</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset("")}}/images/logo.jpg" />
-    <link rel="stylesheet" href="{{asset("")}}/vendor/fontawesome-free-5.11.2-web/css/all.min.css">
-    <link rel="stylesheet" href="{{asset("")}}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="{{asset("")}}/vendor/star-rating/css/star-rating.min.css">
-    <link rel="stylesheet" href="{{asset("")}}/css/style.css">
-    <script src="{{asset("")}}/vendor/jquery.min.js"></script>
-    <script src="{{asset("")}}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{asset("")}}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="{{asset("")}}/vendor/star-rating/js/star-rating.min.js"></script>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('') }}/images/logo.jpg" />
+    <link rel="stylesheet" href="{{ asset('') }}/vendor/fontawesome-free-5.11.2-web/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}/vendor/star-rating/css/star-rating.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}/css/style.css">
+    <script src="{{ asset('') }}/vendor/jquery.min.js"></script>
+    <script src="{{ asset('') }}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}/vendor/star-rating/js/star-rating.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script src="{{asset("")}}/vendor/format/number_format.js"></script>
-    <script type="text/javascript" src="{{asset("")}}/js/script.js"></script>
+    <script src="{{ asset('') }}/vendor/format/number_format.js"></script>
+    {{-- SweetAlert2 --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}/js/script.js"></script>
 </head>
 
 <body>
@@ -33,8 +36,10 @@
             <div class="menu-mb">
                 <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
                 <a class="{{ $routeName == 'fe.home' ? 'active' : '' }}" href="{{ route('fe.home') }}">Trang chủ</a>
-                <a class="{{ $routeName == 'fe.product' ? 'active' : '' }}" href="{{ route('fe.product') }}">Sản phẩm</a>
-                <a class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}" href="{{ route('fe.exchange') }}">Chính sách đổi trả</a>
+                <a class="{{ $routeName == 'fe.product' ? 'active' : '' }}" href="{{ route('fe.product') }}">Sản
+                    phẩm</a>
+                <a class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}" href="{{ route('fe.exchange') }}">Chính
+                    sách đổi trả</a>
                 <a class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">Chính sách thanh toán</a>
                 <a class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">Chính sách giao hàng</a>
                 <a class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">Liên hệ</a>
@@ -72,10 +77,11 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                    <a href="{{ route('fe.home') }}"><img src="{{asset("")}}/images/goda450x170_1.jpg" class="img-responsive"></a>
+                    <a href="{{ route('fe.home') }}"><img src="{{ asset('') }}/images/goda450x170_1.jpg"
+                            class="img-responsive"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                    <a href="{{ route('fe.home') }}"><img src="{{asset("")}}/images/godakeben450x170.jpg"
+                    <a href="{{ route('fe.home') }}"><img src="{{ asset('') }}/images/godakeben450x170.jpg"
                             class="img-responsive"></a>
                 </div>
                 <!-- HOTLINE AND SERCH -->
@@ -87,13 +93,14 @@
                                     href="mailto:nguyenphuochao123@gmail.com">nguyenphuochao123@gmail.com</a></span>
                         </p>
                     </div>
-                    <form class="header-form" action="{{route('fe.product')}}">
+                    <form class="header-form" action="{{ route('fe.product') }}">
                         <div class="input-group">
                             @php
                                 $search = request()->has('search');
                             @endphp
                             <input type="search" class="form-control search" placeholder="Nhập từ khóa tìm kiếm"
-                                name="search" autocomplete="off" value="{{$search ? request()->input('search') : ''}}">
+                                name="search" autocomplete="off"
+                                value="{{ $search ? request()->input('search') : '' }}">
                             <div class="input-group-btn">
                                 <button class="btn bt-search bg-color" type="submit"><i class="fa fa-search"
                                         style="color:#fff"></i>
@@ -115,20 +122,20 @@
                 <li class="{{ $routeName == 'fe.home' ? 'active' : '' }}">
                     <a href="{{ route('fe.home') }}">Trang chủ</a>
                 </li>
-                <li class="{{ in_array($routeName,['fe.product','fe.category']) ? 'active' : '' }}">
+                <li class="{{ in_array($routeName, ['fe.product', 'fe.category']) ? 'active' : '' }}">
                     <a href="{{ route('fe.product') }}">Sản phẩm</a>
                 </li>
                 <li class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}">
-                    <a href="{{route('fe.exchange')}}">Chính sách đổi trả</a>
+                    <a href="{{ route('fe.exchange') }}">Chính sách đổi trả</a>
                 </li>
                 <li class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">
-                    <a href="{{route('fe.pay')}}">Chính sách thanh toán</a>
+                    <a href="{{ route('fe.pay') }}">Chính sách thanh toán</a>
                 </li>
                 <li class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">
-                    <a href="{{route('fe.delivery')}}">Chính sách giao hàng</a>
+                    <a href="{{ route('fe.delivery') }}">Chính sách giao hàng</a>
                 </li>
                 <li class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">
-                    <a href="{{route('fe.contact')}}">Liên hệ</a>
+                    <a href="{{ route('fe.contact') }}">Liên hệ</a>
                 </li>
             </ul>
             <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
