@@ -16,7 +16,7 @@
     <script src="{{ asset('') }}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
     <script type="text/javascript" src="{{ asset('') }}/vendor/star-rating/js/star-rating.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {!! NoCaptcha::renderJs() !!}
     <script src="{{ asset('') }}/vendor/format/number_format.js"></script>
     {{-- SweetAlert2 --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
@@ -114,6 +114,8 @@
             </div>
         </div>
         <!-- End header -->
+        {{-- Message --}}
+        @include('message')
     </header>
     <!-- NAVBAR DESKTOP-->
     <nav class="navbar navbar-default desktop-menu">
@@ -228,38 +230,31 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                     <h3 class="modal-title text-center">Đăng ký</h3>
                 </div>
-                <form action="#" method="POST" role="form">
+                <form action="{{ route('fe.register') }}" method="POST" role="form" name="registration"
+                    style="font-weight:normal !important">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="fullname" placeholder="Họ và tên"
-                                required oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="text" class="form-control" name="name" placeholder="Họ và tên">
                         </div>
                         <div class="form-group">
-                            <input type="tel" class="form-control" name="mobile" placeholder="Số điện thoại"
-                                required pattern="[0][0-9]{9,}"
-                                oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại bắt đầu bằng số 0 và ít nhất 9 con số theo sau')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="tel" class="form-control" name="mobile" placeholder="Số điện thoại">
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" name="email" placeholder="Email" required
-                                oninvalid="this.setCustomValidity('Vui lòng nhập email')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="email" class="form-control" name="email" placeholder="Email">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="password" placeholder="Mật khẩu"
-                                required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
-                                oninvalid="this.setCustomValidity('Vui lòng nhập ít nhất 8 ký tự: số, chữ hoa, chữ thường')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Mật khẩu">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" name="re-password"
-                                placeholder="Nhập lại mật khẩu" required autocomplete="off" autosave="off"
-                                pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$"
-                                oninvalid="this.setCustomValidity('Vui lòng nhập ít nhất 8 ký tự: số, chữ hoa, chữ thường')"
-                                oninput="this.setCustomValidity('')">
+                            <input type="password" class="form-control" name="password_confirmation"
+                                placeholder="Nhập lại mật khẩu">
                         </div>
-                        <div class="form-group g-recaptcha" data-sitekey="6Lcj07oUAAAAALAHcj_WdDa7Vykqzui3mSA5SIoe">
+                        <div class="form-group">
+                            {!! app('captcha')->display() !!}
+                            <input type="text" name="hiddenRecaptcha"
+                                style="opacity: 0; position: absolute; top: 0; left: 0; height: 1px; width: 1px;">
                         </div>
                         <input type="hidden" name="reference" value="">
                     </div>
@@ -289,7 +284,8 @@
                             Đăng nhập bằng Facebook</a>
                     </div>
                 </div>
-                <form action="#" method="POST" role="form">
+                <form action="{{route('fe.login')}}" method="POST" role="form">
+                    @csrf
                     <div class="modal-body">
                         <div class="form-group">
                             <input type="email" name="email" class="form-control" placeholder="Email" required>
