@@ -51,6 +51,12 @@
                                 @endif
                                 <span class="product-item-discount">{{ number_format($product->sale_price) }}₫</span>
                             </div>
+                            <div class="input-group">
+                                <input type="number" class="product-quantity form-control" value="1" min="1">
+                                <a href="javascript:void(0)" product-id="2" class="buy-in-detail btn btn-success cart-add-button">
+                                    <i class="fa fa-shopping-cart"></i>Thêm giỏ hàng
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="row product-description">

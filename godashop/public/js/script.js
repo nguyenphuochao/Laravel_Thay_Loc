@@ -9,6 +9,147 @@ function closeMenuMobile() {
 }
 
 $(function () {
+    // Thêm sản phẩm vào giỏ hàng
+    $("main .buy-in-detail").click(function (event) {
+        /* Act on the event */
+        var qty = $(this).prev("input").val();
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+            url: '/carts/add',
+            type: 'GET',
+            data: {product_id: product_id, qty:qty}
+        })
+        .done(function(data) {
+            displayCart(data);
+
+        });
+    });
+
+    // Thêm sản phẩm vào giỏ hàng
+    $("main .buy").click(function (event) {
+        var product_id = $(this).attr("product-id");
+        $.ajax({
+            type: "GET",
+            url: "carts/add",
+            data: {
+                product_id: product_id,
+                qty: 1
+            }
+        })
+            .done(function (data) {
+                displayCart(data);
+                console.log(data);
+            });
+    });
+    // Validate jquery
+    // Register validate
+    $("[name=registration]").validate({
+        rules: {
+            name: {
+                required: true,
+                maxlength: 100,
+                regex: /^[a-zA￾ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i
+            },
+            mobile: {
+                required: true,
+                regex: /^0([0-9]{9,9})$/
+            },
+            email: {
+                required: true,
+                email: true,
+                remote: "/existingEmail"
+            },
+            password: {
+                required: true,
+                regex: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+            },
+            password_confirmation: {
+                required: true,
+                aqualTo: "#password"
+            },
+            hiddenRecaptcha: {
+                required: function () {
+                    if (grecaptcha.getResponse() == '') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        },
+        messages: {
+            name: {
+                required: 'Vui lòng nhập họ và tên',
+                regex: 'Phải thỏa mãn mẫu ký tự thông thường, không có số, ký tự đặc biệt',
+                maxlength: 'Chiều dài tối đa không quá 100 ký tự'
+            },
+            mobile: {
+                required: 'Vui lòng nhập số điện thoại',
+                regex: 'Thỏa mãn mẫu bắt đầu là số 0, sau đó là 9 số'
+            },
+            email: {
+                required: 'Vui lòng nhập email',
+                email: 'Vui lòng nhập đúng định dạng email'
+            },
+            password: {
+                required: 'Vui lòng nhập password',
+                regex: 'Phải thỏa mãn mẫu đã học bao gồm số, ký tự, đặc biệt, chữ hoa, chữ thường'
+            },
+            password_confirmation: {
+                required: 'Vui lòng nhập lại mật khẩu',
+                aqualTo: 'Mật khẩu chưa khớp'
+            },
+            hiddenRecaptcha: {
+                required: 'Vui lòng xác nhận google recaptcha'
+            }
+        },
+        errorClass: 'help-block',
+        highlight: function (element) {
+            $(element).parent().addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('has-error');
+        }
+    });
+    $.validator.addMethod(
+        "regex",
+        function (value, element, regexp) {
+            if (regexp.constructor != RegExp)
+                regexp = new RegExp(regexp);
+            else if (regexp.global)
+                regexp.lastIndex = 0;
+            return this.optional(element) || regexp.test(value);
+        },
+        "Please check your input."
+    );
+    // Login validate
+    $("#login").validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
+            }
+        },
+        messages: {
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Email chưa đúng định dạng"
+            },
+            password: {
+                required: "Vui lòng nhập password",
+            }
+        },
+        errorClass: 'help-block',
+        highlight: function (element) {
+            $(element).parent().addClass('has-error');
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('has-error');
+        }
+    });
     // Submit đánh giá sản phẩm
     $("form.form-comment").submit(function (event) {
         /* Act on the event */
@@ -26,7 +167,7 @@ $(function () {
                 Swal.fire(
                     'Cảm ơn bạn đã bình luận!',
                     'success'
-                  );
+                );
                 $(".comment-list").html(data);
                 updateAnsweredRating();
             });
@@ -167,12 +308,12 @@ $(function () {
 
     $('input[name=checkout]').click(function (event) {
         /* Act on the event */
-        window.location.href = "dat-hang.html";
+        window.location.href = "/payment";
     });
 
     $('input[name=back-shopping]').click(function (event) {
         /* Act on the event */
-        window.location.href = "san-pham.html";
+        window.location.href = "/san-pham";
     });
 
     // Hiển thị carousel for relative products
@@ -221,4 +362,36 @@ function updateAnsweredRating() {
         displayOnly: false,
         hoverEnabled: true
     });
+}
+// Hiển thị giỏ hàng
+function displayCart(data) {
+    var cart = JSON.parse(data);
+    var count = cart.count;
+    $(".btn-cart-detail .number-total-product").html(count);
+    var subtotal = cart.subtotal;
+    $("#modal-cart-detail .price-total").html(subtotal + "đ");
+    var items = cart.items;
+    $("#modal-cart-detail .cart-product").html(items)
+}
+// Xóa 1 item trong giỏ hàng
+function deleteProductInCart(rowId) {
+    $.ajax({
+        type: "GET",
+        url: `carts/delete/${rowId}`,
+    })
+        .done(function (data) {
+            alert('Xóa thành công');
+            displayCart(data);
+        });
+}
+// Thay đổi số lượng sản phẩm trong giỏ hàng
+function updateProductInCart(self, rowId) {
+    var qty = $(self).val();
+    $.ajax({
+        type: "GET",
+        url: `carts/update/${rowId}/${qty}`,
+    })
+        .done(function (data) {
+            displayCart(data);
+        });
 }

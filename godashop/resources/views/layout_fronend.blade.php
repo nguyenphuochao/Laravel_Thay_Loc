@@ -21,6 +21,8 @@
     {{-- SweetAlert2 --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    {{-- Jquery validate --}}
+    <script src="{{ asset('') }}/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
     <script type="text/javascript" src="{{ asset('') }}/js/script.js"></script>
 </head>
 
@@ -62,10 +64,31 @@
                 <div class="col-md-6 col-sm-10 col-xs-11">
                     <ul class="list-inline pull-right top-right">
                         <li class="account-login">
-                            <a href="javascript:void(0)" class="btn-register">Đăng Ký</a>
+                            @auth
+                                <a href="don-hang-cua-toi.html" class="btn-logout">Đơn hàng của tôi</a>
+                            @endauth
+                            @guest
+                                <a href="javascript:void(0)" class="btn-register">Đăng Ký</a>
+                            @endguest
+
                         </li>
                         <li>
-                            <a href="javascript:void(0)" class="btn-login">Đăng Nhập </a>
+                            @auth
+                            <a href="javascript:void(0)" class="btn-account dropdown-toggle" data-toggle="dropdown" id="dropdownMenu">{{Auth::user()->name}}</a>
+                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                                <li><a href="thong-tin-tai-khoan.html">Thông tin tài khoản</a></li>
+                                <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
+                                <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <a href="javascript:void()" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Thoát</a>
+                                    <form id="logout-form" action="{{route('fe.logout')}}" method="POST" class="d-none">@csrf</form>
+                                </li>
+                            @endauth
+                            @guest
+                                <a href="javascript:void(0)" class="btn-login">Đăng Nhập </a>
+                            @endguest
+
                         </li>
                     </ul>
                 </div>
@@ -140,10 +163,16 @@
                     <a href="{{ route('fe.contact') }}">Liên hệ</a>
                 </li>
             </ul>
+            @auth
+                @php
+                    Cart::restore(Auth()->user()->email);
+                    Cart::store(Auth()->user()->email);
+                @endphp
+            @endauth
             <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul class="nav navbar-nav navbar-right">
                 <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i
-                            class="fa fa-shopping-cart"></i> <span class="number-total-product">6</span></a></li>
+                            class="fa fa-shopping-cart"></i> <span class="number-total-product">{{Cart::count()}}</span></a></li>
             </ul>
         </div>
     </nav>
@@ -284,15 +313,14 @@
                             Đăng nhập bằng Facebook</a>
                     </div>
                 </div>
-                <form action="{{route('fe.login')}}" method="POST" role="form">
+                <form id="login" action="{{route('fe.login')}}" method="POST" role="form">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="Email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Email" >
                         </div>
                         <div class="form-group">
-                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu"
-                                required>
+                            <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
                         </div>
                         <input type="hidden" name="reference" value="">
                     </div>
@@ -369,68 +397,7 @@
                             </div>
                         </div>
                         <div class="cart-product">
-                            <hr>
-                            <div class="clearfix text-left">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-1">
-                                        <div><img class="img-responsive"
-                                                src="../images/beaumoreSecretWhiteningCream10g.jpg"
-                                                alt="Kem làm trắng da 5 trong 1 Beaumore Secret Whitening Cream ">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><a class="product-name" href="#">Kem làm
-                                            trắng da 5 trong 1 Beaumore Secret Whitening Cream</a></div>
-                                    <div class="col-sm-6 col-md-2"><span class="product-item-discount">190,000₫</span>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><input type="hidden" value="1"><input
-                                            type="number" onchange="updateProductInCart(this,2)" min="1"
-                                            value="1"></div>
-                                    <div class="col-sm-6 col-md-2"><span>190,000₫</span></div>
-                                    <div class="col-sm-6 col-md-1"><a class="remove-product"
-                                            href="javascript:void(0)" onclick="deleteProductInCart(2)"><span
-                                                class="glyphicon glyphicon-trash"></span></a></div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="clearfix text-left">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-1">
-                                        <div><img class="img-responsive" src="../images/suaRuaMatNgheBeaumore100g.jpg"
-                                                alt="Sữa rửa mặt nghệ Beaumore Mới- 100g "></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><a class="product-name" href="#">Sữa rửa
-                                            mặt nghệ Beaumore Mới- 100g</a></div>
-                                    <div class="col-sm-6 col-md-2"><span class="product-item-discount">250,000₫</span>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><input type="hidden" value="1"><input
-                                            type="number" onchange="updateProductInCart(this,4)" min="1"
-                                            value="2"></div>
-                                    <div class="col-sm-6 col-md-2"><span>500,000₫</span></div>
-                                    <div class="col-sm-6 col-md-1"><a class="remove-product"
-                                            href="javascript:void(0)" onclick="deleteProductInCart(4)"><span
-                                                class="glyphicon glyphicon-trash"></span></a></div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="clearfix text-left">
-                                <div class="row">
-                                    <div class="col-sm-6 col-md-1">
-                                        <div><img class="img-responsive" src="../images/suaTamSandrasShowerGel.jpg"
-                                                alt="Sữa tắm Sandras Shower Gel "></div>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><a class="product-name" href="#">Sữa tắm
-                                            Sandras Shower Gel</a></div>
-                                    <div class="col-sm-6 col-md-2"><span class="product-item-discount">180,000₫</span>
-                                    </div>
-                                    <div class="col-sm-6 col-md-3"><input type="hidden" value="1"><input
-                                            type="number" onchange="updateProductInCart(this,7)" min="1"
-                                            value="3"></div>
-                                    <div class="col-sm-6 col-md-2"><span>540,000₫</span></div>
-                                    <div class="col-sm-6 col-md-1"><a class="remove-product"
-                                            href="javascript:void(0)" onclick="deleteProductInCart(7)"><span
-                                                class="glyphicon glyphicon-trash"></span></a></div>
-                                </div>
-                            </div>
+                            @include('cart_items');
                         </div>
                     </div>
                 </div>
@@ -439,7 +406,7 @@
                         <div class="col-xs-12 text-right">
                             <p>
                                 <span>Tổng tiền</span>
-                                <span class="price-total">1,230,000₫</span>
+                                <span class="price-total">{{Cart::subtotal()}}₫</span>
                             </p>
                             <input type="button" name="back-shopping" class="btn btn-default"
                                 value="Tiếp tục mua sắm">

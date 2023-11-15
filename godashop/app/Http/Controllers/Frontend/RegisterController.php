@@ -6,9 +6,31 @@ use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Validator;
 class RegisterController extends Controller
 {
+    protected $messenger = [
+        'required' => ':attribute không được để trống',
+        'name.regex' => ':attribute không được chứa số hoặc ký tự đặc biệt',
+        'password.regex' => ':attribute phải ít nhất 8 ký tự bao gồm chữ thường, chữ hoa, số và ký tự đặc biệt',
+        'mobile.regex' => ':attribute phải bắt đầu là 0, có 9 hoặc 10 số theo sau',
+        'email' => ':attribute phải là định dạng email.',
+        'min' => ':attribute không được ít hơn :min ký tự',
+        'max' => ':attribute không được lớn hơn :max ký tự',
+        'unique' => ':attribute đã tồn tại',
+        'same' => ':attribute phải trùng khớp với mật khẩu',
+        'same' => ':attribute phải trùng khớp với mật khẩu',
+        'g-recaptcha-response.required' => ':attribute phải được chọn',
+     ];
+
+     protected $customName = [
+        'name' => 'Họ và tên',
+        'password' => 'Mật khẩu',
+        'mobile' => 'Số điện thoại',
+        'email' => 'Email',
+        'password_confirmation' => 'Nhập lại mật khẩu',
+        'g-recaptcha-response' => 'Google reCAPTCHA'
+     ];
     /**
      * Display a listing of the resource.
      *
@@ -91,11 +113,35 @@ class RegisterController extends Controller
     {
         //
     }
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|regex:/^[a-zA￾ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộ
+        ớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$/i|max:100',
+            'email' => 'required|string|email|max:100|unique:customers',
+            'password' => 'required|min:8|regex:/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/|required_with:password_confirmation',
+            'password_confirmation' => 'required|min:6|same:password',
+            'mobile' => 'required|min:10|max:11|regex:/^0([0-9]{9,10})$/',
+            'g-recaptcha-response' => 'required|captcha',
+        ], $this->messenger, $this->customName );
+    }
     public function register(Request $request)
     {
+        //validate
+        $this->validator($request->all())->validate();
         // var_dump($request->all());
         $this->create($request->all());
         request()->session()->put('success', 'Đăng kí tài khoản thành công');
         return redirect()->route('fe.home');
+    }
+    public function existingEmail(Request $request)
+    {
+        $email = $request->input('email');
+        $customers = Customer::where('email', '=', $email)->get();
+        if ($customers->count() > 0) {
+            echo "false";
+        } else {
+            echo "true";
+        }
     }
 }
