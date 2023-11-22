@@ -114,12 +114,16 @@ class CartController extends Controller
     }
     protected function storeIntoDb()
     {
-        $email = Auth::user()->email;
-        Cart::store($email);
+        if (Auth()->check()) {
+            $email = Auth::user()->email;
+            Cart::store($email);
+        }
     }
     protected function retoreFromDB()
     {
-        $email = Auth::user()->email;
-        Cart::restore($email);
+        if (Auth()->check()) {
+            $email = Auth::user()->email;
+            Cart::restore($email);
+        }
     }
 }
