@@ -9,6 +9,52 @@ function closeMenuMobile() {
 }
 
 $(function () {
+    // Thay đổi province
+    $("main .province").change(function () {
+        var province_id = $(this).val();
+        if (!province_id) {
+            updateSelectBox(null, "main .district");
+            updateSelectBox(null, "main .ward");
+            return;
+        }
+        $.ajax({
+            url: `/address/${province_id}/districts`
+        })
+            .done(function (data) {
+                updateSelectBox(data, "main .district");
+                updateSelectBox(null, "main .ward");
+            });
+        // Shipping Free
+        if ($("main .shipping-fee").length) {
+            $.ajax({
+                url: `/shippingfree/${province_id}`,
+            })
+                .done(function (data) {
+                   //update shipping fee and total on UI
+                    let shipping_fee = Number(data);
+                    let payment_total = Number($("main .total").attr("data")) + shipping_fee;
+                    $("main .shipping-fee").html(number_format(shipping_fee) + "₫");
+                    $("main .payment-total").html(number_format(payment_total) + "₫");
+                });
+        }
+    });
+    // Thay đổi district
+    $("main .district").change(function (event) {
+        /* Act on the event */
+        var district_id = $(this).val();
+        if (!district_id) {
+            updateSelectBox(null, "main .ward");
+            return;
+        }
+
+        $.ajax({
+            url: `/address/${district_id}/wards`
+        })
+            .done(function (data) {
+                updateSelectBox(data, "main .ward");
+            });
+    });
+
     // Thêm sản phẩm vào giỏ hàng
     $("main .buy-in-detail").click(function (event) {
         /* Act on the event */
@@ -17,12 +63,12 @@ $(function () {
         $.ajax({
             url: '/carts/add',
             type: 'GET',
-            data: {product_id: product_id, qty:qty}
+            data: { product_id: product_id, qty: qty }
         })
-        .done(function(data) {
-            displayCart(data);
+            .done(function (data) {
+                displayCart(data);
 
-        });
+            });
     });
 
     // Thêm sản phẩm vào giỏ hàng
@@ -380,7 +426,6 @@ function deleteProductInCart(rowId) {
         url: `carts/delete/${rowId}`,
     })
         .done(function (data) {
-            alert('Xóa thành công');
             displayCart(data);
         });
 }
@@ -394,4 +439,15 @@ function updateProductInCart(self, rowId) {
         .done(function (data) {
             displayCart(data);
         });
+}
+// Hàm update thông tin province
+function updateSelectBox(data, selector) {
+    var items = JSON.parse(data);
+    $(selector).find('option').not(':first').remove();
+    if (!data) return;
+    for (let i = 0; i < items.length; i++) {
+        let item = items[i];
+        let option = '<option value="' + item.id + '"> ' + item.name + '</option>';
+        $(selector).append(option);
+    }
 }

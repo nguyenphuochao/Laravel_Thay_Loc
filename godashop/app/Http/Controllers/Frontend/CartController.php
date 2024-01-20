@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Discount;
 use App\Models\ViewProduct;
 use Illuminate\Http\Request;
 use Cart;
@@ -125,5 +126,24 @@ class CartController extends Controller
             $email = Auth::user()->email;
             Cart::restore($email);
         }
+    }
+    public function discount(Request $request)
+    {
+        $discount_code = $request->input('discount-code');
+        $discount = Discount::where('code', $discount_code)->first();
+        if ($discount) {
+            $discount_amount = $discount->discount_amount;
+            $this->retoreFromDB();
+            Cart::setGlobalDiscount($discount_amount);
+            $this->storeIntoDb();
+            $request->session()->forget('discount_error');
+        } else {
+            $this->retoreFromDB();
+            Cart::setGlobalDiscount(0);
+            $this->storeIntoDb();
+            $request->session()->put('discount_error', 'Mã giảm giá không hợp lệ');
+        }
+        $request->session()->put('discount_code', $discount_code);
+        return redirect()->route('fe.payment');
     }
 }

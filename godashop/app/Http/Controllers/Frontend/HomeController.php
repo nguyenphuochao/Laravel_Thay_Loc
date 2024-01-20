@@ -27,7 +27,7 @@ class HomeController extends Controller
             $product_category = ViewProduct::where('category_id', $category->id)->take(4)->get();
             $productCate[$category->name] = $product_category;
         }
-
+        // dd($productCate);
         // Cách 2
         // foreach ($categories as $category) {
         //     $productCate[$category->name] = $category->products->take(4)->all();

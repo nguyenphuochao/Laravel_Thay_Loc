@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CommentController;
+use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\ProductController;
@@ -33,12 +35,22 @@ Route::post('login', [LoginController::class, 'login'])->name('fe.login');
 Route::post('logout', [LoginController::class, 'logout'])->name('fe.logout');
 Route::get('existingEmail', [RegisterController::class, 'existingEmail'])->name('fe.existingEmail');
 // Giỏ hàng
+// Route::middleware("auth")->group(function () {
+Route::get('carts/add', [CartController::class, 'store'])->name('cart.store');
+Route::get('carts/show', [CartController::class, 'show'])->name('cart.show');
+Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
+Route::get('carts/update/{rowId}/{qty}', [CartController::class, 'update'])->name('cart.update');
+Route::get('carts/discount', [CartController::class, 'discount'])->name('cart.discount');
+Route::get('payment', [PaymentController::class, 'create'])->name('fe.payment');
+Route::post('payment', [PaymentController::class, 'store'])->name('fe.payment.store');
+Route::get('address/{provinceId}/districts', [AddressController::class, 'districts']);
+Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
+Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);
+// });
+
 Route::middleware("auth")->group(function () {
-    Route::get('carts/add', [CartController::class, 'store'])->name('cart.store');
-    Route::get('carts/show', [CartController::class, 'show'])->name('cart.show');
-    Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
-    Route::get('carts/update/{rowId}/{qty}', [CartController::class, 'update'])->name('cart.update');
-    Route::get('payment', [PaymentController::class, 'create'])->name('fe.payment');
+    Route::get('customer/show', [CustomerController::class, 'show'])->name('customer.show');
+    Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
 });
 // Trả về view lun khỏi cần tạo qua controller
 Route::get('chinh-sach-doi-tra', function () {

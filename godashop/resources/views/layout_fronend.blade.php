@@ -6,24 +6,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('') }}/images/logo.jpg" />
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/fontawesome-free-5.11.2-web/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}/vendor/star-rating/css/star-rating.min.css">
-    <link rel="stylesheet" href="{{ asset('') }}/css/style.css">
-    <script src="{{ asset('') }}/vendor/jquery.min.js"></script>
-    <script src="{{ asset('') }}/vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="{{ asset('') }}/vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
-    <script type="text/javascript" src="{{ asset('') }}/vendor/star-rating/js/star-rating.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('') }}vendor/fontawesome-free-5.11.2-web/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}vendor/OwlCarousel2-2.3.4/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}vendor/OwlCarousel2-2.3.4/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}vendor/star-rating/css/star-rating.min.css">
+    <link rel="stylesheet" href="{{ asset('') }}css/style.css">
+    <script src="{{ asset('') }}vendor/jquery.min.js"></script>
+    <script src="{{ asset('') }}vendor/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}vendor/OwlCarousel2-2.3.4/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}vendor/star-rating/js/star-rating.min.js"></script>
     {!! NoCaptcha::renderJs() !!}
-    <script src="{{ asset('') }}/vendor/format/number_format.js"></script>
+    <script src="{{ asset('') }}vendor/format/number_format.js"></script>
     {{-- SweetAlert2 --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
     {{-- Jquery validate --}}
-    <script src="{{ asset('') }}/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="{{ asset('') }}/js/script.js"></script>
+    <script src="{{ asset('') }}vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="{{ asset('') }}js/script.js"></script>
 </head>
 
 <body>
@@ -76,7 +76,7 @@
                             @auth
                             <a href="javascript:void(0)" class="btn-account dropdown-toggle" data-toggle="dropdown" id="dropdownMenu">{{Auth::user()->name}}</a>
                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                                <li><a href="thong-tin-tai-khoan.html">Thông tin tài khoản</a></li>
+                                <li><a href="{{route('customer.show')}}">Thông tin tài khoản</a></li>
                                 <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
                                 <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
                                 <li role="separator" class="divider"></li>
@@ -165,6 +165,7 @@
             </ul>
             @auth
                 @php
+                    Cart::destroy();
                     Cart::restore(Auth()->user()->email);
                     Cart::store(Auth()->user()->email);
                 @endphp
@@ -176,7 +177,7 @@
             </ul>
         </div>
     </nav>
-
+    @include('message');
     @yield('content')
 
     {{-- FOOTER --}}

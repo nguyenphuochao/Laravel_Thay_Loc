@@ -3,7 +3,15 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Province;
+use App\Models\Transport;
+use App\Models\Ward;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Cart;
 
 class PaymentController extends Controller
 {
@@ -24,8 +32,44 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        $data=[];
-        return view('frontend.payment',$data);
+        if (Auth()->check()) {
+            $customer = Auth()->user();
+        } else {
+            $guest = env("GUEST");
+            $customer = Customer::where('email', '=', $guest)->first();
+            //dd($customer);
+        }
+        // Tỉnh thành quận huyện
+        $districts = [];
+        $wards = [];
+        $selected_ward = $customer->ward;
+        $selected_province_id = null;
+        $selected_district_id = null;
+        $selected_ward_id = null;
+        $shipping_fee = 0;
+        if (!empty($selected_ward)) {
+            $selected_ward_id = $selected_ward->id; // 2 selected_ward_id
+            $selected_district = $selected_ward->district;
+            $selected_district_id = $selected_district->id; //3 selected_district_id
+            $selected_province = $selected_district->province;
+            $selected_province_id = $selected_province->id; //4 selected_province_id
+            $districts = $selected_province->districts; // 5 districts
+            $wards =  $selected_district->wards; //6 wards
+            $shipping_fee = Transport::where("province_id", $selected_province_id)->first()->price;
+        }
+        $provinces = Province::all();
+        $data = [
+            'customer' => $customer,
+            'provinces' => $provinces,
+            'districts' => $districts,
+            'wards' => $wards,
+            "selected_province_id" => $selected_province_id,
+            "selected_district_id" => $selected_district_id,
+            "selected_ward_id" => $selected_ward_id,
+            "shipping_fee" => $shipping_fee
+
+        ];
+        return view('frontend.payment', $data);
     }
 
     /**
@@ -36,7 +80,42 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Lưu order
+        $order = new Order();
+        $order->created_date = date("Y-m-d H:i:s");
+        $order->order_status_id = 1;
+        $order->staff_id = null;
+        $order->customer_id = Auth::user()->id;
+        $order->shipping_fullname = $_POST["fullname"];
+        $order->shipping_mobile = $_POST["mobile"];
+        $order->payment_method = $_POST["payment_method"];
+        $order->shipping_ward_id  = $_POST["ward"];
+        $order->shipping_housenumber_street = $_POST["address"];
+
+        $province_id = Ward::find($order->shipping_ward_id)->district->province->id;
+        $order->shipping_fee = Transport::where("province_id", $province_id)->first()->price;;
+
+        $order->delivered_date = date("Y-m-d H:i:s", strtotime("+3 days"));
+        $order->price_total = Cart::priceTotal(0, "", "");
+        $order->discount_code = session()->get("discount_code");
+        $order->discount_amount = Cart::discount(0, "", "");  // update later
+        $order->sub_total = Cart::subtotal(0, "", "");
+        $order->tax = Cart::tax(0, "", "");
+        $order->price_inc_tax_total = Cart::total(0, "", "");
+        $order->payment_total = $order->shipping_fee + Cart::total(0, "", "");
+        $order->save();
+        // Lưu order item
+        foreach (Cart::content() as $item) {
+            $order_item = new OrderItem();
+            $order_item->product_id = $item->id;
+            $order_item->order_id = $order->id;
+            $order_item->qty = $item->qty;
+            $order_item->unit_price = $item->price;
+            $order_item->total_price = $item->qty * $item->price;
+            $order_item->save();
+        }
+        $request->session()->put("success","Đã tạo đơn hàng thành công");
+        return redirect()->route('fe.product');
     }
 
     /**
