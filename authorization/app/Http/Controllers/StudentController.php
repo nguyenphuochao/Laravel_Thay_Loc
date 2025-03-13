@@ -67,9 +67,11 @@ class StudentController extends Controller
         // } else {
         //     abort(403);
         // }
+
         if (!Gate::allows("create-student")) {
             abort(403);
         }
+
         return view('student.create');
 
     }

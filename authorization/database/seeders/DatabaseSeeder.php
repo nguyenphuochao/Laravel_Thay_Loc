@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             ['id' => 1, 'name' => 'admin'],
             ['id' => 2, 'name' => 'viewer'],
         ]);
+
         DB::table('role_user')->insert(
             [
                 [
@@ -52,6 +53,7 @@ class DatabaseSeeder extends Seeder
                 ]
             ]
         );
+
         DB::table('permission_role')->insert([
             ['permission_id' => 1, 'role_id' => 1],
             ['permission_id' => 2, 'role_id' => 1],
