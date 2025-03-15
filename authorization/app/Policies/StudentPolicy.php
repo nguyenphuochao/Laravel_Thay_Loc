@@ -18,7 +18,7 @@ class StudentPolicy
      */
     public function viewAny(User $user)
     {
-        //
+
     }
 
     /**
@@ -30,7 +30,7 @@ class StudentPolicy
      */
     public function view(User $user, Student $student)
     {
-        //
+        return $user->hasPermission("view_student");
     }
 
     /**
@@ -68,7 +68,7 @@ class StudentPolicy
     public function delete(User $user, Student $student)
     {
         //
-        return $user->id == $student->user_id || $user->hasPermission("update_student");
+        return $user->id == $student->user_id || $user->hasPermission("delete_student");
     }
 
     /**

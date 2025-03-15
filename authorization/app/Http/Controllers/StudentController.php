@@ -84,7 +84,6 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, $this->pattern, $this->messenger, $this->customName);
 
         $data       = $request->all();
@@ -105,6 +104,10 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $user = Auth::user();
+        if(!$user->can("view", $student)) {
+            abort(403, "Bạn không có quyền truy cập");
+        }
 
         return view('student.show', ["student" => $student]);
     }
@@ -117,7 +120,11 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+        $user = Auth::user();
+        if(!$user->can("view", $student)) {
+            abort(403, "Bạn không có quyền truy cập");
+        }
+
         return view('student.edit', ["student" => $student]);
     }
 
@@ -130,8 +137,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        //
-
+        $user = Auth::user();
+        if(!$user->can("update", $student)) {
+            abort(403, "Bạn không có quyền truy cập");
+        }
 
         $this->validate($request, $this->pattern, $this->messenger, $this->customName);
         $data = $request->all();
@@ -151,7 +160,11 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
+        $user = Auth::user();
+        if(!$user->can("delete", $student)) {
+            abort(403, "Bạn không có quyền truy cập");
+        }
+
         try {
             $student->forceDelete();
             request()->session()->put('success', 'Đã xóa sinh viên thành công');

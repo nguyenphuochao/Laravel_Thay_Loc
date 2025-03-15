@@ -4,20 +4,24 @@
 @endsection
 @section('content')
     <h1>Danh sách sinh viên</h1>
+
     @can('create', 'App\Models\Student')
         <a href="{{ route('students.create') }}" class="btn btn-info">Add</a>
     @endcan
     @cannot('create', 'App\Models\Student')
         <a href="{{ route('students.create') }}" class="btn btn-info disabled">Add</a>
     @endcannot
+
     <a href="{{ route('students.formImport') }}" class="btn btn-primary">Import</a>
     <a href="{{ route('students.export') }}" class="btn btn-success">Export</a>
+
     <form action="{{ route('students.index') }}" method="GET">
         <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control"
                 value="<?= $search ?>">
             <button class="btn btn-danger">Tìm</button>
         </label>
     </form>
+
     <table class="table table-hover">
         <thead>
             <tr>
@@ -48,7 +52,13 @@
                     </td>
                     <td>{{ formatVNDate($student->birthday) }}</td>
                     <td>{{ $student->getGenderName() }}</td>
-                    <td><a class="btn btn-primary" href="{{ route('students.edit', ['student' => $student->id]) }}">Sửa</a>
+                    <td>
+                        @can("view", $student)
+                            <a class="btn btn-primary" href="{{ route('students.edit', ['student' => $student->id]) }}">Sửa</a>
+                        @endcan
+                        @cannot("view", $student)
+                            <a class="btn btn-primary disabled" href="{{ route('students.edit', ['student' => $student->id]) }}">Sửa</a>
+                        @endcannot
                     </td>
                     <td>
                         <button class="btn btn-danger delete"
