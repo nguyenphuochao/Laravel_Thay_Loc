@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
+
 use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CommentController;
 use App\Http\Controllers\Frontend\CustomerController;
-use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\LoginController;
-use App\Http\Controllers\Frontend\ProductController;
+
 use App\Http\Controllers\Frontend\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +24,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Trang chủ
+Route::get('/', [HomeController::class, 'index'])->name('index');
+// Sản phẩm
+Route::get('san-pham', [ProductController::class, 'index'])->name('product.index');
 
-//------------------------- Front-end----------------------------------
-Route::get('/', [HomeController::class, 'index'])->name('fe.home');
-Route::get('san-pham', [ProductController::class, 'index'])->name('fe.product');
+
 Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('fe.category');
 Route::get('chi-tiet-san-pham/{slug}.html', [ProductController::class, 'show'])->name('fe.detail');
 Route::get('san-pham/search', [ProductController::class, 'search'])->name('fe.search');
@@ -71,6 +75,4 @@ Route::get('lien-he', function () {
 
 
 
-
-
-//------------------------- Back-end----------------------------------
+// Admin

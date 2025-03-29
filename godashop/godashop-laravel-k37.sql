@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 27, 2023 lúc 11:25 AM
+-- Thời gian đã tạo: Th3 29, 2025 lúc 02:54 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 7.4.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `laravel_thay_loc_godashop`
+-- Cơ sở dữ liệu: `godashop-laravel-k37`
 --
 
 -- --------------------------------------------------------
@@ -1117,7 +1117,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `barcode`, `sku`, `name`, `price`, `discount_percentage`, `discount_from_date`, `discount_to_date`, `featured_image`, `inventory_qty`, `category_id`, `brand_id`, `created_date`, `description`, `star`, `featured`) VALUES
-(2, '8935212803908', 'SKU1', 'Kem làm trắng da 5 trong 1 Beaumore Secret Whitening Cream', 200000, 10, '2019-11-14', '2021-11-30', 'suaTamSandrasMychai250ml.jpg', 11, 4, 1, '2017-11-20 00:00:00', '<p>M&ocirc; Tả Chi Tiết</p>\r\n\r\n<p>Với c&aacute;c th&agrave;nh phần được chiết từ thảo dược thi&ecirc;n nhi&ecirc;n c&ugrave;ng c&aacute;c loại vitamin v&agrave; tinh chất ngọc trai nu&ocirc;i dưỡng l&agrave;n da trắng s&aacute;ng tự nhi&ecirc;n l&agrave;m giảm sự hiện của đốm n&acirc;u v&agrave; t&agrave;n nhang ngăn ngừa mụn ngăn ngừa l&atilde;o h&oacute;a v&agrave; se kh&iacute;t lỗ ch&acirc;n l&ocirc;ng.</p>\r\n', 4.5, 1),
+(2, '8935212803908', 'SKU1', 'Kem làm trắng da 5 trong 1 Beaumore Secret Whitening Cream', 200000, 10, '2019-11-14', '2025-11-30', 'suaTamSandrasMychai250ml.jpg', 11, 4, 1, '2017-11-20 00:00:00', '<p>M&ocirc; Tả Chi Tiết</p>\r\n\r\n<p>Với c&aacute;c th&agrave;nh phần được chiết từ thảo dược thi&ecirc;n nhi&ecirc;n c&ugrave;ng c&aacute;c loại vitamin v&agrave; tinh chất ngọc trai nu&ocirc;i dưỡng l&agrave;n da trắng s&aacute;ng tự nhi&ecirc;n l&agrave;m giảm sự hiện của đốm n&acirc;u v&agrave; t&agrave;n nhang ngăn ngừa mụn ngăn ngừa l&atilde;o h&oacute;a v&agrave; se kh&iacute;t lỗ ch&acirc;n l&ocirc;ng.</p>\r\n', 4.5, 1),
 (3, '8780201379603', '', 'Kem làm sáng vùng da bikini Beaumore- 50ml', 849000, 1, '0000-00-00', '0000-00-00', 'kemLamSangVungDaBikini.jpg', 0, 2, 1, '2017-10-28 09:36:11', '<p>M&ocirc; tả chi tiết</p>\r\n\r\n<p>&ndash; Với chiết từ l&aacute; d&acirc;u tằm, chất Arbutin trong quả d&acirc;u gấu c&ugrave;ng c&aacute;c th&agrave;nh phần thảo dược thi&ecirc;n nhi&ecirc;n gi&uacute;p tăng cường h&agrave;ng r&agrave;o biểu b&igrave;, ngăn ngừa l&atilde;o h&oacute;a da</p>\r\n\r\n<p>&ndash; L&agrave;m da trắng s&aacute;ng, giữ ẩm v&agrave; tăng độ đ&agrave;n hồi cho da</p>\r\n\r\n<p>&ndash; Diệt khuẩn, kh&aacute;ng vi&ecirc;m, l&agrave;m mịn v&agrave; s&aacute;ng v&ugrave;ng bikini</p>\r\n\r\n<p>&ndash; Tăng cường h&agrave;ng r&agrave;o biểu b&igrave;, giữ ẩm, ngăn ngừa l&atilde;o h&oacute;a da</p>\r\n\r\n<p>&ndash; Tăng dộ đ&agrave;n hồi cho da, mang lại vẻ s&aacute;ng v&agrave; mềm mại cho da</p>\r\n\r\n<p>&ndash; L&agrave;m s&aacute;ng da bằng c&aacute;ch ức chế sự h&igrave;nh th&agrave;nh của Melanin</p>\r\n\r\n<p>&ndash; Chăm s&oacute;c da bị k&iacute;ch ứng v&agrave; tấy đỏ, chống bong tr&oacute;c. Gi&uacute;p l&agrave;m giảm c&aacute;c ban đỏ g&acirc;y ra bởi tia UV ch&aacute;y nắng.</p>\r\n', 0, 1),
 (4, '8780201379604', '', 'Sữa rửa mặt nghệ Beaumore Mới- 100g', 250000, 0, '0000-00-00', '0000-00-00', 'suaRuaMatNgheBeaumore100g.jpg', 25, 5, 1, '2017-10-17 09:43:00', 'Mô tả chi tiết\r\n\r\nLàm sạch da, kháng khuẩn, giữ ẩm, mềm mịn da. Giải quyết các vấn đề về mụn, làm giảm vết thâm giúp da trắng sáng, mịn màng.', NULL, NULL),
 (5, '8780201379605', '', 'Kem lụa làm đẹp da Beaumore- 30ml', 1500000, 0, '0000-00-00', '0000-00-00', 'kemLuaLamDepDaBeaumore.jpg', 57, 2, 1, '2017-10-13 09:43:00', 'Mô tả chi tiết\r\n\r\n- Làm bong tróc lớp biểu bì da khô . Giúp ngăn ngừa các loại vi khuẩn.\r\n\r\n- Dưỡng ẩm và làm da săn chắc. Tăng cường tổng hợp Collagen, Elastin và Glycosaminoglycan\r\n\r\n- Chống oxy hóa. Bảo vệ da khỏi tia cực tím và tia hồng ngoại. Tăng cường độ đàn hồi của da và khôi phục cấu trúc da\r\n\r\n\r\nLưu ý: Sản phẩm có chức năng hỗ trợ và không phải là thuốc', NULL, 1),
@@ -1491,7 +1491,7 @@ CREATE TABLE `view_products` (
 ,`description` text
 ,`star` float
 ,`featured` tinyint(1)
-,`sale_price` decimal(25,4)
+,`sale_price` decimal(26,0)
 );
 
 -- --------------------------------------------------------
@@ -12136,7 +12136,7 @@ INSERT INTO `wards` (`id`, `name`, `type`, `district_id`) VALUES
 --
 DROP TABLE IF EXISTS `view_products`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_products`  AS SELECT `products`.`id` AS `id`, `products`.`barcode` AS `barcode`, `products`.`sku` AS `sku`, `products`.`name` AS `name`, `products`.`price` AS `price`, `products`.`discount_percentage` AS `discount_percentage`, `products`.`discount_from_date` AS `discount_from_date`, `products`.`discount_to_date` AS `discount_to_date`, `products`.`featured_image` AS `featured_image`, `products`.`inventory_qty` AS `inventory_qty`, `products`.`category_id` AS `category_id`, `products`.`brand_id` AS `brand_id`, `products`.`created_date` AS `created_date`, `products`.`description` AS `description`, `products`.`star` AS `star`, `products`.`featured` AS `featured`, `products`.`price`- `products`.`price` * `products`.`discount_percentage` / 100 AS `sale_price` FROM `products` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_products`  AS SELECT `products`.`id` AS `id`, `products`.`barcode` AS `barcode`, `products`.`sku` AS `sku`, `products`.`name` AS `name`, `products`.`price` AS `price`, `products`.`discount_percentage` AS `discount_percentage`, `products`.`discount_from_date` AS `discount_from_date`, `products`.`discount_to_date` AS `discount_to_date`, `products`.`featured_image` AS `featured_image`, `products`.`inventory_qty` AS `inventory_qty`, `products`.`category_id` AS `category_id`, `products`.`brand_id` AS `brand_id`, `products`.`created_date` AS `created_date`, `products`.`description` AS `description`, `products`.`star` AS `star`, `products`.`featured` AS `featured`, round(if(`products`.`discount_percentage` is null or `products`.`discount_from_date` > curdate() or `products`.`discount_to_date` < curdate(),`products`.`price`,`products`.`price` * (1 - `products`.`discount_percentage` / 100)) / 1000,0) * 1000 AS `sale_price` FROM `products` ;
 
 --
 -- Chỉ mục cho các bảng đã đổ

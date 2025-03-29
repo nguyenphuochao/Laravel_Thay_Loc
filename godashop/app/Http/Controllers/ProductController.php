@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -60,7 +60,7 @@ class ProductController extends Controller
             'products' => $products,
             'categories' => $categories,
             'catId' => $catId,
-            'cateName'=>$cateName
+            'cateName' => $cateName
         ];
         return view('frontend.product', $data);
     }

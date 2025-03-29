@@ -30,13 +30,14 @@
     @php
         $routeName = Route::currentRouteName();
     @endphp
+
     <header>
         <!-- use for ajax -->
         <input type="hidden" id="reference" value="">
         <!-- Top Navbar -->
         <div class="top-navbar container-fluid">
             <div class="menu-mb">
-                <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
+                {{-- <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
                 <a class="{{ $routeName == 'fe.home' ? 'active' : '' }}" href="{{ route('fe.home') }}">Trang chủ</a>
                 <a class="{{ $routeName == 'fe.product' ? 'active' : '' }}" href="{{ route('fe.product') }}">Sản
                     phẩm</a>
@@ -44,7 +45,7 @@
                     sách đổi trả</a>
                 <a class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">Chính sách thanh toán</a>
                 <a class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">Chính sách giao hàng</a>
-                <a class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">Liên hệ</a>
+                <a class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">Liên hệ</a> --}}
             </div>
             <div class="row">
                 <div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -74,20 +75,23 @@
                         </li>
                         <li>
                             @auth
-                            <a href="javascript:void(0)" class="btn-account dropdown-toggle" data-toggle="dropdown" id="dropdownMenu">{{Auth::user()->name}}</a>
-                            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
-                                <li><a href="{{route('customer.show')}}">Thông tin tài khoản</a></li>
-                                <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
-                                <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li>
-                                    <a href="javascript:void()" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Thoát</a>
-                                    <form id="logout-form" action="{{route('fe.logout')}}" method="POST" class="d-none">@csrf</form>
-                                </li>
-                            @endauth
-                            @guest
-                                <a href="javascript:void(0)" class="btn-login">Đăng Nhập </a>
-                            @endguest
+                                <a href="javascript:void(0)" class="btn-account dropdown-toggle" data-toggle="dropdown"
+                                    id="dropdownMenu">{{ Auth::user()->name }}</a>
+                                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
+                                    <li><a href="{{ route('customer.show') }}">Thông tin tài khoản</a></li>
+                                    <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
+                                    <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="javascript:void()"
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Thoát</a>
+                                        <form id="logout-form" action="{{ route('fe.logout') }}" method="POST"
+                                            class="d-none">@csrf</form>
+                                    </li>
+                                @endauth
+                                @guest
+                                    <a href="javascript:void(0)" class="btn-login">Đăng Nhập </a>
+                                @endguest
 
                         </li>
                     </ul>
@@ -100,11 +104,11 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 logo">
-                    <a href="{{ route('fe.home') }}"><img src="{{ asset('') }}/images/goda450x170_1.jpg"
+                    <a href="{{ route('index') }}"><img src="{{ asset('') }}/images/goda450x170_1.jpg"
                             class="img-responsive"></a>
                 </div>
                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs call-action">
-                    <a href="{{ route('fe.home') }}"><img src="{{ asset('') }}/images/godakeben450x170.jpg"
+                    <a href="{{ route('index') }}"><img src="{{ asset('') }}/images/godakeben450x170.jpg"
                             class="img-responsive"></a>
                 </div>
                 <!-- HOTLINE AND SERCH -->
@@ -116,7 +120,7 @@
                                     href="mailto:nguyenphuochao123@gmail.com">nguyenphuochao123@gmail.com</a></span>
                         </p>
                     </div>
-                    <form class="header-form" action="{{ route('fe.product') }}">
+                    <form class="header-form" action="{{ route('product.index') }}">
                         <div class="input-group">
                             @php
                                 $search = request()->has('search');
@@ -140,11 +144,12 @@
         {{-- Message --}}
         @include('message')
     </header>
+
     <!-- NAVBAR DESKTOP-->
     <nav class="navbar navbar-default desktop-menu">
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-                <li class="{{ $routeName == 'fe.home' ? 'active' : '' }}">
+                {{-- <li class="active">
                     <a href="{{ route('fe.home') }}">Trang chủ</a>
                 </li>
                 <li class="{{ in_array($routeName, ['fe.product', 'fe.category']) ? 'active' : '' }}">
@@ -161,7 +166,7 @@
                 </li>
                 <li class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">
                     <a href="{{ route('fe.contact') }}">Liên hệ</a>
-                </li>
+                </li> --}}
             </ul>
             @auth
                 @php
@@ -173,11 +178,15 @@
             <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul class="nav navbar-nav navbar-right">
                 <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i
-                            class="fa fa-shopping-cart"></i> <span class="number-total-product">{{Cart::count()}}</span></a></li>
+                            class="fa fa-shopping-cart"></i> <span
+                            class="number-total-product">{{ Cart::count() }}</span></a></li>
             </ul>
         </div>
     </nav>
+    <!-- END NAVBAR DESKTOP-->
+
     @include('message');
+
     @yield('content')
 
     {{-- FOOTER --}}
@@ -249,9 +258,11 @@
         </div>
     </footer>
     <!-- END FOOTER -->
+
     <!-- BACK TO TOP -->
     <div class="back-to-top" class="bg-color">▲</div>
     <!-- END BACK TO TOP -->
+
     <!-- REGISTER DIALOG -->
     <div class="modal fade" id="modal-register" role="dialog">
         <div class="modal-dialog">
@@ -297,6 +308,7 @@
         </div>
     </div>
     <!-- END REGISTER DIALOG -->
+
     <!-- LOGIN DIALOG -->
     <div class="modal fade" id="modal-login" role="dialog">
         <div class="modal-dialog">
@@ -314,11 +326,11 @@
                             Đăng nhập bằng Facebook</a>
                     </div>
                 </div>
-                <form id="login" action="{{route('fe.login')}}" method="POST" role="form">
+                <form id="login" action="{{ route('fe.login') }}" method="POST" role="form">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="email" name="email" class="form-control" placeholder="Email" >
+                            <input type="email" name="email" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" class="form-control" placeholder="Mật khẩu">
@@ -338,6 +350,7 @@
         </div>
     </div>
     <!-- END LOGIN DIALOG -->
+
     <!-- FORTGOT PASSWORD DIALOG -->
     <div class="modal fade" id="modal-forgot-password" role="dialog">
         <div class="modal-dialog">
@@ -361,6 +374,7 @@
         </div>
     </div>
     <!-- END FORTGOT PASSWORD DIALOG -->
+
     <!-- CART DIALOG -->
     <div class="modal fade" id="modal-cart-detail" role="dialog">
         <div class="modal-dialog">
@@ -407,7 +421,7 @@
                         <div class="col-xs-12 text-right">
                             <p>
                                 <span>Tổng tiền</span>
-                                <span class="price-total">{{Cart::subtotal()}}₫</span>
+                                <span class="price-total">{{ Cart::subtotal() }}₫</span>
                             </p>
                             <input type="button" name="back-shopping" class="btn btn-default"
                                 value="Tiếp tục mua sắm">
@@ -419,6 +433,7 @@
         </div>
     </div>
     <!-- END CART DIALOG -->
+
     <!-- Facebook Messenger Chat -->
     <!-- Load Facebook SDK for JavaScript -->
     <div id="fb-root"></div>

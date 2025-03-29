@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
@@ -17,22 +17,31 @@ class HomeController extends Controller
     public function index()
     {
         // Lấy sản phẩm nổi bật
-        $product_featured = ViewProduct::where('featured', 1)->take(4)->get();
+        $featuredProducts = ViewProduct::orderBy("featured", "DESC")->take(4)->get();
+
         // Lấy sản phẩm mới nhất
-        $product_last = ViewProduct::orderBy('created_date', 'DESC')->take(4)->get();
+        $latestProducts = ViewProduct::orderBy('created_date', 'DESC')->take(4)->get();
+
         // Lấy sản phẩm theo danh mục
         $categories = Category::all();
-        $productCate = [];
+        $categoryProducts = [];
         foreach ($categories as $category) {
-            $product_category = ViewProduct::where('category_id', $category->id)->take(4)->get();
-            $productCate[$category->name] = $product_category;
+            $products = ViewProduct::where('category_id', $category->id)->take(4)->get();
+            $categoryProducts[$category->name] = $products;
         }
-        // dd($productCate);
+
         // Cách 2
         // foreach ($categories as $category) {
-        //     $productCate[$category->name] = $category->products->take(4)->all();
+        //     $categoryProducts[$category->name] = $category->products->take(4)->all();
         // }
-        return view('frontend.home', compact('product_featured', 'product_last', 'productCate'));
+
+        $data = [
+            "featuredProducts" => $featuredProducts,
+            "latestProducts"   => $latestProducts,
+            "categoryProducts"      => $categoryProducts
+        ];
+
+        return view('home.index', $data);
     }
 
     /**
