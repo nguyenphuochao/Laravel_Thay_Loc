@@ -30,7 +30,7 @@ class HomeController extends Controller
             $categoryProducts[$category->name] = $products;
         }
 
-        // Cách 2
+        // Cách 2 use dynamic properties
         // foreach ($categories as $category) {
         //     $categoryProducts[$category->name] = $category->products->take(4)->all();
         // }

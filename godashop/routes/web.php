@@ -28,10 +28,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('index');
 // Sản phẩm
 Route::get('san-pham', [ProductController::class, 'index'])->name('product.index');
+// Danh mục
+Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('category.show');
+// Chi tiết sản phẩm
+Route::get('san-pham/{slug}.html', [ProductController::class, 'show'])->name('product.show');
 
 
-Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('fe.category');
-Route::get('chi-tiet-san-pham/{slug}.html', [ProductController::class, 'show'])->name('fe.detail');
 Route::get('san-pham/search', [ProductController::class, 'search'])->name('fe.search');
 Route::post('comment/store', [CommentController::class, 'store'])->name('fe.comment');
 Route::post('register', [RegisterController::class, 'register'])->name('fe.register');
@@ -56,23 +58,23 @@ Route::middleware("auth")->group(function () {
     Route::get('customer/show', [CustomerController::class, 'show'])->name('customer.show');
     Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
 });
+
 // Trả về view lun khỏi cần tạo qua controller
 Route::get('chinh-sach-doi-tra', function () {
-    return view('frontend.exchange');
-})->name('fe.exchange');
+    return view('return_policy.index');
+})->name('return_policy.index');
 
 Route::get('chinh-sach-thanh-toan', function () {
-    return view('frontend.pay');
-})->name('fe.pay');
+    return view('payment_policy.index');
+})->name('payment_policy.index');
 
 Route::get('chinh-sach-giao-hang', function () {
-    return view('frontend.delivery');
-})->name('fe.delivery');
+    return view('delivery_policy.index');
+})->name('delivery_policy.index');
 
 Route::get('lien-he', function () {
-    return view('frontend.contact');
-})->name('fe.contact');
+    return view('contact.index');
+})->name('contact.index');
 
 
-
-// Admin
+// Area Admin

@@ -3,21 +3,21 @@
         <div class="category">
             <h5>Danh mục sản phẩm</h5>
             <ul>
-                <li class="{{ request()->segment(1) == 'san-pham' ? 'active' : '' }}">
-                    <a href="{{ route('fe.product') }}" title="Tất cả sản phẩm" target="_self">Tất cả sản phẩm
-                    </a>
+                <li class="{{ empty($catId) ? 'active' : '' }}">
+                    <a href="{{ route('product.index') }}" title="Tất cả sản phẩm" target="_self">Tất cả sản phẩm</a>
                 </li>
 
-                @foreach ($categories as $cate)
+                @foreach ($categories as $category)
                     @php
-                        $slugName = \Str::slug($cate->name);
-                        $slug = "{$slugName}-{$cate->id}";
+                        $firstSlug = \Str::slug($category->name);
+                        $slug = "{$firstSlug}-{$category->id}";
                     @endphp
-                    <li class="{{!empty($catId) && $cate->id == $catId ? "active": ""}}">
-                        <a href="{{ route('fe.category', ['slug' => $slug]) }}" title="{{ $cate->name }}"
-                            target="_self">{{ $cate->name }}</a>
+                    <li class="{{ !empty($catId) && $category->id == $catId ? "active": "" }}">
+                        <a href="{{ route('category.show', ['slug' => $slug]) }}" title="{{ $category->name }}"
+                            target="_self">{{ $category->name }}</a>
                     </li>
                 @endforeach
+
             </ul>
         </div>
         <div class="price-range">

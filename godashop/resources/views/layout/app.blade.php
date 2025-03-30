@@ -28,7 +28,7 @@
 
 <body>
     @php
-        $routeName = Route::currentRouteName();
+        $currentRouteName = Route::currentRouteName();
     @endphp
 
     <header>
@@ -37,15 +37,13 @@
         <!-- Top Navbar -->
         <div class="top-navbar container-fluid">
             <div class="menu-mb">
-                {{-- <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
-                <a class="{{ $routeName == 'fe.home' ? 'active' : '' }}" href="{{ route('fe.home') }}">Trang chủ</a>
-                <a class="{{ $routeName == 'fe.product' ? 'active' : '' }}" href="{{ route('fe.product') }}">Sản
-                    phẩm</a>
-                <a class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}" href="{{ route('fe.exchange') }}">Chính
-                    sách đổi trả</a>
-                <a class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">Chính sách thanh toán</a>
-                <a class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">Chính sách giao hàng</a>
-                <a class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">Liên hệ</a> --}}
+                <a href="javascript:void(0)" class="btn-close" onclick="closeMenuMobile()">×</a>
+                <a class="{{ $currentRouteName == 'index' ? 'active' : '' }}" href="{{ route('index') }}">Trang chủ</a>
+                <a class="{{ in_array($currentRouteName, ["product.index", "category.show"]) ? 'active' : '' }}" href="{{ route('product.index') }}">Sản phẩm</a>
+                <a class="{{ $currentRouteName == 'return_policy.index' ? 'active' : '' }}" href="{{ route('return_policy.index') }}">Chính sách đổi trả</a>
+                <a class="{{ $currentRouteName == 'payment_policy.index' ? 'active' : '' }}">Chính sách thanh toán</a>
+                <a class="{{ $currentRouteName == 'delivery_policy.index' ? 'active' : '' }}">Chính sách giao hàng</a>
+                <a class="{{ $currentRouteName == 'contact.index' ? 'active' : '' }}">Liên hệ</a>
             </div>
             <div class="row">
                 <div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -54,8 +52,7 @@
                 </div>
                 <div class="col-md-6 hidden-sm hidden-xs">
                     <ul class="list-inline">
-                        <li><a href="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i
-                                    class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.facebook.com/HocLapTrinhWebTaiNha.ThayLoc"><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="https://twitter.com"><i class="fab fa-twitter"></i></a></li>
                         <li><a href="https://www.instagram.com"><i class="fab fa-instagram"></i></a></li>
                         <li><a href="https://www.pinterest.com/"><i class="fab fa-pinterest"></i></a></li>
@@ -141,32 +138,33 @@
             </div>
         </div>
         <!-- End header -->
+
         {{-- Message --}}
-        @include('message')
+        @include('layout.message')
     </header>
 
     <!-- NAVBAR DESKTOP-->
     <nav class="navbar navbar-default desktop-menu">
         <div class="container">
             <ul class="nav navbar-nav navbar-left hidden-sm hidden-xs">
-                {{-- <li class="active">
-                    <a href="{{ route('fe.home') }}">Trang chủ</a>
+                <li class="{{ $currentRouteName == 'index' ? 'active' : '' }}">
+                    <a href="{{ route('index') }}">Trang chủ</a>
                 </li>
-                <li class="{{ in_array($routeName, ['fe.product', 'fe.category']) ? 'active' : '' }}">
-                    <a href="{{ route('fe.product') }}">Sản phẩm</a>
+                <li class="{{ in_array($currentRouteName, ['product.index', 'category.show']) ? 'active' : '' }}">
+                    <a href="{{ route('product.index') }}">Sản phẩm</a>
                 </li>
-                <li class="{{ $routeName == 'fe.exchange' ? 'active' : '' }}">
-                    <a href="{{ route('fe.exchange') }}">Chính sách đổi trả</a>
+                <li class="{{ $currentRouteName == 'return_policy.index' ? 'active' : '' }}">
+                    <a href="{{ route('return_policy.index') }}">Chính sách đổi trả</a>
                 </li>
-                <li class="{{ $routeName == 'fe.pay' ? 'active' : '' }}">
-                    <a href="{{ route('fe.pay') }}">Chính sách thanh toán</a>
+                <li class="{{ $currentRouteName == 'payment_policy.index' ? 'active' : '' }}">
+                    <a href="{{ route('payment_policy.index') }}">Chính sách thanh toán</a>
                 </li>
-                <li class="{{ $routeName == 'fe.delivery' ? 'active' : '' }}">
-                    <a href="{{ route('fe.delivery') }}">Chính sách giao hàng</a>
+                <li class="{{ $currentRouteName == 'delivery_policy.index' ? 'active' : '' }}">
+                    <a href="{{ route('delivery_policy.index') }}">Chính sách giao hàng</a>
                 </li>
-                <li class="{{ $routeName == 'fe.contact' ? 'active' : '' }}">
-                    <a href="{{ route('fe.contact') }}">Liên hệ</a>
-                </li> --}}
+                <li class="{{ $currentRouteName == 'contact.index' ? 'active' : '' }}">
+                    <a href="{{ route('contact.index') }}">Liên hệ</a>
+                </li>
             </ul>
             @auth
                 @php
@@ -184,8 +182,6 @@
         </div>
     </nav>
     <!-- END NAVBAR DESKTOP-->
-
-    @include('message');
 
     @yield('content')
 
@@ -412,7 +408,7 @@
                             </div>
                         </div>
                         <div class="cart-product">
-                            @include('cart_items');
+                            @include('layout.cart_items');
                         </div>
                     </div>
                 </div>

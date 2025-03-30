@@ -14,18 +14,20 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($slug = null, Request $request)
+    public function index($categorySlug = null, Request $request)
     {
-        $catId = "";
+        $catId = null;
         $cateName = "Tất cả sản phẩm";
-        $conds = [];
+        $conds = []; // điều kiện để query
+
         // hiển thị sản phẩm theo danh mục
-        if ($slug) {
-            $tmp = explode('-', $slug);
+        if ($categorySlug) {
+            $tmp = explode('-', $categorySlug);
             $catId = array_pop($tmp);
             $cateName = Category::find($catId)->name;
             $conds[] = ["category_id", "=", $catId];
         }
+
         // lọc sản phẩm theo khoảng giá
         if ($request->has("price-range")) {
             $priceRange = $request->input("price-range");
@@ -39,6 +41,7 @@ class ProductController extends Controller
                 $conds[] = ["sale_price", "<=", $end];
             }
         }
+
         // sắp xếp sản phẩm theo tiêu chí
         $col = 'name';
         $sortType = "ASC";
@@ -49,20 +52,25 @@ class ProductController extends Controller
             $col = $colMap[$temp[0]];
             $sortType = $temp[1];
         }
+
         // Tìm kiếm sản phẩm theo tên
         if ($request->has('search')) {
             $search = $request->input('search');
             $conds[] = ["name", "like", "%$search%"];
         }
-        $products = ViewProduct::where($conds)->orderBy($col, $sortType)->paginate(12)->withQueryString();
+
+        $itemPerPage = env('ITEM_PER_PAGE', 12);
+        $products = ViewProduct::where($conds)->orderBy($col, $sortType)->paginate($itemPerPage)->withQueryString();
         $categories = Category::all();
+
         $data = [
             'products' => $products,
             'categories' => $categories,
             'catId' => $catId,
             'cateName' => $cateName
         ];
-        return view('frontend.product', $data);
+
+        return view('product.index', $data);
     }
 
     /**
@@ -96,14 +104,17 @@ class ProductController extends Controller
     {
         $tmp = explode('-', $slug);
         $id = array_pop($tmp);
+
         $product = ViewProduct::find($id);
         $categories = Category::all();
+
         $data = [
             'product' => $product,
             'categories' => $categories,
             'catId' => $product->category_id
         ];
-        return view('frontend.detail', $data);
+
+        return view('product.show', $data);
     }
 
     /**

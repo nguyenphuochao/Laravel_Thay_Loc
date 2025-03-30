@@ -1,4 +1,4 @@
-@extends('layout_fronend')
+@extends('layout.app')
 @section('content')
     <main id="maincontent" class="page-main">
         <div class="container">
@@ -15,9 +15,9 @@
                             class="fa fa-angle-double-right"></i></a>
                 </div>
                 <div class="clearfix"></div>
-                {{-- Sidebar --}}
 
-                @include('sidebar')
+                {{-- Sidebar --}}
+                @include('layout.sidebar')
 
                 {{-- Danh sách sản phẩm --}}
                 <div class="col-md-9 products">
