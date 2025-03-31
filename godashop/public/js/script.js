@@ -196,6 +196,7 @@ $(function () {
             $(element).parent().removeClass('has-error');
         }
     });
+
     // Submit đánh giá sản phẩm
     $("form.form-comment").submit(function (event) {
         /* Act on the event */
@@ -218,6 +219,7 @@ $(function () {
                 updateAnsweredRating();
             });
     });
+
     // Ajax search
     var timeout = null;
     $("header form.header-form .search").keyup(function (event) {
@@ -236,7 +238,7 @@ $(function () {
                         $(".search-result").show();
                     });
             }
-        }, 200);
+        }, 500);
     });
 
     // Tìm kiếm và sắp xếp theo sản phẩm

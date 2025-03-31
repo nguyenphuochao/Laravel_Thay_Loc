@@ -32,8 +32,8 @@ Route::get('san-pham', [ProductController::class, 'index'])->name('product.index
 Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('category.show');
 // Chi tiết sản phẩm
 Route::get('san-pham/{slug}.html', [ProductController::class, 'show'])->name('product.show');
-// Search product
-Route::get('san-pham/search', [ProductController::class, 'search'])->name('fe.search');
+// Tìm kiếm sản phẩm bằng ajax
+Route::get('san-pham/search', [ProductController::class, 'search'])->name('product.search');
 
 Route::post('comment/store', [CommentController::class, 'store'])->name('fe.comment');
 Route::post('register', [RegisterController::class, 'register'])->name('fe.register');

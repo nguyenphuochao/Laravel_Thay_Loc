@@ -33,7 +33,7 @@
                                 <label class="left hidden-xs" for="sort-select">Sắp xếp: </label>
                                 <select id="sort-select">
                                     <option value="" selected
-                                        data-url="{{ request()->fullUrlWithQuery(['sort' => null]) }}"
+                                        data-url="{{ trim(request()->fullUrlWithQuery(['sort' => null]), '?') }}"
                                         {{ $sort == '' ? 'selected' : '' }}>Mặc định</option>
                                     <option value="price-asc"
                                         data-url="{{ request()->fullUrlWithQuery(['sort' => 'price-asc']) }}"

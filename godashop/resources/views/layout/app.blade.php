@@ -126,8 +126,7 @@
                                 name="search" autocomplete="off"
                                 value="{{ $search ? request()->input('search') : '' }}">
                             <div class="input-group-btn">
-                                <button class="btn bt-search bg-color" type="submit"><i class="fa fa-search"
-                                        style="color:#fff"></i>
+                                <button class="btn bt-search bg-color" type="submit"><i class="fa fa-search" style="color:#fff"></i>
                                 </button>
                             </div>
                         </div>

@@ -47,6 +47,7 @@ class ProductController extends Controller
         $col = 'name';
         $sortType = "ASC";
         if ($request->has("sort")) {
+            // sort=price-asc
             $sort = $request->input('sort');
             $colMap = ['alpha' => 'name', 'created' => 'created_date', 'price' => 'sale_price'];
             $temp = explode('-', $sort);
@@ -151,12 +152,14 @@ class ProductController extends Controller
     {
         //
     }
+
+    // Tìm kiếm sản phẩm theo tên bằng ajax
     public function search(Request $request)
     {
         $search = $request->input("pattern");
         $conds = [];
         $conds[] = ["name", "LIKE", "%$search%"];
         $products = ViewProduct::where($conds)->get();
-        return view('frontend.search', ["products" => $products]);
+        return view('product.search', ["products" => $products]);
     }
 }
