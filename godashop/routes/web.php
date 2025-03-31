@@ -32,9 +32,9 @@ Route::get('san-pham', [ProductController::class, 'index'])->name('product.index
 Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('category.show');
 // Chi tiết sản phẩm
 Route::get('san-pham/{slug}.html', [ProductController::class, 'show'])->name('product.show');
-
-
+// Search product
 Route::get('san-pham/search', [ProductController::class, 'search'])->name('fe.search');
+
 Route::post('comment/store', [CommentController::class, 'store'])->name('fe.comment');
 Route::post('register', [RegisterController::class, 'register'])->name('fe.register');
 Route::post('login', [LoginController::class, 'login'])->name('fe.login');

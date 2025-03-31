@@ -30,7 +30,7 @@ $(function () {
                 url: `/shippingfree/${province_id}`,
             })
                 .done(function (data) {
-                   //update shipping fee and total on UI
+                    //update shipping fee and total on UI
                     let shipping_fee = Number(data);
                     let payment_total = Number($("main .total").attr("data")) + shipping_fee;
                     $("main .shipping-fee").html(number_format(shipping_fee) + "₫");
@@ -238,11 +238,13 @@ $(function () {
             }
         }, 200);
     });
+
     // Tìm kiếm và sắp xếp theo sản phẩm
     $("#sort-select").change(function (event) {
         var dataUrl = $(this).children("option:selected").attr("data-url");
         window.location.href = dataUrl;
     });
+
     // Tìm kiếm theo range
     $('main .price-range input').click(function (event) {
         var price_range = $(this).val();
@@ -309,6 +311,7 @@ $(function () {
         nav: true
 
     });
+
     // Bị lỗi hover ở bộ lọc (mobile) & tạo thanh cuộn ngang
     // Khởi tạo zoom khi di chuyển chuột lên hình ở trang chi tiết
     // $('main .product-detail .main-image-thumbnail').ezPlus({

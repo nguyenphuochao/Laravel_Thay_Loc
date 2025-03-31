@@ -30,12 +30,13 @@ class ProductController extends Controller
 
         // lọc sản phẩm theo khoảng giá
         if ($request->has("price-range")) {
+            // price-range=100000-200000
             $priceRange = $request->input("price-range");
             $tmp = explode("-", $priceRange);
             $start = $tmp[0];
             $end = $tmp[1];
             $conds[] = ["sale_price", ">=", $start];
-            // sale_price >= 100000
+            // WHERE sale_price >= 100000
             // bởi vì price-range=1000000-greater
             if (is_numeric($end)) {
                 $conds[] = ["sale_price", "<=", $end];
