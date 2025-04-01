@@ -22,14 +22,12 @@
                 <div class="col-md-9 product-detail">
                     <div class="row product-info">
                         <div class="col-md-6">
-                            <img data-zoom-image="{{ asset('') }}/images/{{ $product->featured_image }}"
-                                class="img-responsive thumbnail main-image-thumbnail"
+                            <img data-zoom-image="{{ asset('') }}/images/{{ $product->featured_image }}" class="img-responsive thumbnail main-image-thumbnail"
                                 src="{{ asset('') }}/images/{{ $product->featured_image }}" alt="">
                             <div class="product-detail-carousel-slider">
                                 <div class="owl-carousel owl-theme">
-                                    @foreach ($product->image_items as $image)
-                                        <div class="item thumbnail"><img
-                                                src="{{ asset('') }}/images/{{ $image->name }}" alt=""></div>
+                                    @foreach ($product->image_items as $image_item)
+                                        <div class="item thumbnail"><img src="{{ asset('') }}/images/{{ $image_item->name }}" alt=""></div>
                                     @endforeach
                                 </div>
                             </div>
@@ -73,15 +71,17 @@
                                             data-toggle="tab">Mô tả</a>
                                     </li>
                                     <li role="presentation">
-                                        <a href="#product-comment" aria-controls="tab" role="tab" data-toggle="tab">Đánh
-                                            giá</a>
+                                        <a href="#product-comment" aria-controls="tab" role="tab" data-toggle="tab">Đánh giá</a>
                                     </li>
                                 </ul>
+
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="product-description">
                                         {!! $product->description !!}
                                     </div>
+
+                                    {{-- Comments --}}
                                     <div role="tabpanel" class="tab-pane" id="product-comment">
                                         <form class="form-comment" action="{{ route('fe.comment') }}" method="POST"
                                             role="form">
@@ -118,6 +118,8 @@
                             </div>
                         </div>
                     </div>
+
+                    {{-- Related Products --}}
                     <div class="row product-related equal">
                         <div class="col-md-12">
                             <h4 class="text-center">Sản phẩm liên quan</h4>
@@ -125,7 +127,7 @@
                                 @php
                                     $relatedProducts = $product->category->products;
                                 @endphp
-                                @foreach ($relatedProducts as $pro)
+                                @foreach ($relatedProducts as $product)
                                     @if ($product->id != $pro->id)
                                         <div class="item thumbnail">
                                             @include('layout.product')
