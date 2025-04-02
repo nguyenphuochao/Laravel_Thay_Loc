@@ -17,10 +17,11 @@ class LoginController extends Controller
         if (!Auth::attempt($credentials)) {
             $request->session()->put('error', 'Sai thông tin đăng nhập');
         }
-        return redirect()->route('fe.home');
+        return redirect()->route('/');
     }
+
     public function logout(){
         Auth::logout();
-        return redirect()->route('fe.home');
+        return redirect()->route('/');
     }
 }

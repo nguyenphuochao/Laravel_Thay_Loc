@@ -7,7 +7,7 @@
                     <ol class="breadcrumb">
                         <li><a href="/" target="_self">Trang chủ</a></li>
                         <li><span>/</span></li>
-                        <li class="active"><span>{{ $cateName }}</span></li>
+                        <li class="active"><span>{{ $selectedCategoryName }}</span></li>
                     </ol>
                 </div>
                 <div class="col-xs-3 hidden-lg hidden-md">
@@ -23,7 +23,7 @@
                 <div class="col-md-9 products">
                     <div class="row equal">
                         <div class="col-xs-6">
-                            <h4 class="home-title">Tất cả sản phẩm</h4>
+                            <h4 class="home-title">{{ $selectedCategoryName }}</h4>
                         </div>
                         <div class="col-xs-6 sort-by">
                             @php

@@ -414,6 +414,7 @@ function updateAnsweredRating() {
         hoverEnabled: true
     });
 }
+
 // Hiển thị giỏ hàng
 function displayCart(data) {
     var cart = JSON.parse(data);

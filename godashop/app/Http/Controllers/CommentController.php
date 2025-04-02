@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
@@ -50,7 +50,7 @@ class CommentController extends Controller
         $data = [
             "comments" => $comments
         ];
-        return view('frontend.comment', $data);
+        return view('comment.index', $data);
     }
 
     /**

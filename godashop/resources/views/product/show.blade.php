@@ -83,18 +83,14 @@
 
                                     {{-- Comments --}}
                                     <div role="tabpanel" class="tab-pane" id="product-comment">
-                                        <form class="form-comment" action="{{ route('fe.comment') }}" method="POST"
-                                            role="form">
+                                        <form class="form-comment" action="{{ route('comment.store') }}" method="POST" role="form">
                                             @csrf
                                             <label>Đánh giá của bạn</label>
                                             <div class="form-group">
                                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                                <input class="rating-input" name="rating" type="text" title=""
-                                                    value="4" />
-                                                <input type="text" class="form-control" id="" name="fullname"
-                                                    placeholder="Tên *" required>
-                                                <input type="email" name="email" class="form-control" id=""
-                                                    placeholder="Email *" required>
+                                                <input class="rating-input" name="rating" type="text" title="" value="4" />
+                                                <input type="text" class="form-control" id="" name="fullname" placeholder="Tên *" required>
+                                                <input type="email" name="email" class="form-control" id="" placeholder="Email *" required>
                                                 <textarea name="description" id="input" class="form-control" rows="3" required placeholder="Nội dung *"></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Gửi</button>
@@ -107,8 +103,7 @@
                                             @foreach ($comments as $comment)
                                                 <hr>
                                                 <span class="date pull-right">{{ $comment->created_date }}</span>
-                                                <input class="answered-rating-input" name="rating" type="text"
-                                                    title="" value="{{ $comment->star }}" readonly />
+                                                <input class="answered-rating-input" name="rating" type="text" title="" value="{{ $comment->star }}" readonly />
                                                 <span class="by">{{ $comment->fullname }}</span>
                                                 <p>{{ $comment->description }}</p>
                                             @endforeach
@@ -126,9 +121,10 @@
                             <div class="owl-carousel owl-theme">
                                 @php
                                     $relatedProducts = $product->category->products;
+                                    $memoryProduct = $product;
                                 @endphp
                                 @foreach ($relatedProducts as $product)
-                                    @if ($product->id != $pro->id)
+                                    @if ($memoryProduct->id != $product->id)
                                         <div class="item thumbnail">
                                             @include('layout.product')
                                         </div>

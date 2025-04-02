@@ -17,14 +17,14 @@ class ProductController extends Controller
     public function index($categorySlug = null, Request $request)
     {
         $catId = null;
-        $cateName = "Tất cả sản phẩm";
+        $selectedCategoryName = "Tất cả sản phẩm";
         $conds = []; // điều kiện để query
 
         // hiển thị sản phẩm theo danh mục
         if ($categorySlug) {
             $tmp = explode('-', $categorySlug);
             $catId = array_pop($tmp);
-            $cateName = Category::find($catId)->name;
+            $selectedCategoryName = Category::find($catId)->name;
             $conds[] = ["category_id", "=", $catId];
         }
 
@@ -69,7 +69,7 @@ class ProductController extends Controller
             'products' => $products,
             'categories' => $categories,
             'catId' => $catId,
-            'cateName' => $cateName
+            'selectedCategoryName' => $selectedCategoryName
         ];
 
         return view('product.index', $data);

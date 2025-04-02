@@ -2,11 +2,12 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CommentController;
 
 use App\Http\Controllers\Frontend\AddressController;
 use App\Http\Controllers\Frontend\PaymentController;
 use App\Http\Controllers\Frontend\CartController;
-use App\Http\Controllers\Frontend\CommentController;
+
 use App\Http\Controllers\Frontend\CustomerController;
 use App\Http\Controllers\Frontend\LoginController;
 
@@ -34,12 +35,14 @@ Route::get('danh-muc/{slug}', [ProductController::class, 'index'])->name('catego
 Route::get('san-pham/{slug}.html', [ProductController::class, 'show'])->name('product.show');
 // Tìm kiếm sản phẩm bằng ajax
 Route::get('san-pham/search', [ProductController::class, 'search'])->name('product.search');
+// Bình luận sản phẩm bằng ajax
+Route::post('comment/store', [CommentController::class, 'store'])->name('comment.store');
 
-Route::post('comment/store', [CommentController::class, 'store'])->name('fe.comment');
 Route::post('register', [RegisterController::class, 'register'])->name('fe.register');
 Route::post('login', [LoginController::class, 'login'])->name('fe.login');
 Route::post('logout', [LoginController::class, 'logout'])->name('fe.logout');
 Route::get('existingEmail', [RegisterController::class, 'existingEmail'])->name('fe.existingEmail');
+
 // Giỏ hàng
 // Route::middleware("auth")->group(function () {
 Route::get('carts/add', [CartController::class, 'store'])->name('cart.store');
@@ -75,6 +78,5 @@ Route::get('chinh-sach-giao-hang', function () {
 Route::get('lien-he', function () {
     return view('contact.index');
 })->name('contact.index');
-
 
 // Area Admin
