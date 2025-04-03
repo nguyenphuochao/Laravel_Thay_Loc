@@ -38,6 +38,7 @@ $(function () {
                 });
         }
     });
+
     // Thay đổi district
     $("main .district").change(function (event) {
         /* Act on the event */
@@ -55,7 +56,7 @@ $(function () {
             });
     });
 
-    // Thêm sản phẩm vào giỏ hàng
+    // Thêm sản phẩm vào giỏ hàng ở chi tiết giỏ hàng
     $("main .buy-in-detail").click(function (event) {
         /* Act on the event */
         var qty = $(this).prev("input").val();
@@ -87,7 +88,7 @@ $(function () {
                 console.log(data);
             });
     });
-    // Validate jquery
+
     // Register validate
     $("[name=registration]").validate({
         rules: {
@@ -168,6 +169,7 @@ $(function () {
         },
         "Please check your input."
     );
+
     // Login validate
     $("#login").validate({
         rules: {
@@ -425,6 +427,7 @@ function displayCart(data) {
     var items = cart.items;
     $("#modal-cart-detail .cart-product").html(items)
 }
+
 // Xóa 1 item trong giỏ hàng
 function deleteProductInCart(rowId) {
     $.ajax({
@@ -435,6 +438,7 @@ function deleteProductInCart(rowId) {
             displayCart(data);
         });
 }
+
 // Thay đổi số lượng sản phẩm trong giỏ hàng
 function updateProductInCart(self, rowId) {
     var qty = $(self).val();
@@ -446,6 +450,7 @@ function updateProductInCart(self, rowId) {
             displayCart(data);
         });
 }
+
 // Hàm update thông tin province
 function updateSelectBox(data, selector) {
     var items = JSON.parse(data);

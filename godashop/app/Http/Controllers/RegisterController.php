@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+
 class RegisterController extends Controller
 {
     protected $messenger = [
@@ -21,16 +22,16 @@ class RegisterController extends Controller
         'same' => ':attribute phải trùng khớp với mật khẩu',
         'same' => ':attribute phải trùng khớp với mật khẩu',
         'g-recaptcha-response.required' => ':attribute phải được chọn',
-     ];
+    ];
 
-     protected $customName = [
+    protected $customName = [
         'name' => 'Họ và tên',
         'password' => 'Mật khẩu',
         'mobile' => 'Số điện thoại',
         'email' => 'Email',
         'password_confirmation' => 'Nhập lại mật khẩu',
         'g-recaptcha-response' => 'Google reCAPTCHA'
-     ];
+    ];
     /**
      * Display a listing of the resource.
      *
@@ -113,6 +114,7 @@ class RegisterController extends Controller
     {
         //
     }
+
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -123,8 +125,9 @@ class RegisterController extends Controller
             'password_confirmation' => 'required|min:6|same:password',
             'mobile' => 'required|min:10|max:11|regex:/^0([0-9]{9,10})$/',
             'g-recaptcha-response' => 'required|captcha',
-        ], $this->messenger, $this->customName );
+        ], $this->messenger, $this->customName);
     }
+
     public function register(Request $request)
     {
         //validate
@@ -132,8 +135,9 @@ class RegisterController extends Controller
         // var_dump($request->all());
         $this->create($request->all());
         request()->session()->put('success', 'Đăng kí tài khoản thành công');
-        return redirect()->route('fe.home');
+        return redirect()->route('index');
     }
+
     public function existingEmail(Request $request)
     {
         $email = $request->input('email');
