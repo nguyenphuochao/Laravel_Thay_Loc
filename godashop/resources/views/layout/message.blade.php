@@ -1,10 +1,6 @@
 @php
-    $success = request()
-        ->session()
-        ->pull('success');
-    $error = request()
-        ->session()
-        ->pull('error');
+    $success = request()->session()->pull('success');
+    $error = request()->session()->pull('error');
     if (!empty($error)) {
         $alertClass = 'alert-danger';
         $message = $error;
@@ -13,6 +9,7 @@
         $message = $success;
     }
 @endphp
+
 @if (!empty($message))
     <div class="alert {{ $alertClass }}">
         {{ $message }}

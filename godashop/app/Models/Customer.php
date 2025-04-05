@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Customer extends Authenticatable
 {
     use HasFactory, Notifiable;
+
     public $timestamps = false;
     /**
      * The attributes that are mass assignable.

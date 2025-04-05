@@ -69,7 +69,6 @@
                             @guest
                                 <a href="javascript:void(0)" class="btn-register">Đăng Ký</a>
                             @endguest
-
                         </li>
                         <li>
                             @auth
@@ -83,13 +82,13 @@
                                     <li>
                                         <a href="javascript:void()"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Thoát</a>
-                                        <form id="logout-form" action="{{ route('fe.logout') }}" method="POST"
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             class="d-none">@csrf</form>
                                     </li>
-                                @endauth
-                                @guest
+                            @endauth
+                            @guest
                                     <a href="javascript:void(0)" class="btn-login">Đăng Nhập </a>
-                                @endguest
+                            @endguest
 
                         </li>
                     </ul>
@@ -97,6 +96,7 @@
             </div>
         </div>
         <!-- End top navbar -->
+
         <!-- Header -->
         <div class="container">
             <div class="row">
@@ -138,9 +138,6 @@
             </div>
         </div>
         <!-- End header -->
-
-        {{-- Message --}}
-        @include('layout.message')
     </header>
 
     <!-- NAVBAR DESKTOP-->
@@ -182,6 +179,9 @@
         </div>
     </nav>
     <!-- END NAVBAR DESKTOP-->
+
+    {{-- Message --}}
+    @include('layout.message')
 
     @yield('content')
 
