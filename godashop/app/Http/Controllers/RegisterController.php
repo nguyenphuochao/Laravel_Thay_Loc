@@ -140,6 +140,8 @@ class RegisterController extends Controller
 
     public function existingEmail(Request $request)
     {
+        // email tồn tại sẽ echo "false"
+        // ngược lại echo "true"
         $email = $request->input('email');
         $customers = Customer::where('email', '=', $email)->get();
         if ($customers->count() > 0) {

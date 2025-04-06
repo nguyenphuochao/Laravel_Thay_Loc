@@ -5,12 +5,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
-
-use App\Http\Controllers\Frontend\AddressController;
-use App\Http\Controllers\Frontend\PaymentController;
-use App\Http\Controllers\Frontend\CartController;
-
-use App\Http\Controllers\Frontend\CustomerController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CustomerController;
 
 use Illuminate\Support\Facades\Route;
 

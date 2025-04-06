@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -14,6 +14,7 @@ class CustomerController extends Controller
         $data = [];
         return view('frontend.account_information', $data);
     }
+
     public function update(Request $request)
     {
         $customer = Auth::user();

@@ -10,9 +10,8 @@ class LoginController extends Controller
 {
     public function login(Request $request)
     {
-        // validate here
+        // Không cần validate chỗ này bên server
 
-        // success
         $credentials = $request->only(['email', 'password']);
         $credentials['is_active'] = 1;
 

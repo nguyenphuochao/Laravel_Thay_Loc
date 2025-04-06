@@ -56,7 +56,7 @@ $(function () {
             });
     });
 
-    // Thêm sản phẩm vào giỏ hàng ở chi tiết giỏ hàng
+    // Thêm sản phẩm vào giỏ hàng ở chi tiết sản phẩm
     $("main .buy-in-detail").click(function (event) {
         /* Act on the event */
         var qty = $(this).prev("input").val();
@@ -112,7 +112,7 @@ $(function () {
             },
             password_confirmation: {
                 required: true,
-                aqualTo: "#password"
+                equalTo: "#password"
             },
             hiddenRecaptcha: {
                 required: function () {
@@ -136,7 +136,8 @@ $(function () {
             },
             email: {
                 required: 'Vui lòng nhập email',
-                email: 'Vui lòng nhập đúng định dạng email'
+                email: 'Vui lòng nhập đúng định dạng email',
+                remote: 'Email đã tồn tại'
             },
             password: {
                 required: 'Vui lòng nhập password',
@@ -144,7 +145,7 @@ $(function () {
             },
             password_confirmation: {
                 required: 'Vui lòng nhập lại mật khẩu',
-                aqualTo: 'Mật khẩu chưa khớp'
+                equalTo: 'Mật khẩu chưa khớp'
             },
             hiddenRecaptcha: {
                 required: 'Vui lòng xác nhận google recaptcha'
@@ -158,7 +159,7 @@ $(function () {
             $(element).parent().removeClass('has-error');
         }
     });
-    $.validator.addMethod(
+    $.validator.addMethod( // cái này cần có để validate regex
         "regex",
         function (value, element, regexp) {
             if (regexp.constructor != RegExp)
@@ -192,7 +193,7 @@ $(function () {
         },
         errorClass: 'help-block',
         highlight: function (element) {
-            $(element).parent().addClass('has-error');
+            $(element).parent().addClass('has-error'); // element là input hiện tại
         },
         unhighlight: function (element) {
             $(element).parent().removeClass('has-error');

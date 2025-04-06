@@ -290,6 +290,8 @@
                         </div>
                         <div class="form-group">
                             {!! NoCaptcha::display() !!}
+                            {{-- thẻ giả hiddenRecaptcha --}}
+                            <input type="text" name="hiddenRecaptcha" style="opacity: 0; position: absolute; top: 0; left: 0; height: 1px; width: 1px;">
                         </div>
                     </div>
                     <div class="modal-footer">

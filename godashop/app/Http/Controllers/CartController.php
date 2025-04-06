@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
@@ -144,6 +144,6 @@ class CartController extends Controller
             $request->session()->put('discount_error', 'Mã giảm giá không hợp lệ');
         }
         $request->session()->put('discount_code', $discount_code);
-        return redirect()->route('fe.payment');
+        return redirect()->route('payment');
     }
 }
