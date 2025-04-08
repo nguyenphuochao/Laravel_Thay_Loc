@@ -163,6 +163,7 @@
                     <a href="{{ route('contact.index') }}">Liên hệ</a>
                 </li>
             </ul>
+            {{-- Đăng nhập thì lấy thông tin giỏ hàng từ DB ra --}}
             @auth
                 @php
                     Cart::destroy();
@@ -172,9 +173,9 @@
             @endauth
             <span class="hidden-lg hidden-md experience">Trải nghiệm cùng sản phẩm của Goda</span>
             <ul class="nav navbar-nav navbar-right">
-                <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng"><i
-                            class="fa fa-shopping-cart"></i> <span
-                            class="number-total-product">{{ Cart::count() }}</span></a></li>
+                <li class="cart"><a href="javascript:void(0)" class="btn-cart-detail" title="Giỏ Hàng">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="number-total-product">{{ Cart::count() }}</span></a></li>
             </ul>
         </div>
     </nav>
@@ -418,8 +419,7 @@
                                 <span>Tổng tiền</span>
                                 <span class="price-total">{{ Cart::subtotal() }}₫</span>
                             </p>
-                            <input type="button" name="back-shopping" class="btn btn-default"
-                                value="Tiếp tục mua sắm">
+                            <input type="button" name="back-shopping" class="btn btn-default" value="Tiếp tục mua sắm">
                             <input type="button" name="checkout" class="btn btn-primary" value="Đặt hàng">
                         </div>
                     </div>

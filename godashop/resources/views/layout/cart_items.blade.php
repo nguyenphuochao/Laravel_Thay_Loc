@@ -19,7 +19,7 @@
                         class="glyphicon glyphicon-trash"></span></a></div>
         </div>
     </div>
-    @php
-        endforeach
-    @endphp
+@php
+    endforeach
+@endphp
 

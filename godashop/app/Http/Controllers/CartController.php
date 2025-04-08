@@ -56,18 +56,20 @@ class CartController extends Controller
      */
     public function show()
     {
-        Cart::destroy();
+        // Test Cart::destroy để hủy
+        // Cart::destroy();
         // $this->retoreFromDB();
         $cart = Cart::content();
-        var_dump($cart);
+        dd($cart);
     }
+
     protected function display()
     {
         // Trả về json
         $result = [];
         $result["count"] = Cart::count();
         $result["subtotal"] = Cart::subtotal();
-        $result["items"] = view("cart_items")->render();
+        $result["items"] = view("layout.cart_items")->render();
         echo json_encode($result);
     }
     /**
@@ -106,6 +108,7 @@ class CartController extends Controller
     {
         //
     }
+
     public function delete($rowId)
     {
         $this->retoreFromDB();
@@ -113,6 +116,7 @@ class CartController extends Controller
         $this->storeIntoDb();
         $this->display();
     }
+
     protected function storeIntoDb()
     {
         if (Auth()->check()) {
@@ -120,6 +124,7 @@ class CartController extends Controller
             Cart::store($email);
         }
     }
+
     protected function retoreFromDB()
     {
         if (Auth()->check()) {
@@ -127,6 +132,7 @@ class CartController extends Controller
             Cart::restore($email);
         }
     }
+
     public function discount(Request $request)
     {
         $discount_code = $request->input('discount-code');

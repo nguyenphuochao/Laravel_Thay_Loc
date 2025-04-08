@@ -421,10 +421,13 @@ function updateAnsweredRating() {
 // Hiển thị giỏ hàng
 function displayCart(data) {
     var cart = JSON.parse(data);
+
     var count = cart.count;
     $(".btn-cart-detail .number-total-product").html(count);
+
     var subtotal = cart.subtotal;
     $("#modal-cart-detail .price-total").html(subtotal + "đ");
+
     var items = cart.items;
     $("#modal-cart-detail .cart-product").html(items)
 }
