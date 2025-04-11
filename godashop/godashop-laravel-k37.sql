@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 03, 2025 at 04:24 PM
+-- Generation Time: Apr 11, 2025 at 05:19 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -121,13 +121,13 @@ INSERT INTO `comments` (`id`, `product_id`, `email`, `fullname`, `star`, `create
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
-  `password` varchar(60) NOT NULL,
-  `mobile` varchar(15) NOT NULL,
+  `password` varchar(60) DEFAULT NULL,
+  `mobile` varchar(15) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
-  `login_by` varchar(20) NOT NULL,
+  `login_by` varchar(20) NOT NULL DEFAULT 'form',
   `ward_id` varchar(5) DEFAULT NULL,
-  `shipping_name` varchar(200) NOT NULL,
-  `shipping_mobile` varchar(15) NOT NULL,
+  `shipping_name` varchar(200) DEFAULT NULL,
+  `shipping_mobile` varchar(15) DEFAULT NULL,
   `housenumber_street` varchar(200) DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -140,11 +140,31 @@ INSERT INTO `customers` (`id`, `name`, `password`, `mobile`, `email`, `login_by`
 (1, 'Nguyễn Văn A', '005f47cddf568dacb8d03e20ba682cf9', '0912921099', 'a@gmail.com', 'form', NULL, '', '', NULL, 0),
 (2, 'Nguyễn Văn B', '', '01675288916', 'b@gmail.com', 'google', NULL, '', '', NULL, 0),
 (3, 'Nguyễn Văn C', '', '0123456789', 'x@gmail.com', 'facebook', NULL, '', '', NULL, 0),
-(22, 'Huu Loc', 'e10adc3949ba59abbe56e057f20f883e', '0932538468', 'nguyenhuulocla2006@gmail.com', 'form', '00004', 'Trần Thị Vy Trang', '0942514622', '278 Hòa Bình', 1),
+(22, 'Huu Loc', '$2y$10$5FnPWrCa9ZfCsOGxsV5L3uuxSxf92/J5r40JagehdouMpEB9goIrK', '0932538468', 'nguyenhuulocla2006@gmail.com', 'form', '00004', 'Trần Thị Vy Trang', '0942514622', '278 Hòa Bình', 1),
 (23, 'Loc Nguyen', '', '', 'nguyenhuulocla2006@yahoo.com', 'facebook', NULL, '', '', '', 1),
 (24, 'Khách Vãng Lai', '', '0123456789', 'khachvanglai@gmail.com', 'form', NULL, '', '', NULL, 1),
 (26, 'Khách hàng 1', 'e10adc3949ba59abbe56e057f20f883e', '123456', 'y@gmail.com', 'form', NULL, 'Phạm Bình Minh', '0977777777', 'số 1, đường thi sách', 1),
-(32, 'Nguyen Tran Gia Bao', 'd9a11ff68992e3d4da60728945facabd', '0932538468', 'nguyentrangiabao2016@gmail.com', 'form', NULL, 'Nguyen Tran Gia Bao', '0932538468', '', 1);
+(32, 'Nguyen Tran Gia Bao', 'd9a11ff68992e3d4da60728945facabd', '0932538468', 'nguyentrangiabao2016@gmail.com', 'form', NULL, 'Nguyen Tran Gia Bao', '0932538468', '', 1),
+(34, 'Nguyen Phuoc Hao', '$2y$10$5FnPWrCa9ZfCsOGxsV5L3uuxSxf92/J5r40JagehdouMpEB9goIrK', '0584228904', 'haonp@gmail.com', 'form', NULL, 'Đào Nguyễn', '0972366040', '180 cao lỗ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `discounts`
+--
+
+CREATE TABLE `discounts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_fixed` int(11) NOT NULL,
+  `discount_amount` int(11) NOT NULL,
+  `starts_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -895,6 +915,26 @@ INSERT INTO `image_items` (`id`, `product_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2018_12_23_120000_create_shoppingcart_table', 1),
+(2, '2023_11_22_161502_create_discounts_table', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `newsletters`
 --
 
@@ -1324,6 +1364,28 @@ INSERT INTO `role_permissions` (`role_id`, `action_id`) VALUES
 (4, 5),
 (4, 6),
 (4, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shoppingcart`
+--
+
+CREATE TABLE `shoppingcart` (
+  `identifier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `instance` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shoppingcart`
+--
+
+INSERT INTO `shoppingcart` (`identifier`, `instance`, `content`, `created_at`, `updated_at`) VALUES
+('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"52240328235a28cba934fc6cf8cc67cc\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"52240328235a28cba934fc6cf8cc67cc\";s:2:\"id\";s:2:\"23\";s:3:\"qty\";s:2:\"10\";s:4:\"name\";s:97:\"Kem chống nắng Beaumore - 80ml - giá sỉ​, giá tốt\r\nKem chống nắng Beaumore - 80ml\";s:5:\"price\";d:249000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:30:\"kemChongNangSunDefense80ml.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:0;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-04-11 15:09:03'),
+('nguyenhuulocla2006@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-11 15:07:33', '2025-04-11 15:08:25');
 
 -- --------------------------------------------------------
 
@@ -12170,6 +12232,13 @@ ALTER TABLE `customers`
   ADD KEY `ward_id` (`ward_id`);
 
 --
+-- Indexes for table `discounts`
+--
+ALTER TABLE `discounts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `discounts_code_unique` (`code`);
+
+--
 -- Indexes for table `districts`
 --
 ALTER TABLE `districts`
@@ -12182,6 +12251,12 @@ ALTER TABLE `districts`
 ALTER TABLE `image_items`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `newsletters`
@@ -12241,6 +12316,12 @@ ALTER TABLE `role_permissions`
   ADD PRIMARY KEY (`role_id`,`action_id`),
   ADD KEY `role_action_role_fk_1` (`role_id`),
   ADD KEY `role_action_action_fk_1` (`action_id`);
+
+--
+-- Indexes for table `shoppingcart`
+--
+ALTER TABLE `shoppingcart`
+  ADD PRIMARY KEY (`identifier`,`instance`);
 
 --
 -- Indexes for table `staffs`
@@ -12303,13 +12384,25 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `discounts`
+--
+ALTER TABLE `discounts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `image_items`
 --
 ALTER TABLE `image_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orders`

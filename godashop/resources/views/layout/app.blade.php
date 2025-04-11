@@ -163,6 +163,7 @@
                     <a href="{{ route('contact.index') }}">Liên hệ</a>
                 </li>
             </ul>
+
             {{-- Đăng nhập thì lấy thông tin giỏ hàng từ DB ra --}}
             @auth
                 @php

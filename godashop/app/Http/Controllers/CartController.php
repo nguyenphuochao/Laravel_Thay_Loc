@@ -40,7 +40,7 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add(Request $request)
     {
         $product_id = $request->input('product_id');
         $qty = $request->input('qty');

@@ -2,7 +2,7 @@
     - Bước 1 : git clone source từ github
     - Bước 2 : copy .env.example => .env
     - Bước 3 : composer update
-    - Bước 4 : cấu hình vhost chạy domain ảo
+    - Bước 4 : cấu hình vhost chạy domain ảo. VD: godashop.laravel.com
     - Bước 5 : cấu hình database [godashop-laravel-k37.sql]
     - Bước 6 : 
                php artisan key:generate
@@ -19,3 +19,4 @@
     - ITEM_PER_PAGE
     - NOCAPTCHA_SECRET=secret-key
       NOCAPTCHA_SITEKEY=site-key
+    - GUEST=khachvanglai@gmail.com

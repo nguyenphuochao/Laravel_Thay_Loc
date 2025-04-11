@@ -43,13 +43,15 @@ Route::get('existingEmail', [RegisterController::class, 'existingEmail'])->name(
 
 // Giỏ hàng
 // Route::middleware("auth")->group(function () {
-Route::get('carts/add', [CartController::class, 'store'])->name('cart.store');
+Route::get('carts/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('carts/show', [CartController::class, 'show'])->name('cart.show');
 Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('carts/update/{rowId}/{qty}', [CartController::class, 'update'])->name('cart.update');
 Route::get('carts/discount', [CartController::class, 'discount'])->name('cart.discount');
-Route::get('payment', [PaymentController::class, 'create'])->name('payment');
-Route::post('payment', [PaymentController::class, 'store'])->name('payment.store');
+
+Route::get('payment/checkout', [PaymentController::class, 'create'])->name('payment.create');
+Route::post('payment/store', [PaymentController::class, 'store'])->name('payment.store');
+
 Route::get('address/{provinceId}/districts', [AddressController::class, 'districts']);
 Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
 Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);

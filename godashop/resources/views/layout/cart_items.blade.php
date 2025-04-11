@@ -8,15 +8,14 @@
                 <div><img class="img-responsive" src="../images/{{ $item->options->image }}"></div>
             </div>
             <div class="col-sm-6 col-md-3"><a class="product-name" href="#">{{ $item->name }}</a></div>
-            <div class="col-sm-6 col-md-2"><span class="product-item-discount">{{ number_format($item->price) }}₫</span>
-            </div>
+            <div class="col-sm-6 col-md-2"><span class="product-item-discount">{{ number_format($item->price) }}₫</span></div>
             <div class="col-sm-6 col-md-3"><input type="hidden" value="1"><input type="number"
-                    onchange="updateProductInCart(this,'{{ $item->rowId }}')" min="1" value="{{ $item->qty }}">
+                    onchange="updateProductInCart(this,'{{ $rowId }}')" min="1" value="{{ $item->qty }}">
             </div>
             <div class="col-sm-6 col-md-2"><span>{{ number_format($item->qty * $item->price) }}₫</span></div>
             <div class="col-sm-6 col-md-1"><a class="remove-product" href="javascript:void(0)"
-                    onclick="deleteProductInCart('{{ $item->rowId }}')"><span
-                        class="glyphicon glyphicon-trash"></span></a></div>
+                    onclick="deleteProductInCart('{{ $rowId }}')"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
         </div>
     </div>
 @php

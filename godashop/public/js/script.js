@@ -77,7 +77,7 @@ $(function () {
         var product_id = $(this).attr("product-id");
         $.ajax({
             type: "GET",
-            url: "carts/add",
+            url: "/carts/add",
             data: {
                 product_id: product_id,
                 qty: 1
@@ -362,7 +362,7 @@ $(function () {
 
     $('input[name=checkout]').click(function (event) {
         /* Act on the event */
-        window.location.href = "/payment";
+        window.location.href = "/payment/checkout";
     });
 
     $('input[name=back-shopping]').click(function (event) {
@@ -436,7 +436,7 @@ function displayCart(data) {
 function deleteProductInCart(rowId) {
     $.ajax({
         type: "GET",
-        url: `carts/delete/${rowId}`,
+        url: `/carts/delete/${rowId}`,
     })
         .done(function (data) {
             displayCart(data);
@@ -448,7 +448,7 @@ function updateProductInCart(self, rowId) {
     var qty = $(self).val();
     $.ajax({
         type: "GET",
-        url: `carts/update/${rowId}/${qty}`,
+        url: `/carts/update/${rowId}/${qty}`,
     })
         .done(function (data) {
             displayCart(data);

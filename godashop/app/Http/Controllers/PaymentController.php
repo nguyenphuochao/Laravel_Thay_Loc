@@ -37,8 +37,10 @@ class PaymentController extends Controller
         } else {
             $guest = env("GUEST");
             $customer = Customer::where('email', '=', $guest)->first();
-            //dd($customer);
         }
+
+        //dd($customer);
+
         // Tỉnh thành quận huyện
         $districts = [];
         $wards = [];
@@ -47,6 +49,7 @@ class PaymentController extends Controller
         $selected_district_id = null;
         $selected_ward_id = null;
         $shipping_fee = 0;
+
         if (!empty($selected_ward)) {
             $selected_ward_id = $selected_ward->id; // 2 selected_ward_id
             $selected_district = $selected_ward->district;
@@ -57,7 +60,9 @@ class PaymentController extends Controller
             $wards =  $selected_district->wards; //6 wards
             $shipping_fee = Transport::where("province_id", $selected_province_id)->first()->price;
         }
+
         $provinces = Province::all();
+
         $data = [
             'customer' => $customer,
             'provinces' => $provinces,
@@ -69,7 +74,8 @@ class PaymentController extends Controller
             "shipping_fee" => $shipping_fee
 
         ];
-        return view('frontend.payment', $data);
+
+        return view('payment.checkout', $data);
     }
 
     /**
@@ -80,12 +86,19 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth()->check()) {
+            $customer = Auth()->user();
+        } else {
+            $guest = env("GUEST");
+            $customer = Customer::where('email', '=', $guest)->first();
+        }
+
         // Lưu order
         $order = new Order();
         $order->created_date = date("Y-m-d H:i:s");
         $order->order_status_id = 1;
         $order->staff_id = null;
-        $order->customer_id = Auth::user()->id;
+        $order->customer_id = $customer->id; // check đăng nhập hoặc không đăng nhập để lưu id khách hàng
         $order->shipping_fullname = $_POST["fullname"];
         $order->shipping_mobile = $_POST["mobile"];
         $order->payment_method = $_POST["payment_method"];
@@ -93,7 +106,7 @@ class PaymentController extends Controller
         $order->shipping_housenumber_street = $_POST["address"];
 
         $province_id = Ward::find($order->shipping_ward_id)->district->province->id;
-        $order->shipping_fee = Transport::where("province_id", $province_id)->first()->price;;
+        $order->shipping_fee = Transport::where("province_id", $province_id)->first()->price;
 
         $order->delivered_date = date("Y-m-d H:i:s", strtotime("+3 days"));
         $order->price_total = Cart::priceTotal(0, "", "");
@@ -104,7 +117,8 @@ class PaymentController extends Controller
         $order->price_inc_tax_total = Cart::total(0, "", "");
         $order->payment_total = $order->shipping_fee + Cart::total(0, "", "");
         $order->save();
-        // Lưu order item
+
+        // Lưu order_items
         foreach (Cart::content() as $item) {
             $order_item = new OrderItem();
             $order_item->product_id = $item->id;
@@ -114,7 +128,9 @@ class PaymentController extends Controller
             $order_item->total_price = $item->qty * $item->price;
             $order_item->save();
         }
-        $request->session()->put("success","Đã tạo đơn hàng thành công");
+
+        $request->session()->put("success", "Đã tạo đơn hàng thành công");
+
         return redirect()->route('fe.product');
     }
 
