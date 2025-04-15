@@ -59,8 +59,11 @@ class CartController extends Controller
         // Test Cart::destroy để hủy
         // Cart::destroy();
         // $this->retoreFromDB();
-        $cart = Cart::content();
-        dd($cart);
+        // $cart = Cart::content();
+        // dd($cart);
+
+        // Giảm giá %
+        // Cart::setGlobalDiscount(10);
     }
 
     protected function display()
@@ -136,6 +139,7 @@ class CartController extends Controller
     public function discount(Request $request)
     {
         $discount_code = $request->input('discount-code');
+        // lookup data to get % discount
         $discount = Discount::where('code', $discount_code)->first();
         if ($discount) {
             $discount_amount = $discount->discount_amount;
@@ -149,7 +153,24 @@ class CartController extends Controller
             $this->storeIntoDb();
             $request->session()->put('discount_error', 'Mã giảm giá không hợp lệ');
         }
+
         $request->session()->put('discount_code', $discount_code);
-        return redirect()->route('payment');
+        return redirect()->route('payment.create');
+
+        /*
+
+        Giảm giá theo %
+        Cart::setGlobalDiscount([
+            type' => 'percent',
+            'value' => 10
+        ]);
+
+        Giảm giá số tiền cụ thể
+        Cart::setGlobalDiscount([
+            'type' => 'fixed',
+            'value' => 50000, // Giảm 50.000
+        ]);
+
+        */
     }
 }

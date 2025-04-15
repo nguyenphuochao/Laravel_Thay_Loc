@@ -12,11 +12,13 @@ $(function () {
     // Thay đổi province
     $("main .province").change(function () {
         var province_id = $(this).val();
+
         if (!province_id) {
             updateSelectBox(null, "main .district");
             updateSelectBox(null, "main .ward");
             return;
         }
+
         $.ajax({
             url: `/address/${province_id}/districts`
         })
@@ -24,6 +26,7 @@ $(function () {
                 updateSelectBox(data, "main .district");
                 updateSelectBox(null, "main .ward");
             });
+
         // Shipping Free
         if ($("main .shipping-fee").length) {
             $.ajax({
@@ -43,6 +46,7 @@ $(function () {
     $("main .district").change(function (event) {
         /* Act on the event */
         var district_id = $(this).val();
+
         if (!district_id) {
             updateSelectBox(null, "main .ward");
             return;
@@ -159,6 +163,7 @@ $(function () {
             $(element).parent().removeClass('has-error');
         }
     });
+
     $.validator.addMethod( // cái này cần có để validate regex
         "regex",
         function (value, element, regexp) {

@@ -92,22 +92,23 @@
                     </div>
 
                     <hr>
+
                     <div class="row">
                         <div class="col-xs-4">
                             Mã giảm giá:
                         </div>
                         <div class="col-xs-8">
                             <form action="{{ route('cart.discount') }}">
-                                <input type="text" placeholder="Nhập mã giảm giá" class="form-control"
-                                    name="discount-code" value="{{ request()->session()->get('discount_code') }}">
+                                <input type="text" placeholder="Nhập mã giảm giá" class="form-control" name="discount-code"
+                                    value="{{ request()->session()->get('discount_code') }}">
                                 <div class="alert alert-danger">{{ request()->session()->get('discount_error') }}</div>
                                 <button class="btn btn-success">Áp dụng</button>
-
                             </form>
                         </div>
                     </div>
 
                     <hr>
+
                     <div class="row">
                         <div class="col-xs-6">
                             Tổng cộng
@@ -116,7 +117,7 @@
                             @php
                                 $total = $shipping_fee + Cart::total(0, '', '');
                             @endphp
-                            <span class="payment-total" data="1230000">{{ number_format($total) }}₫</span>
+                            <span class="payment-total">{{ number_format($total) }}₫</span>
                         </div>
                     </div>
                 </aside>
@@ -139,12 +140,14 @@
                                     oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')"
                                     oninput="this.setCustomValidity('')">
                             </div>
+
                             <div class="form-group col-sm-6">
                                 <input type="tel" value="{{ $customer->shipping_mobile }}" class="form-control"
                                     name="mobile" placeholder="Số điện thoại" required="" pattern="[0][0-9]{9,}"
                                     oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại bắt đầu bằng số 0 và ít nhất 9 con số theo sau')"
                                     oninput="this.setCustomValidity('')">
                             </div>
+
                             <div class="form-group col-sm-4">
                                 <select name="province" class="form-control province" required=""
                                     oninvalid="this.setCustomValidity('Vui lòng chọn Tỉnh / thành phố')"
@@ -157,6 +160,7 @@
 
                                 </select>
                             </div>
+
                             <div class="form-group col-sm-4">
                                 <select name="district" class="form-control district" required=""
                                     oninvalid="this.setCustomValidity('Vui lòng chọn Quận / huyện')"
@@ -169,6 +173,7 @@
 
                                 </select>
                             </div>
+
                             <div class="form-group col-sm-4">
                                 <select name="ward" class="form-control ward" required=""
                                     oninvalid="this.setCustomValidity('Vui lòng chọn Phường / xã')"
@@ -181,19 +186,24 @@
 
                                 </select>
                             </div>
+
                             <div class="form-group col-sm-12">
                                 <input type="text" value="{{ $customer->housenumber_street }}" class="form-control"
                                     placeholder="Địa chỉ" name="address" required=""
                                     oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ bao gồm số nhà, tên đường')"
                                     oninput="this.setCustomValidity('')">
                             </div>
+
                         </div>
+
                         <h4>Phương thức thanh toán</h4>
+
                         <div class="form-group">
                             <label> <input type="radio" name="payment_method" checked="" value="0"> Thanh
                                 toán khi giao hàng (COD) </label>
                             <div></div>
                         </div>
+
                         <div class="form-group">
                             <label> <input type="radio" name="payment_method" value="1"> Chuyển khoản qua ngân
                                 hàng </label>
@@ -202,9 +212,11 @@
                                 Ghi chú chuyển khoản là tên và chụp hình gửi lại cho shop dễ kiểm tra ạ
                             </div>
                         </div>
+
                         <div>
                             <button type="submit" class="btn btn-sm btn-primary pull-right">Hoàn tất đơn hàng</button>
                         </div>
+
                     </form>
                 </div>
             </div>

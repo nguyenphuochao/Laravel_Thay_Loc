@@ -14,15 +14,15 @@ class CreateDiscountsTable extends Migration
     public function up()
     {
         Schema::create('discounts', function (Blueprint $table) {
-            $table->bigIncrements( 'id' );
-            $table->string( 'code' )->unique( );
-            $table->text( 'description' )->nullable( );
-            $table->integer( 'is_fixed');
-            $table->integer( 'discount_amount' );
-            $table->timestamp( 'starts_at' )->nullable( );
-            $table->timestamp( 'expires_at' )->nullable( );
-            $table->timestamps( );
-            $table->softDeletes( );
+            $table->bigIncrements('id');
+            $table->string('code')->unique();
+            $table->text('description')->nullable();
+            $table->integer('is_fixed');
+            $table->integer('discount_amount');
+            $table->timestamp('starts_at')->nullable();
+            $table->timestamp('expires_at')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
