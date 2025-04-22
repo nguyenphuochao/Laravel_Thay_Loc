@@ -16,7 +16,7 @@
     - Laravel : 8.x
 
 * Setup những thứ cần thiết trong .env
-    - ITEM_PER_PAGE
+    - ITEM_PER_PAGE=9
     - NOCAPTCHA_SECRET=secret-key
       NOCAPTCHA_SITEKEY=site-key
     - GUEST=khachvanglai@gmail.com

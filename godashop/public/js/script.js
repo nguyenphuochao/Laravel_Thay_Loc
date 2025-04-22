@@ -11,6 +11,7 @@ function closeMenuMobile() {
 $(function () {
     // Thay đổi province
     $("main .province").change(function () {
+        /* Act on the event */
         var province_id = $(this).val();
 
         if (!province_id) {
@@ -27,13 +28,13 @@ $(function () {
                 updateSelectBox(null, "main .ward");
             });
 
-        // Shipping Free
+        // Shipping Fee
         if ($("main .shipping-fee").length) {
             $.ajax({
                 url: `/shippingfree/${province_id}`,
             })
                 .done(function (data) {
-                    //update shipping fee and total on UI
+                    // update shipping fee and total on UI
                     let shipping_fee = Number(data);
                     let payment_total = Number($("main .total").attr("data")) + shipping_fee;
                     $("main .shipping-fee").html(number_format(shipping_fee) + "₫");

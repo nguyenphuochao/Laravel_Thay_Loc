@@ -13,6 +13,10 @@ class AddressController extends Controller
 {
     public function districts($province_id)
     {
+        // cách 1
+        // $districts = District::where("province_id", $province_id)->get();
+
+        // cách 2
         $province = Province::find($province_id);
         $districts = $province->districts;
         $arr = [];
@@ -21,7 +25,9 @@ class AddressController extends Controller
         }
         return json_encode($arr);
     }
-    public function wards($district_id){
+
+    public function wards($district_id)
+    {
         $district = District::find($district_id);
         $wards = $district->wards;
         $arr = [];
@@ -30,8 +36,10 @@ class AddressController extends Controller
         }
         return json_encode($arr);
     }
-    public function shippingfree($province_id){
-        $shippingfee= DB::table('transports')->where('province_id',$province_id)->first();
+
+    public function shippingfree($province_id)
+    {
+        $shippingfee = DB::table('transports')->where('province_id', $province_id)->first();
         echo $shippingfee->price;
     }
 }

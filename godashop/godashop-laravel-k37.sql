@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2025 at 05:19 PM
+-- Generation Time: Apr 22, 2025 at 07:10 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -157,7 +157,7 @@ CREATE TABLE `discounts` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_fixed` int(11) NOT NULL,
+  `is_fixed` int(11) NOT NULL COMMENT '0 : % , 1 : số tiền',
   `discount_amount` int(11) NOT NULL,
   `starts_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
@@ -165,6 +165,15 @@ CREATE TABLE `discounts` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `discounts`
+--
+
+INSERT INTO `discounts` (`id`, `code`, `description`, `is_fixed`, `discount_amount`, `starts_at`, `expires_at`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'TEST10', 'Giảm giá 10% noel', 0, 10, '2025-04-15 13:56:19', '2025-04-30 13:56:24', NULL, NULL, NULL),
+(2, 'TEST20', 'Giảm giá 20% noel', 0, 20, '2025-04-15 13:56:19', '2025-04-30 13:56:24', NULL, NULL, NULL),
+(3, 'TEST50', 'Giảm giá 50.000đ noel', 1, 50000, '2025-04-15 13:56:19', '2025-04-30 13:56:24', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1384,7 +1393,7 @@ CREATE TABLE `shoppingcart` (
 --
 
 INSERT INTO `shoppingcart` (`identifier`, `instance`, `content`, `created_at`, `updated_at`) VALUES
-('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"52240328235a28cba934fc6cf8cc67cc\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"52240328235a28cba934fc6cf8cc67cc\";s:2:\"id\";s:2:\"23\";s:3:\"qty\";s:2:\"10\";s:4:\"name\";s:97:\"Kem chống nắng Beaumore - 80ml - giá sỉ​, giá tốt\r\nKem chống nắng Beaumore - 80ml\";s:5:\"price\";d:249000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:30:\"kemChongNangSunDefense80ml.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:0;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-04-11 15:09:03'),
+('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"52240328235a28cba934fc6cf8cc67cc\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"52240328235a28cba934fc6cf8cc67cc\";s:2:\"id\";s:2:\"23\";s:3:\"qty\";s:2:\"10\";s:4:\"name\";s:97:\"Kem chống nắng Beaumore - 80ml - giá sỉ​, giá tốt\r\nKem chống nắng Beaumore - 80ml\";s:5:\"price\";d:249000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:30:\"kemChongNangSunDefense80ml.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:10;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-04-16 16:51:19'),
 ('nguyenhuulocla2006@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-11 15:07:33', '2025-04-11 15:08:25');
 
 -- --------------------------------------------------------
@@ -12390,7 +12399,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `discounts`
 --
 ALTER TABLE `discounts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `image_items`

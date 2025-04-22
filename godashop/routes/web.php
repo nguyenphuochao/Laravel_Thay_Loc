@@ -49,9 +49,11 @@ Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('car
 Route::get('carts/update/{rowId}/{qty}', [CartController::class, 'update'])->name('cart.update');
 Route::get('carts/discount', [CartController::class, 'discount'])->name('cart.discount');
 
+// thanh toán
 Route::get('payment/checkout', [PaymentController::class, 'create'])->name('payment.create');
 Route::post('payment/store', [PaymentController::class, 'store'])->name('payment.store');
 
+// phường, quận huyện ajax
 Route::get('address/{provinceId}/districts', [AddressController::class, 'districts']);
 Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
 Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);
@@ -75,8 +77,7 @@ Route::get('chinh-sach-giao-hang', function () {
     return view('delivery_policy.index');
 })->name('delivery_policy.index');
 
-Route::get('lien-he', function () {
-    return view('contact.index');
-})->name('contact.index');
+// viết rút gọn view
+Route::view('lien-he', 'contact.index')->name('contact.index');
 
 // Area Admin

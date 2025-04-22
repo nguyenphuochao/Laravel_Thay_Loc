@@ -72,7 +72,6 @@ class PaymentController extends Controller
             "selected_district_id" => $selected_district_id,
             "selected_ward_id" => $selected_ward_id,
             "shipping_fee" => $shipping_fee
-
         ];
 
         return view('payment.checkout', $data);
