@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Ward extends Model
 {
-    protected $keyType = 'string';
+    protected $keyType = 'string'; // Set the key type to string
+
     use HasFactory;
     /**
      * Get the user that owns the Ward

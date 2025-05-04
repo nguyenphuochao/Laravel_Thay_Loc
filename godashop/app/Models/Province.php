@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class Province extends Model
 {
-    protected $keyType = 'string';
+    protected $keyType = 'string'; // chuyển keyType sang string
+
     use HasFactory;
     /**
      * Get all of the comments for the Province

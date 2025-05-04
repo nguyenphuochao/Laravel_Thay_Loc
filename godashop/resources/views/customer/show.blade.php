@@ -1,4 +1,4 @@
-@extends('layout_fronend')
+@extends('layout.app')
 @section('content')
 <main id="maincontent" class="page-main">
     <div class="container">
@@ -16,7 +16,7 @@
                     <div class="category">
                         <ul>
                             <li class="active">
-                                <a href="thong-tin-tai-khoan.html" title="Thông tin tài khoản" target="_self">Thông tin tài khoản
+                                <a href="{{ route('customer.show') }}" title="Thông tin tài khoản" target="_self">Thông tin tài khoản
                                 </a>
                             </li>
                             <li class="">
@@ -38,13 +38,13 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="col-md-6">
-                        <form class="info-account" action="{{route('customer.update')}}" method="POST" role="form">
+                        <form class="info-account" action="{{ route('customer.update') }}" method="POST" role="form">
                             @csrf
                             <div class="form-group">
-                                <input type="text" value="{{Auth::user()->name}}" class="form-control" name="fullname" placeholder="Họ và tên" required="" oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')" oninput="this.setCustomValidity('')">
+                                <input type="text" value="{{ Auth::user()->name }}" class="form-control" name="fullname" placeholder="Họ và tên" required="" oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
-                                <input type="tel" value="{{Auth::user()->mobile}}" class="form-control" name="mobile" placeholder="Số điện thoại" required="" pattern="[0][0-9]{9,}" oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại bắt đầu bằng số 0 và ít nhất 9 con số theo sau')" oninput="this.setCustomValidity('')">
+                                <input type="tel" value="{{ Auth::user()->mobile }}" class="form-control" name="mobile" placeholder="Số điện thoại" required="" pattern="[0][0-9]{9,}" oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại bắt đầu bằng số 0 và ít nhất 9 con số theo sau')" oninput="this.setCustomValidity('')">
                             </div>
                             <div class="form-group">
                                 <input type="password" class="form-control" name="old_password" placeholder="Nhập mật khẩu cũ">

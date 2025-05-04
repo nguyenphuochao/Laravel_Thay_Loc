@@ -58,7 +58,7 @@ class PaymentController extends Controller
             $selected_province_id = $selected_province->id; //4 selected_province_id
             $districts = $selected_province->districts; // 5 districts
             $wards =  $selected_district->wards; //6 wards
-            $shipping_fee = Transport::where("province_id", $selected_province_id)->first()->price;
+            $shipping_fee = Transport::where("province_id", $selected_province_id)->first()->price; // lấy phí giao hàng
         }
 
         $provinces = Province::all();
@@ -108,6 +108,7 @@ class PaymentController extends Controller
         $order->shipping_fee = Transport::where("province_id", $province_id)->first()->price;
 
         $order->delivered_date = date("Y-m-d H:i:s", strtotime("+3 days"));
+
         $order->price_total = Cart::priceTotal(0, "", "");
         $order->discount_code = session()->get("discount_code");
         $order->discount_amount = Cart::discount(0, "", "");  // update later
@@ -128,9 +129,14 @@ class PaymentController extends Controller
             $order_item->save();
         }
 
+        // thông báo thành công
         $request->session()->put("success", "Đã tạo đơn hàng thành công");
 
-        return redirect()->route('fe.product');
+        // Xóa session cart => về rỗng
+        Cart::destroy();
+
+        // điều hướng
+        return redirect()->route('product.index');
     }
 
     /**

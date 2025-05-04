@@ -77,7 +77,7 @@
                         <div class="col-xs-6">
                             Tổng tiền bao gồm VAT
                         </div>
-                        <div class="col-xs-6 text-right total" data=" {{ Cart::total(0, '', '') }}">
+                        <div class="col-xs-6 text-right total" data="{{ Cart::total(0, '', '') }}">
                             {{ Cart::total() }}₫
                         </div>
                     </div>
@@ -200,7 +200,6 @@
                         <div class="form-group">
                             <label> <input type="radio" name="payment_method" checked="" value="0"> Thanh
                                 toán khi giao hàng (COD) </label>
-                            <div></div>
                         </div>
 
                         <div class="form-group">

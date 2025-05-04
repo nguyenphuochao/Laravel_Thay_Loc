@@ -9,14 +9,31 @@ use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
+    /**
+     * Display the customer's account information page.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+
     public function show()
     {
         $data = [];
-        return view('frontend.account_information', $data);
+        return view('customer.show', $data);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request)
     {
+        // dùng auth session lưu luôn
+        /*
+        $customer = Auth()->user();
+        $customer->save();
+        */
         $customer = Auth::user();
         $customer->name = $request->input('fullname');
         $customer->mobile = $request->input('mobile');
@@ -32,6 +49,7 @@ class CustomerController extends Controller
             $customer->password = Hash::make($request->input('password'));
         }
         $customer->save();
+        $request->session()->put('success', 'Cập nhật tài khoản thành công');
         return redirect()->route('customer.show');
     }
 }

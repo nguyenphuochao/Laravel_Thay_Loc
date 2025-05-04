@@ -37,6 +37,12 @@ class AddressController extends Controller
         return json_encode($arr);
     }
 
+    /**
+     * Retrieve and display the shipping fee for a given province.
+     *
+     * @param int $province_id The ID of the province for which to retrieve the shipping fee.
+     * @return void
+     */
     public function shippingfree($province_id)
     {
         $shippingfee = DB::table('transports')->where('province_id', $province_id)->first();
