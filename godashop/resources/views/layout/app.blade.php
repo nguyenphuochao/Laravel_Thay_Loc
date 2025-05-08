@@ -76,8 +76,8 @@
                                     id="dropdownMenu">{{ Auth::user()->name }}</a>
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
                                     <li><a href="{{ route('customer.show') }}">Thông tin tài khoản</a></li>
-                                    <li><a href="dia-chi-giao-hang-mac-dinh.html">Địa chỉ giao hàng</a></li>
-                                    <li><a href="don-hang-cua-toi.html">Đơn hàng của tôi</a></li>
+                                    <li><a href="{{ route('customer.address') }}">Địa chỉ giao hàng</a></li>
+                                    <li><a href="{{ route('customer.order') }}">Đơn hàng của tôi</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li>
                                         <a href="javascript:void()"

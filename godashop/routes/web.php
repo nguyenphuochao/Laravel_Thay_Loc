@@ -62,6 +62,9 @@ Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree
 Route::middleware("auth")->group(function () {
     Route::get('customer/show', [CustomerController::class, 'show'])->name('customer.show');
     Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
+    Route::get('customer/address', [CustomerController::class, 'address'])->name('customer.address');
+    Route::post('customer/updateAddress', [CustomerController::class, 'updateAddress'])->name('customer.address.update');
+    Route::get('customer/order', [CustomerController::class, 'order'])->name('customer.order');
 });
 
 // Trả về view lun khỏi cần tạo qua controller
