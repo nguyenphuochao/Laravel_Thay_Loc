@@ -65,6 +65,7 @@ Route::middleware("auth")->group(function () {
     Route::get('customer/address', [CustomerController::class, 'address'])->name('customer.address');
     Route::post('customer/updateAddress', [CustomerController::class, 'updateAddress'])->name('customer.address.update');
     Route::get('customer/order', [CustomerController::class, 'order'])->name('customer.order');
+    Route::get('customer/order/{orderId}', [CustomerController::class, 'orderDetail'])->name('customer.orderDetail');
 });
 
 // Trả về view lun khỏi cần tạo qua controller

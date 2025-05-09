@@ -11,26 +11,9 @@
                 </ol>
             </div>
             <div class="clearfix"></div>
-            <aside class="col-md-3">
-                <div class="inner-aside">
-                    <div class="category">
-                        <ul>
-                            <li class="active">
-                                <a href="{{ route('customer.show') }}" title="Thông tin tài khoản" target="_self">Thông tin tài khoản
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="dia-chi-giao-hang-mac-dinh.html" title="Địa chỉ giao hàng mặc định" target="_self">Địa chỉ giao hàng mặc định
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="don-hang-cua-toi.html" target="_self">Đơn hàng của tôi
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </aside>
+            {{-- sidebar customer --}}
+            @include('customer.sidebar')
+
             <div class="col-md-9 account">
                 <div class="row">
                     <div class="col-xs-6">

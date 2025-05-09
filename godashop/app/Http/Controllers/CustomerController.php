@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Province;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -90,10 +91,10 @@ class CustomerController extends Controller
     function updateAddress(Request $request) {
         $customer = Auth::user();
 
-        $customer->shipping_name = $request->input('shipping_name');
-        $customer->shipping_mobile = $request->input('shipping_mobile');
+        $customer->shipping_name = $request->input('fullname');
+        $customer->shipping_mobile = $request->input('mobile');
         $customer->ward_id = $request->input('ward');
-        $customer->housenumber_street = $request->input('housenumber_street');
+        $customer->housenumber_street = $request->input('address');
 
         $customer->save();
         $request->session()->put('success', 'Cập nhật địa chỉ giao hàng thành công');
@@ -101,7 +102,19 @@ class CustomerController extends Controller
     }
 
     function order() {
-        $data = [];
+        $customer = Auth::user();
+        $orders = Order::where("customer_id", $customer->id)->get();
+        $data = [
+            "orders" => $orders
+        ];
         return view('customer.order', $data);
+    }
+
+    function orderDetail($orderId) {
+        $order = Order::find($orderId);
+        $data = [
+            "order"   => $order,
+        ];
+        return view('customer.orderDetail', $data);
     }
 }
