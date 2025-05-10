@@ -13,8 +13,8 @@
                     <a href="{{ route('customer.address') }}" title="Địa chỉ giao hàng mặc định" target="_self">Địa chỉ giao hàng mặc định
                     </a>
                 </li>
-                <li class="{{ in_array($currentRouteName, ['customer.order', 'customer.orderDetail']) ? 'active' : '' }}">
-                    <a href="{{ route('customer.order') }}" target="_self">Đơn hàng của tôi
+                <li class="{{ in_array($currentRouteName, ['orders.index', 'orders.show']) ? 'active' : '' }}">
+                    <a href="{{ route('orders.index') }}" target="_self">Đơn hàng của tôi
                     </a>
                 </li>
             </ul>

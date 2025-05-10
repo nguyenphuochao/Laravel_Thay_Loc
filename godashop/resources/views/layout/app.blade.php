@@ -77,7 +77,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu">
                                     <li><a href="{{ route('customer.show') }}">Thông tin tài khoản</a></li>
                                     <li><a href="{{ route('customer.address') }}">Địa chỉ giao hàng</a></li>
-                                    <li><a href="{{ route('customer.order') }}">Đơn hàng của tôi</a></li>
+                                    <li><a href="{{ route('orders.index') }}">Đơn hàng của tôi</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li>
                                         <a href="javascript:void()"

@@ -15,11 +15,20 @@ class Order extends Model
 
     public function orderItems(): HasMany
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 
     public function status(): BelongsTo
     {
         return $this->belongsTo(Status::class, 'order_status_id');
+    }
+
+    function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    function ward() {
+        return $this->belongsTo(Ward::class, 'shipping_ward_id ');
     }
 }

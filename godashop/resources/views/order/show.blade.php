@@ -22,6 +22,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <aside class="col-md-7 cart-checkout">
+                        {{-- Danh sách mỗi đơn hàng --}}
                         <div class="row">
                             <div class="col-xs-2">
                                 <img class="img-responsive" src="../images/suaTamSandrasMychai250ml.jpg" alt="Sữa tắm Sandras Mỹ chai 250ml">
@@ -64,6 +65,8 @@
                             </div>
                         </div>
                         <hr>
+
+                        {{-- Tính tiền --}}
                         <div class="row">
                             <div class="col-xs-6">
                                 Tạm tính
@@ -93,25 +96,25 @@
                     <div class="ship-checkout col-md-5">
                         <h4>Thông tin giao hàng</h4>
                         <div>
-                            Họ và tên: {{ $order->customer->shipping_name }}
+                            Họ và tên: {{ $order->shipping_fullname }}
                         </div>
                         <div>
-                            Số điện thoại: 0942514622
+                            Số điện thoại: {{ $order->shipping_mobile }}
                         </div>
                         <div>
-                            Thành phố Hồ Chí Minh
+                            {{ $order->ward->district->province->name }}
                         </div>
                         <div>
-                            Quận Tân Phú
+                            {{ $order->ward->district->name }}
                         </div>
                         <div>
-                            Phường Hiệp Tân
+                            {{ $order->ward->name }}
                         </div>
                         <div>
-                            278 Hòa Bình
+                            {{ $order->shipping_housenumber_street }}
                         </div>
                         <div>
-                            Phương thức thanh toán: COD
+                            Phương thức thanh toán: {{ $order->payment_method == 0 ? "COD" : "Bank" }}
                         </div>
                     </div>
                 </div>

@@ -100,21 +100,4 @@ class CustomerController extends Controller
         $request->session()->put('success', 'Cập nhật địa chỉ giao hàng thành công');
         return redirect()->route('customer.address');
     }
-
-    function order() {
-        $customer = Auth::user();
-        $orders = Order::where("customer_id", $customer->id)->get();
-        $data = [
-            "orders" => $orders
-        ];
-        return view('customer.order', $data);
-    }
-
-    function orderDetail($orderId) {
-        $order = Order::find($orderId);
-        $data = [
-            "order"   => $order,
-        ];
-        return view('customer.orderDetail', $data);
-    }
 }

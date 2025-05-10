@@ -161,13 +161,13 @@ class CartController extends Controller
 
         Giảm giá theo %
         Cart::setGlobalDiscount([
-            type' => 'percent',
+            'type'  => 'percent',
             'value' => 10
         ]);
 
         Giảm giá số tiền cụ thể
         Cart::setGlobalDiscount([
-            'type' => 'fixed',
+            'type'  => 'fixed',
             'value' => 50000, // Giảm 50.000
         ]);
 

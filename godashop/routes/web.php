@@ -9,6 +9,10 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
+
+// Area Admin
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -64,8 +68,8 @@ Route::middleware("auth")->group(function () {
     Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');
     Route::get('customer/address', [CustomerController::class, 'address'])->name('customer.address');
     Route::post('customer/updateAddress', [CustomerController::class, 'updateAddress'])->name('customer.address.update');
-    Route::get('customer/order', [CustomerController::class, 'order'])->name('customer.order');
-    Route::get('customer/order/{orderId}', [CustomerController::class, 'orderDetail'])->name('customer.orderDetail');
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/{orderId}', [OrderController::class, 'show'])->name('orders.show');
 });
 
 // Trả về view lun khỏi cần tạo qua controller
