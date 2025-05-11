@@ -28,7 +28,8 @@ class Order extends Model
         return $this->belongsTo(Customer::class, 'customer_id');
     }
 
-    function ward() {
-        return $this->belongsTo(Ward::class, 'shipping_ward_id ');
+    function ward() : BelongsTo
+    {
+        return $this->belongsTo(Ward::class, 'shipping_ward_id');
     }
 }

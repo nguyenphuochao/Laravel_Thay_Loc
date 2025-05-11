@@ -64,7 +64,7 @@
                     <ul class="list-inline pull-right top-right">
                         <li class="account-login">
                             @auth
-                                <a href="don-hang-cua-toi.html" class="btn-logout">Đơn hàng của tôi</a>
+                                <a href="{{ route('orders.index') }}" class="btn-logout">Đơn hàng của tôi</a>
                             @endauth
                             @guest
                                 <a href="javascript:void(0)" class="btn-register">Đăng Ký</a>

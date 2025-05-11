@@ -47,6 +47,7 @@ Route::get('existingEmail', [RegisterController::class, 'existingEmail'])->name(
 
 // Giỏ hàng
 // Route::middleware("auth")->group(function () {
+
 Route::get('carts/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('carts/show', [CartController::class, 'show'])->name('cart.show');
 Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
@@ -61,6 +62,7 @@ Route::post('payment/store', [PaymentController::class, 'store'])->name('payment
 Route::get('address/{provinceId}/districts', [AddressController::class, 'districts']);
 Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
 Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);
+
 // });
 
 Route::middleware("auth")->group(function () {

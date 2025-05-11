@@ -77,12 +77,13 @@ class CustomerController extends Controller
         $provinces = Province::all();
 
         $data = [
+            'customer'  => $customer,
             'provinces' => $provinces,
             'districts' => $districts,
-            'wards' => $wards,
+            'wards'     => $wards,
             "selected_province_id" => $selected_province_id,
             "selected_district_id" => $selected_district_id,
-            "selected_ward_id" => $selected_ward_id,
+            "selected_ward_id"     => $selected_ward_id,
         ];
 
         return view('customer.address', $data);
