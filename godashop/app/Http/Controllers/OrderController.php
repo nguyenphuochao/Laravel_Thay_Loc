@@ -16,11 +16,6 @@ class OrderController extends Controller
     function show($orderId)
     {
         $order = Order::find($orderId);
-
-        $data = [
-            "order" => $order
-        ];
-
-        return view('order.show', $data);
+        return view('order.show', ["order" => $order]);
     }
 }
