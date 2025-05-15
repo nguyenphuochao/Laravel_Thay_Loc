@@ -173,4 +173,9 @@ class CartController extends Controller
 
         */
     }
+
+    function voucher()
+    {
+
+    }
 }

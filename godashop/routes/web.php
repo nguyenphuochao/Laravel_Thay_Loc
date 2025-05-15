@@ -53,6 +53,7 @@ Route::get('carts/show', [CartController::class, 'show'])->name('cart.show');
 Route::get('carts/delete/{rowId}', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('carts/update/{rowId}/{qty}', [CartController::class, 'update'])->name('cart.update');
 Route::get('carts/discount', [CartController::class, 'discount'])->name('cart.discount');
+Route::get('carts/voucher', [CartController::class, 'voucher'])->name('cart.voucher');
 
 // thanh toán
 Route::get('payment/checkout', [PaymentController::class, 'create'])->name('payment.create');

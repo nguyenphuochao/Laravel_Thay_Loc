@@ -93,6 +93,7 @@
 
                     <hr>
 
+                    {{-- Giảm theo % --}}
                     <div class="row">
                         <div class="col-xs-4">
                             Mã giảm giá:
@@ -108,6 +109,21 @@
                     </div>
 
                     <hr>
+
+                    {{-- Giảm theo số tiền --}}
+                    <div class="row">
+                        <div class="col-xs-4">
+                            Mã giảm giá:
+                        </div>
+                        <div class="col-xs-8">
+                            <form action="{{ route('cart.voucher') }}">
+                                <input type="text" placeholder="Nhập mã giảm giá" class="form-control" name="voucher-code"
+                                    value="{{ request()->session()->get('voucher') }}">
+                                <div class="alert alert-danger">{{ request()->session()->get('error_voucher_code') }}</div>
+                                <button class="btn btn-success">Áp dụng</button>
+                            </form>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-xs-6">
