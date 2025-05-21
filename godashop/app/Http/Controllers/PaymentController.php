@@ -110,12 +110,16 @@ class PaymentController extends Controller
         $order->delivered_date = date("Y-m-d H:i:s", strtotime("+3 days"));
 
         $order->price_total = Cart::priceTotal(0, "", "");
-        $order->discount_code = session()->get("discount_code");
-        $order->discount_amount = Cart::discount(0, "", "");  // update later
+        $order->discount_code = session()->pull("discount_code");
+        $order->discount_amount = Cart::discount(0, "", "");
         $order->sub_total = Cart::subtotal(0, "", "");
         $order->tax = Cart::tax(0, "", "");
         $order->price_inc_tax_total = Cart::total(0, "", "");
-        $order->payment_total = $order->shipping_fee + Cart::total(0, "", "");
+
+        $order->voucher_code = session()->pull("voucher_code"); // voucher_code
+        $order->voucher_amount = session()->pull("voucher_amount"); // voucher_amount
+
+        $order->payment_total = $order->shipping_fee + Cart::total(0, "", "") - $order->voucher_amount;
         $order->save();
 
         // Lưu order_items
@@ -135,7 +139,7 @@ class PaymentController extends Controller
         // Xóa session cart => về rỗng
         Cart::destroy();
 
-        // điều hướng
+        // điều hướng về trang sản phẩm
         return redirect()->route('product.index');
     }
 

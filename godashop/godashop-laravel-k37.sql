@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 10, 2025 lúc 05:14 PM
+-- Thời gian đã tạo: Th5 21, 2025 lúc 06:26 PM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.3.29
 
@@ -145,7 +145,7 @@ INSERT INTO `customers` (`id`, `name`, `password`, `mobile`, `email`, `login_by`
 (24, 'Khách Vãng Lai', '', '0123456789', 'khachvanglai@gmail.com', 'form', NULL, '', '', NULL, 1),
 (26, 'Khách hàng 1', 'e10adc3949ba59abbe56e057f20f883e', '123456', 'y@gmail.com', 'form', NULL, 'Phạm Bình Minh', '0977777777', 'số 1, đường thi sách', 1),
 (32, 'Nguyen Tran Gia Bao', 'd9a11ff68992e3d4da60728945facabd', '0932538468', 'nguyentrangiabao2016@gmail.com', 'form', NULL, 'Nguyen Tran Gia Bao', '0932538468', '', 1),
-(34, 'Nguyen Phuoc Hao', '$2y$10$WxhLj7Rz/aqoGMT1Lo9KleOiBkk4hzcLrSy.BC04z7Na5ZZh4Sk/W', '0584228904', 'haonp@gmail.com', 'form', '28231', 'Đào Nguyễn 123', '0972366040', '301/05 phước tân hưng', 1);
+(34, 'Nguyen Phuoc Hao', '$2y$10$WxhLj7Rz/aqoGMT1Lo9KleOiBkk4hzcLrSy.BC04z7Na5ZZh4Sk/W', '0584228904', 'haonp@gmail.com', 'form', '28231', 'Đào Nguyễn', '0972366040', '301/05 phước tân hưng', 1);
 
 -- --------------------------------------------------------
 
@@ -984,6 +984,8 @@ CREATE TABLE `orders` (
   `sub_total` int(11) NOT NULL,
   `tax` int(11) NOT NULL,
   `price_inc_tax_total` int(11) NOT NULL,
+  `voucher_code` varchar(55) DEFAULT NULL,
+  `voucher_amount` varchar(55) DEFAULT NULL,
   `payment_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -991,8 +993,9 @@ CREATE TABLE `orders` (
 -- Đang đổ dữ liệu cho bảng `orders`
 --
 
-INSERT INTO `orders` (`id`, `created_date`, `order_status_id`, `staff_id`, `customer_id`, `shipping_fullname`, `shipping_mobile`, `payment_method`, `shipping_ward_id`, `shipping_housenumber_street`, `shipping_fee`, `delivered_date`, `price_total`, `discount_code`, `discount_amount`, `sub_total`, `tax`, `price_inc_tax_total`, `payment_total`) VALUES
-(29, '2025-05-04 21:18:34', 1, NULL, 24, 'Nguyễn Phước Hảo', '0584228904', 0, '26872', 'hẽm 60 huỳnh khương an', 50000, '2025-05-07', 1520000, 'TEST10', 152000, 1368000, 0, 1368000, 1418000);
+INSERT INTO `orders` (`id`, `created_date`, `order_status_id`, `staff_id`, `customer_id`, `shipping_fullname`, `shipping_mobile`, `payment_method`, `shipping_ward_id`, `shipping_housenumber_street`, `shipping_fee`, `delivered_date`, `price_total`, `discount_code`, `discount_amount`, `sub_total`, `tax`, `price_inc_tax_total`, `voucher_code`, `voucher_amount`, `payment_total`) VALUES
+(35, '2025-05-21 23:20:42', 1, NULL, 34, 'Đào Nguyễn', '0972366040', 0, '28231', '301/05 phước tân hưng', 50000, '2025-05-24', 600000, NULL, 0, 600000, 0, 600000, NULL, NULL, 650000),
+(36, '2025-05-21 23:21:01', 1, NULL, 34, 'Đào Nguyễn', '0972366040', 0, '28231', '301/05 phước tân hưng', 50000, '2025-05-24', 600000, NULL, 0, 600000, 0, 600000, 'TEST50', '50000', 600000);
 
 -- --------------------------------------------------------
 
@@ -1013,8 +1016,8 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`product_id`, `order_id`, `qty`, `unit_price`, `total_price`) VALUES
-(5, 29, 1, 1500000, 1500000),
-(26, 29, 1, 20000, 20000);
+(14, 35, 2, 300000, 600000),
+(14, 36, 2, 300000, 600000);
 
 -- --------------------------------------------------------
 
@@ -1335,7 +1338,7 @@ CREATE TABLE `shoppingcart` (
 --
 
 INSERT INTO `shoppingcart` (`identifier`, `instance`, `content`, `created_at`, `updated_at`) VALUES
-('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"52240328235a28cba934fc6cf8cc67cc\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"52240328235a28cba934fc6cf8cc67cc\";s:2:\"id\";s:2:\"23\";s:3:\"qty\";s:2:\"10\";s:4:\"name\";s:97:\"Kem chống nắng Beaumore - 80ml - giá sỉ​, giá tốt\r\nKem chống nắng Beaumore - 80ml\";s:5:\"price\";d:249000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:30:\"kemChongNangSunDefense80ml.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:10;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-05-10 15:13:21'),
+('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"8e674a96df5a1f8f6cc59dea367b7917\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"8e674a96df5a1f8f6cc59dea367b7917\";s:2:\"id\";s:2:\"14\";s:3:\"qty\";i:2;s:4:\"name\";s:59:\"Kem dưỡng da vùng mắt Beaumore Contour Eye Cream- 10g\";s:5:\"price\";d:300000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:27:\"beaumoreContourEyeCream.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:0;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-05-21 16:21:26'),
 ('nguyenhuulocla2006@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-11 15:07:33', '2025-04-11 15:08:25');
 
 -- --------------------------------------------------------
@@ -12359,7 +12362,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT cho bảng `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT cho bảng `permissions`

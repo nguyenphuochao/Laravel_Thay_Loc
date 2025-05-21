@@ -84,6 +84,18 @@
 
                     <div class="row">
                         <div class="col-xs-6">
+                            Voucher
+                        </div>
+                        @php
+                            $voucher_amount = session()->get('voucher_amount') ?? 0;
+                        @endphp
+                        <div class="col-xs-6 text-right voucher" data="{{ $voucher_amount }}">
+                            -{{ number_format($voucher_amount) }}₫
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-6">
                             Phí vận chuyển
                         </div>
                         <div class="col-xs-6 text-right">
@@ -113,12 +125,12 @@
                     {{-- Giảm theo số tiền --}}
                     <div class="row">
                         <div class="col-xs-4">
-                            Mã giảm giá:
+                            Mã voucher:
                         </div>
                         <div class="col-xs-8">
                             <form action="{{ route('cart.voucher') }}">
-                                <input type="text" placeholder="Nhập mã giảm giá" class="form-control" name="voucher-code"
-                                    value="{{ request()->session()->get('voucher') }}">
+                                <input type="text" placeholder="Nhập mã voucher" class="form-control" name="voucher-code"
+                                    value="{{ request()->session()->get('voucher_code') }}">
                                 <div class="alert alert-danger">{{ request()->session()->get('error_voucher_code') }}</div>
                                 <button class="btn btn-success">Áp dụng</button>
                             </form>
@@ -131,7 +143,7 @@
                         </div>
                         <div class="col-xs-6 text-right">
                             @php
-                                $total = $shipping_fee + Cart::total(0, '', '');
+                                $total = $shipping_fee + Cart::total(0, '', '') - $voucher_amount;
                             @endphp
                             <span class="payment-total">{{ number_format($total) }}₫</span>
                         </div>

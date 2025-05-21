@@ -36,7 +36,7 @@ $(function () {
                 .done(function (data) {
                     // update shipping fee and total on UI
                     let shipping_fee = Number(data);
-                    let payment_total = Number($("main .total").attr("data")) + shipping_fee;
+                    let payment_total = Number($("main .total").attr("data")) + shipping_fee - Number($("main .voucher").attr("data"));
 
                     $("main .shipping-fee").html(number_format(shipping_fee) + "₫");
                     $("main .payment-total").html(number_format(payment_total) + "₫");

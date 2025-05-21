@@ -174,8 +174,24 @@ class CartController extends Controller
         */
     }
 
-    function voucher()
+    function voucher(Request $request)
     {
+        $voucher_code = $request->input('voucher-code');
+        $conds = [];
+        $conds[] = ['code', $voucher_code];
+        $conds[] = ['is_fixed', 1];
+        $voucher = Discount::where($conds)->first();
 
+        if ($voucher) {
+            $request->session()->put('voucher_amount', $voucher->discount_amount);
+            $request->session()->forget('error_voucher_code');
+        } else {
+            $request->session()->put('voucher_amount', 0);
+            $request->session()->put('error_voucher_code', 'Mã voucher không hợp lệ');
+        }
+
+        $request->session()->put('voucher_code', $voucher_code);
+
+        return redirect()->route('payment.create');
     }
 }
