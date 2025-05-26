@@ -96,6 +96,15 @@
 
                         <div class="row">
                             <div class="col-xs-6">
+                                Voucher
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                -{{ number_format($order->voucher_amount) }}₫
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-6">
                                 Phí vận chuyển
                             </div>
                             <div class="col-xs-6 text-right">

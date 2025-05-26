@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 
 // Area Admin
 
@@ -64,6 +65,10 @@ Route::get('address/{provinceId}/districts', [AddressController::class, 'distric
 Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
 Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);
 
+Route::get('lien-he.html', [ContactController::class, 'show'])->name('contact.show');
+// ajax gửi mail liên hệ
+Route::post('sendmail', [ContactController::class, 'sendEmail'])->name('contact.sendmail');
+
 // });
 
 Route::middleware("auth")->group(function () {
@@ -87,8 +92,5 @@ Route::get('chinh-sach-thanh-toan', function () {
 Route::get('chinh-sach-giao-hang', function () {
     return view('delivery_policy.index');
 })->name('delivery_policy.index');
-
-// viết rút gọn view
-Route::view('lien-he', 'contact.index')->name('contact.index');
 
 // Area Admin

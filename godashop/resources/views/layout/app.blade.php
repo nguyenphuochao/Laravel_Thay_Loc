@@ -44,7 +44,7 @@
                 <a class="{{ $currentRouteName == 'return_policy.index' ? 'active' : '' }}" href="{{ route('return_policy.index') }}">Chính sách đổi trả</a>
                 <a class="{{ $currentRouteName == 'payment_policy.index' ? 'active' : '' }}">Chính sách thanh toán</a>
                 <a class="{{ $currentRouteName == 'delivery_policy.index' ? 'active' : '' }}">Chính sách giao hàng</a>
-                <a class="{{ $currentRouteName == 'contact.index' ? 'active' : '' }}">Liên hệ</a>
+                <a class="{{ $currentRouteName == 'contact.show' ? 'active' : '' }}">Liên hệ</a>
             </div>
             <div class="row">
                 <div class="hidden-lg hidden-md col-sm-2 col-xs-1">
@@ -159,8 +159,8 @@
                 <li class="{{ $currentRouteName == 'delivery_policy.index' ? 'active' : '' }}">
                     <a href="{{ route('delivery_policy.index') }}">Chính sách giao hàng</a>
                 </li>
-                <li class="{{ $currentRouteName == 'contact.index' ? 'active' : '' }}">
-                    <a href="{{ route('contact.index') }}">Liên hệ</a>
+                <li class="{{ $currentRouteName == 'contact.show' ? 'active' : '' }}">
+                    <a href="{{ route('contact.show') }}">Liên hệ</a>
                 </li>
             </ul>
 

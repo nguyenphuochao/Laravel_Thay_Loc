@@ -9,6 +9,65 @@ function closeMenuMobile() {
 }
 
 $(function () {
+
+    //  Contact validate
+    $("form.form-contact").validate({
+        rules: {
+            fullname: {
+                required: true,
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            moible: {
+                required: true
+            },
+            content: {
+                required: true
+            }
+        },
+        messages: {
+            fullname: {
+                required: "Vui lòng nhập họ và tên",
+            },
+            email: {
+                required: "Vui lòng nhập email",
+                email: "Email chưa đúng định dạng"
+            },
+            mobile: {
+                required: "Vui lòng nhập số điện thoại",
+            },
+            content: {
+                required: "Vui lòng nhập nội dung",
+            }
+        },
+        errorClass: 'help-block',
+        highlight: function (element) {
+            $(element).parent().addClass('has-error'); // element là input hiện tại
+        },
+        unhighlight: function (element) {
+            $(element).parent().removeClass('has-error');
+        },
+        // submit form contact
+        submitHandler: function (form) {
+            var post_url = $(form).attr("action"); //get form action url
+            var request_method = $(form).attr("method"); //get form GET/POST method
+            var form_data = $(form).serialize(); //Encode form elements for submission
+            $(".message").html('Hệ thống đang gởi email... Vui lòng chờ <i class="fas fa-sync fa-spin"></i>');
+            $("button[type=submit]").attr("disabled", "disabled");// ngăn chặn nút submit tránh người dùng spam
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            })
+                .done(function (data) {
+                    $(".message").html(data);
+                    $("button[type=submit]").removeAttr("disabled"); // gửi thành công nhả nút submit ra
+                });
+        }
+    });
+
     // Thay đổi province
     $("main .province").change(function () {
         /* Act on the event */

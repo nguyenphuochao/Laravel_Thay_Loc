@@ -19,18 +19,21 @@
                 </div>
                 <div class="col-md-6">
                     <h4>Thông tin liên hệ</h4>
-                    <form class="form-contact" action="#" method="POST">
+                    <form class="form-contact" action="{{ route('contact.sendmail') }}" method="POST">
+                        @csrf
                         <div class="form-group">
                             <input type="text" class="form-control" name="fullname" placeholder="Họ và tên" required
                                 oninvalid="this.setCustomValidity('Vui lòng nhập tên của bạn')"
                                 oninput="this.setCustomValidity('')">
                         </div>
                         <div class="row">
+
                             <div class="form-group col-sm-6">
                                 <input type="email" class="form-control" name="email" placeholder="Email" required
                                     oninvalid="this.setCustomValidity('Vui lòng nhập email')"
                                     oninput="this.setCustomValidity('')">
                             </div>
+
                             <div class="form-group col-sm-6">
                                 <input type="tel" class="form-control" name="mobile" placeholder="Số điện thoại"
                                     required pattern="[0][0-9]{9,}"
@@ -39,12 +42,14 @@
                             </div>
 
                             <div class="form-group col-sm-12">
-
                                 <textarea class="form-control" placeholder="Nội dung" name="content" rows="10" required></textarea>
                             </div>
+
                             <div class="form-group col-sm-12">
+                                <div class="message bg-success"></div>
                                 <button type="submit" class="btn btn-sm btn-primary pull-right">Gửi</button>
                             </div>
+
                         </div>
                     </form>
                 </div>
