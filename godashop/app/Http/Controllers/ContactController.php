@@ -14,15 +14,28 @@ class ContactController extends Controller
 
     function sendEmail(Request $request)
     {
+        // cách 1
         $input = $request->all(); // lấy tất cả các request
 
         Mail::send('contact.sendmail', $input,
 
         function ($message) use ($input) {
-            $message->to('nguyenphuochao456@gmail.com', 'Quản trị')
-            ->subject("Khách hàng {$input['fullname']}")
+            $to = env("MAIL_SHOP", 'nguyenphuochao456@gmail.com');
+            $message->to($to, 'Godashop')
+            ->subject("Godashop: customer contact {$input['fullname']}")
             ->replyTo($input["email"])
             ->from($input["email"]);
         });
+
+        if(Mail::failures()) {
+            // error
+            echo 'Khong the gui mail. Lien hệ admin';
+        } else {
+            // success
+            echo 'Gửi mail thành công';
+        }
+
+        // Cách 2 dùng try...catch
+        // code here
     }
 }

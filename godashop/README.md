@@ -15,7 +15,7 @@
     - PHP : 7.3 | 8.0
     - Laravel : 8.x
 
-* Setup những thứ cần thiết trong .env
+* Setup những thứ cần thiết trong .env -> php artisan config:clear
 
     ITEM_PER_PAGE=9
 
@@ -30,3 +30,5 @@
     MAIL_USERNAME=nguyenphuochao456@gmail.com
     MAIL_PASSWORD=aqehzdwwqqrxdlwz
     MAIL_ENCRYPTION=tls
+    
+    MAIL_SHOP=nguyenphuochao456@gmail.com
