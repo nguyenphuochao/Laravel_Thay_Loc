@@ -24,7 +24,8 @@ class Customer extends Authenticatable
         'email',
         'password',
         'mobile',
-        'is_active'
+        'is_active',
+        'reset_token'
     ];
 
     /**

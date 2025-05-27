@@ -11,6 +11,8 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ForgotPasswordController;
+use App\Http\Controllers\ResetPasswordController;
 
 // Area Admin
 
@@ -65,9 +67,15 @@ Route::get('address/{provinceId}/districts', [AddressController::class, 'distric
 Route::get('address/{districtId}/wards', [AddressController::class, 'wards']);
 Route::get('shippingfree/{provinceId}', [AddressController::class, 'shippingfree']);
 
+// form mail contact
 Route::get('lien-he.html', [ContactController::class, 'show'])->name('contact.show');
 // ajax gửi mail liên hệ
 Route::post('sendmail', [ContactController::class, 'sendEmail'])->name('contact.sendmail');
+
+// reset password
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 // });
 
@@ -81,16 +89,8 @@ Route::middleware("auth")->group(function () {
 });
 
 // Trả về view lun khỏi cần tạo qua controller
-Route::get('chinh-sach-doi-tra', function () {
-    return view('return_policy.index');
-})->name('return_policy.index');
-
-Route::get('chinh-sach-thanh-toan', function () {
-    return view('payment_policy.index');
-})->name('payment_policy.index');
-
-Route::get('chinh-sach-giao-hang', function () {
-    return view('delivery_policy.index');
-})->name('delivery_policy.index');
+Route::view('chinh-sach-doi-tra', 'return_policy.index')->name('return_policy.index');
+Route::view('chinh-sach-thanh-toan', 'payment_policy.index')->name('payment_policy.index');
+Route::view('chinh-sach-giao-hang', 'delivery_policy.index')->name('delivery_policy.index');
 
 // Area Admin
