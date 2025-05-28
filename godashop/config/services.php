@@ -30,4 +30,16 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'google' => [
+        'client_id' => 'your-key',
+        'client_secret' => 'your-key',
+        'redirect' => 'https://godashop.laravel.com/auth/google/callback',
+    ],
+
+    'facebook' => [
+        'client_id' => 'your-key',
+        'client_secret' => 'your-key',
+        'redirect' => 'https://godashop.laravel.com/auth/facebook/callback',
+    ],
+
 ];
