@@ -316,10 +316,10 @@
                     <!-- Google login -->
                     <br>
                     <div class="text-center">
-                        <a class="btn btn-primary google-login" href="#"><i class="fab fa-google"></i></i> Đăng
+                        <a class="btn btn-primary google-login" href="{{ route('google.login') }}"><i class="fab fa-google"></i></i> Đăng
                             nhập bằng Google</a>
                         <!-- Facebook login -->
-                        <a class="btn btn-primary facebook-login" href="#"><i class="fab fa-facebook-f"></i>
+                        <a class="btn btn-primary facebook-login" href="{{ route('facebook.login') }}"><i class="fab fa-facebook-f"></i>
                             Đăng nhập bằng Facebook</a>
                     </div>
                 </div>

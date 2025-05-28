@@ -13,6 +13,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\FacebookController;
 
 // Area Admin
 
@@ -77,8 +79,20 @@ Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEm
 Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 
+// Login google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name("google.login");
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+
+// Login facebook
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook'])->name("facebook.login");
+Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback']);
+
+// Verify email
+Route::get('email/verify/{id}/{hash}', [RegisterController::class, 'verify'])->name('verification.verify');
+
 // });
 
+// Thông tin customer sau khi login
 Route::middleware("auth")->group(function () {
     Route::get('customer/show', [CustomerController::class, 'show'])->name('customer.show');
     Route::post('customer/update', [CustomerController::class, 'update'])->name('customer.update');

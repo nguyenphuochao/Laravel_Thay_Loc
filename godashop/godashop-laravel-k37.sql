@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 27, 2025 lúc 05:39 PM
+-- Thời gian đã tạo: Th5 28, 2025 lúc 05:16 PM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.3.29
 
@@ -130,23 +130,19 @@ CREATE TABLE `customers` (
   `shipping_mobile` varchar(15) DEFAULT NULL,
   `housenumber_street` varchar(200) DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 0,
-  `reset_token` varchar(64) DEFAULT NULL
+  `reset_token` varchar(64) DEFAULT NULL,
+  `google_id` varchar(100) DEFAULT NULL,
+  `facebook_id` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `customers`
 --
 
-INSERT INTO `customers` (`id`, `name`, `password`, `mobile`, `email`, `login_by`, `ward_id`, `shipping_name`, `shipping_mobile`, `housenumber_street`, `is_active`, `reset_token`) VALUES
-(1, 'Nguyễn Văn A', '005f47cddf568dacb8d03e20ba682cf9', '0912921099', 'a@gmail.com', 'form', NULL, '', '', NULL, 0, NULL),
-(2, 'Nguyễn Văn B', '', '01675288916', 'b@gmail.com', 'google', NULL, '', '', NULL, 0, NULL),
-(3, 'Nguyễn Văn C', '', '0123456789', 'x@gmail.com', 'facebook', NULL, '', '', NULL, 0, NULL),
-(22, 'Huu Loc', '$2y$10$5FnPWrCa9ZfCsOGxsV5L3uuxSxf92/J5r40JagehdouMpEB9goIrK', '0932538468', 'nguyenhuulocla2006@gmail.com', 'form', '00004', 'Trần Thị Vy Trang', '0942514622', '278 Hòa Bình', 1, NULL),
-(23, 'Loc Nguyen', '', '', 'nguyenhuulocla2006@yahoo.com', 'facebook', NULL, '', '', '', 1, NULL),
-(24, 'Khách Vãng Lai', '', '0123456789', 'khachvanglai@gmail.com', 'form', NULL, '', '', NULL, 1, NULL),
-(26, 'Khách hàng 1', 'e10adc3949ba59abbe56e057f20f883e', '123456', 'y@gmail.com', 'form', NULL, 'Phạm Bình Minh', '0977777777', 'số 1, đường thi sách', 1, NULL),
-(32, 'Nguyen Tran Gia Bao', 'd9a11ff68992e3d4da60728945facabd', '0932538468', 'nguyentrangiabao2016@gmail.com', 'form', NULL, 'Nguyen Tran Gia Bao', '0932538468', '', 1, NULL),
-(34, 'Nguyen Phuoc Hao', '$2y$10$2.tCp0YqQm1mbIQIWWw/TOb0P5SfJNJE4y9DGQTpJApVaNERevXO2', '0584228904', 'nguyenphuochao456@gmail.com', 'form', '28231', 'Đào Nguyễn', '0972366040', '301/05 phước tân hưng', 1, NULL);
+INSERT INTO `customers` (`id`, `name`, `password`, `mobile`, `email`, `login_by`, `ward_id`, `shipping_name`, `shipping_mobile`, `housenumber_street`, `is_active`, `reset_token`, `google_id`, `facebook_id`) VALUES
+(24, 'Khách Vãng Lai', '', '0123456789', 'khachvanglai@gmail.com', 'form', NULL, '', '', NULL, 1, NULL, NULL, NULL),
+(34, 'Nguyen Phuoc Hao', '$2y$10$2.tCp0YqQm1mbIQIWWw/TOb0P5SfJNJE4y9DGQTpJApVaNERevXO2', '0584228904', 'nguyenphuochao456@gmail.com', 'form', '28231', 'Đào Nguyễn', '0972366040', '301/05 phước tân hưng', 1, NULL, NULL, NULL),
+(38, 'HaoNP', '$2y$10$6qr3wwtJqKXujASU0xICkemN93aCdrrdgQ/X/l4.Tw1sAwsvDT6Vy', '0584228904', 'nguyenphuochao789@gmail.com', 'form', NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1341,7 +1337,9 @@ CREATE TABLE `shoppingcart` (
 INSERT INTO `shoppingcart` (`identifier`, `instance`, `content`, `created_at`, `updated_at`) VALUES
 ('haonp@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:1:{s:32:\"8e674a96df5a1f8f6cc59dea367b7917\";O:32:\"Gloudemans\\Shoppingcart\\CartItem\":11:{s:5:\"rowId\";s:32:\"8e674a96df5a1f8f6cc59dea367b7917\";s:2:\"id\";s:2:\"14\";s:3:\"qty\";i:2;s:4:\"name\";s:59:\"Kem dưỡng da vùng mắt Beaumore Contour Eye Cream- 10g\";s:5:\"price\";d:300000;s:6:\"weight\";d:0;s:7:\"options\";O:39:\"Gloudemans\\Shoppingcart\\CartItemOptions\":2:{s:8:\"\0*\0items\";a:1:{s:5:\"image\";s:27:\"beaumoreContourEyeCream.jpg\";}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}s:7:\"taxRate\";i:0;s:49:\"\0Gloudemans\\Shoppingcart\\CartItem\0associatedModel\";N;s:46:\"\0Gloudemans\\Shoppingcart\\CartItem\0discountRate\";i:0;s:8:\"instance\";s:7:\"default\";}}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-05 03:35:09', '2025-05-26 13:09:22'),
 ('nguyenhuulocla2006@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-04-11 15:07:33', '2025-04-11 15:08:25'),
-('nguyenphuochao456@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-05-27 14:51:06', '2025-05-27 15:31:11');
+('nguyenphuochao123@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-05-28 12:26:33', '2025-05-28 12:34:02'),
+('nguyenphuochao456@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-05-27 14:51:06', '2025-05-27 15:31:11'),
+('nguyenphuochao789@gmail.com', 'default', 'O:29:\"Illuminate\\Support\\Collection\":2:{s:8:\"\0*\0items\";a:0:{}s:28:\"\0*\0escapeWhenCastingToString\";b:0;}', '2025-05-28 14:55:58', '2025-05-28 15:12:07');
 
 -- --------------------------------------------------------
 
@@ -12340,7 +12338,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT cho bảng `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `discounts`

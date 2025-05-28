@@ -13,10 +13,15 @@ class LoginController extends Controller
         // Không cần validate chỗ này bên server
 
         $credentials = $request->only(['email', 'password']);
-        $credentials['is_active'] = 1;
 
         if (!Auth::attempt($credentials)) {
             $request->session()->put('error', 'Sai thông tin đăng nhập');
+            return redirect()->route('index');
+        }
+
+        if (Auth()->user()->is_active == 0) { // chưa kích hoạt tài khoản
+            Auth::logout();
+            $request->session()->put('error', 'Tài khoản chưa kích hoạt');
         }
 
         return redirect()->route('index');

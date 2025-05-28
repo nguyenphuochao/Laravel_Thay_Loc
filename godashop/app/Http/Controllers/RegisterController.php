@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -54,9 +56,37 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'mobile' => $data['mobile'],
             'email' => $data['email'],
-            'is_active' => 1,
+            'is_active' => 0, // chưa kích hoạt = 0
         ];
+
         Customer::create($customer);
+
+        // send mail to active account
+        $input = $customer;
+        $email = $data["email"];
+        $token = hash('sha256', $email);
+
+        $cus = Customer::where('email', $email)->first();
+        $link_active  = route('verification.verify', ['id' => $cus->id, 'hash' => $token]);
+
+        $input['link_active'] = $link_active;
+        Mail::send(
+            'customer.active_account',
+            $input,
+            function ($message) use ($input) {
+                $to = $input['email'];
+                $message->to($to, $input["name"])->subject('Godashop : Active account')
+                    ->from(env('MAIL_SHOP', 'nguyenphuochao456@gmail.com'));
+            }
+        );
+
+        if (Mail::failures()) {
+            // error
+            session()->put('error', 'Gửi mail không thành công');
+        } else {
+            // success
+            session()->put('success', 'Thành công. Kiểm tra mail của bạn để kích hoạt tài khoản');
+        }
     }
 
     /**
@@ -134,7 +164,6 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
         // var_dump($request->all());
         $this->create($request->all());
-        request()->session()->put('success', 'Đăng kí tài khoản thành công');
         return redirect()->route('index');
     }
 
@@ -149,5 +178,34 @@ class RegisterController extends Controller
         } else {
             echo "true";
         }
+    }
+
+    function verify()
+    {
+        // valid active token
+        $id = request()->route('id');
+        $token = request()->route('hash');
+
+        $customer = Customer::find($id);
+
+        // Không có id customer tồn tại
+        if (empty($customer)) {
+            session()->put('error', 'Customer invalid');
+            return redirect()->route('index');
+        }
+
+        // token invalid
+        $email = $customer->email;
+        $systemHash = hash('sha256', $email);
+        if ($token != $systemHash) {
+            session()->put('error', 'Token invalid');
+            return redirect()->route('index');
+        }
+
+        // ok
+        $customer->is_active = 1; // active = 1
+        $customer->save();
+        Auth::login($customer); // login lun khi active
+        return redirect()->route('index');
     }
 }
