@@ -17,6 +17,8 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\FacebookController;
 
 // Area Admin
+use App\Http\Controllers\Admin\LoginController as AdminLoginController;
+use App\Http\Controllers\Admin\DashboardController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -108,3 +110,7 @@ Route::view('chinh-sach-thanh-toan', 'payment_policy.index')->name('payment_poli
 Route::view('chinh-sach-giao-hang', 'delivery_policy.index')->name('delivery_policy.index');
 
 // Area Admin
+Route::get('admin/login', [AdminLoginController::class, 'index'])->name('admin.login.form');
+Route::post('admin/login', [AdminLoginController::class, 'login'])->name('admin.login');
+
+Route::get('admin', [DashboardController::class, 'index'])->name('dashboard');

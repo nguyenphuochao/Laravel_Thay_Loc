@@ -136,8 +136,14 @@ class PaymentController extends Controller
         // thông báo thành công
         $request->session()->put("success", "Đã tạo đơn hàng thành công");
 
-        // Xóa session cart => về rỗng
-        Cart::destroy(); // fix later
+        // xóa cart
+        if (Auth()->check()) {
+            $email = Auth::user()->email;
+            Cart::restore($email);
+        }
+        Cart::destroy();
+
+        // send mail order to customer
 
         // điều hướng về trang sản phẩm
         return redirect()->route('product.index');
