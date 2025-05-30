@@ -24,6 +24,9 @@
                 <img src="{{ asset('') }}/adm/images/logo.jpg">
             </div>
             <div class="card-body">
+
+                @include('layout.message')
+
                 <form action="{{ route('admin.login') }}" method="POST">
                     @csrf
 

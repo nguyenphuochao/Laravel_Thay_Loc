@@ -152,7 +152,10 @@
                </div>
                <div class="modal-footer">
                   <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
-                  <a class="btn btn-primary" href="login.html">Thoát</a>
+                  <form action="{{ route('admin.logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-primary">Thoát</button>
+                  </form>
                </div>
             </div>
          </div>
