@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,7 +15,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $conds = [];
+        $orders = Order::where($conds)->get();
+
+        $data = [
+            "orders" => $orders
+        ];
+
+        return view('admin.dashboard.index', $data);
     }
 
     /**

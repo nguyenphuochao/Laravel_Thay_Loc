@@ -34,7 +34,7 @@
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-list"></i>
                             </div>
-                            <div class="mr-5">2 Đơn hàng</div>
+                            <div class="mr-5">{{ $orders->count() }} Đơn hàng</div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">Chi tiết</span>
@@ -44,13 +44,26 @@
                         </a>
                     </div>
                 </div>
+
+                @php
+                    $revenue = 0;
+                    $cancle_order = 0;
+                    foreach ($orders as $order) {
+                        if($order->order_status_id == 6) {
+                            $cancle_order++;
+                        } else {
+                            $revenue += $order->payment_total;
+                        }
+                    }
+                @endphp
+
                 <div class="col-xl-4 col-sm-6 mb-3">
                     <div class="card text-white bg-success o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-shopping-cart"></i>
                             </div>
-                            <div class="mr-5">Doanh thu 3,500,000 đ</div>
+                            <div class="mr-5">Doanh thu {{ number_format($revenue) }} đ</div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">Chi tiết</span>
@@ -60,13 +73,14 @@
                         </a>
                     </div>
                 </div>
+
                 <div class="col-xl-4 col-sm-6 mb-3">
                     <div class="card text-white bg-danger o-hidden h-100">
                         <div class="card-body">
                             <div class="card-body-icon">
                                 <i class="fas fa-fw fa-life-ring"></i>
                             </div>
-                            <div class="mr-5">1 đơn hàng bị hủy</div>
+                            <div class="mr-5">{{ $cancle_order }} đơn hàng bị hủy</div>
                         </div>
                         <a class="card-footer text-white clearfix small z-1" href="#">
                             <span class="float-left">Chi tiết</span>

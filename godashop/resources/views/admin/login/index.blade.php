@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
 
-                @include('layout.message')
+                @include('admin.layout.message')
 
                 <form action="{{ route('admin.login') }}" method="POST">
                     @csrf
