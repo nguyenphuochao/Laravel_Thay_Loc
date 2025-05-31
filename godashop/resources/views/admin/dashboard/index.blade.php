@@ -49,7 +49,7 @@
                     $revenue = 0;
                     $cancle_order = 0;
                     foreach ($orders as $order) {
-                        if($order->order_status_id == 6) {
+                        if ($order->order_status_id == 6) {
                             $cancle_order++;
                         } else {
                             $revenue += $order->payment_total;
@@ -123,53 +123,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>#112</td>
-                                    <td>Nguyễn Văn A</td>
-                                    <td>0932538468</td>
-                                    <td>nguyenvana@gmail.com</td>
-                                    <td>Đang xử lý</td>
-                                    <td>2019-03-10 15:35:59 </td>
-                                    <td>Trả tiền khi nhận hàng</td>
-                                    <td>Nguyễn Văn E</td>
-                                    <td>0123456789</td>
-                                    <td>2019-03-13</td>
+                                @foreach ($orders as $order)
+                                    <tr>
+                                        <td>#{{ $order->id }}</td>
+                                        <td>{{ $order->customer->name }}</td>
+                                        <td>{{ $order->customer->mobile }}</td>
+                                        <td>{{ $order->customer->email }}</td>
+                                        <td>{{ $order->status->description }}</td>
+                                        <td>{{ $order->created_date }}</td>
+                                        <td>{{ $order->payment_method == 0 ? "COD" : "Bank" }}</td>
+                                        <td>{{ $order->shipping_fullname }}</td>
+                                        <td>{{ $order->shipping_mobile }}</td>
+                                        <td>{{ $order->delivered_date }}</td>
 
-                                    <td>50,000 đ</td>
-                                    <td>2,000,000 đ</td>
-                                    <td>2,050,000 đ</td>
-                                    <td>278 Hòa Bình, Hiệp Tân, Tân Phú, TP.HCM</td>
-                                    <td>Nguyễn Hữu Lộc</td>
-                                    <td> <input type="button" onclick="Confirm('1');" value="Xác nhận"
-                                            class="btn btn-primary btn-sm"></td>
-                                    <td> <input type="button" onclick="Edit('1');" value="Sửa"
-                                            class="btn btn-warning btn-sm"></td>
-                                    <td> <input type="button" onclick="Delete('1');" value="Xóa"
-                                            class="btn btn-danger btn-sm"></td>
-                                </tr>
-                                <tr>
-                                    <td>#113</td>
-                                    <td>Nguyễn Văn B</td>
-                                    <td>0932222444</td>
-                                    <td>nguyenvanb@gmail.com</td>
-                                    <td>Đã xác nhận</td>
-                                    <td>2019-01-10 15:35:59 </td>
-                                    <td>Thanh toán qua ngân hàng</td>
-                                    <td>Nguyễn Văn E</td>
-                                    <td>0123456789</td>
-                                    <td>2019-01-13</td>
-
-                                    <td>30,000 đ</td>
-                                    <td>1,500,000 đ</td>
-                                    <td>1,530,000 đ</td>
-                                    <td>279 Hòa Bình, Hiệp Tân, Tân Phú, TP.HCM</td>
-                                    <td>Nguyễn Thị Lệ</td>
-                                    <td> </td>
-                                    <td> <input type="button" onclick="Edit('1');" value="Sửa"
-                                            class="btn btn-warning btn-sm"></td>
-                                    <td> <input type="button" onclick="Delete('1');" value="Xóa"
-                                            class="btn btn-danger btn-sm"></td>
-                                </tr>
+                                        <td>{{ number_format($order->shipping_fee) }} đ</td>
+                                        <td>{{ number_format($order->sub_total) }} đ</td>
+                                        <td>{{ number_format($order->payment_total) }} đ</td>
+                                        <td>
+                                            {{ $order->shipping_housenumber_street }},
+                                            {{ $order->ward->name }} ,
+                                            {{ $order->ward->district->name }} ,
+                                            {{ $order->ward->district->province->name }}
+                                        </td>
+                                        <td>{{ !empty($order->staff) ? $order->staff->name : '' }}</td>
+                                        <td><input type="button" onclick="Confirm('1');" value="Xác nhận" class="btn btn-primary btn-sm"></td>
+                                        <td><input type="button" onclick="Edit('1');" value="Sửa" class="btn btn-warning btn-sm"></td>
+                                        <td><input type="button" onclick="Delete('1');" value="Xóa" class="btn btn-danger btn-sm"></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

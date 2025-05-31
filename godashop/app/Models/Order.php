@@ -32,4 +32,9 @@ class Order extends Model
     {
         return $this->belongsTo(Ward::class, 'shipping_ward_id');
     }
+
+    function staff(): BelongsTo
+    {
+        return $this->belongsTo(Staff::class, 'staff_id');
+    }
 }

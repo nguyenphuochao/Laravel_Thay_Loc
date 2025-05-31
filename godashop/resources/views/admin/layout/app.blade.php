@@ -27,7 +27,7 @@
          <!-- Navbar -->
          <ul class="navbar-nav ml-auto">
             <li class="nav-item no-arrow text-white">
-               <span >Chào Nguyễn Hữu Lộc</span> |
+               <span >Chào <b>{{ Auth::guard('admin')->user()->name }}</b></span> |
                <a class="text-white nounderline" href="#" data-toggle="modal" data-target="#logoutModal">Thoát</a>
             </li>
          </ul>
@@ -136,10 +136,12 @@
       <!-- /.content-wrapper -->
       </div>
       <!-- /#wrapper -->
+
       <!-- Scroll to Top Button-->
       <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
       </a>
+
       <!-- Logout Modal-->
       <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
@@ -160,6 +162,7 @@
             </div>
          </div>
       </div>
+
       <!-- Bootstrap core JavaScript-->
       <script src="{{ asset("") }}/adm/vendor/jquery/jquery.min.js"></script>
       <script src="{{ asset("") }}/adm/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

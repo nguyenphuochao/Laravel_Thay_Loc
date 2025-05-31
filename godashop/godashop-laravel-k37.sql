@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th5 28, 2025 lúc 05:16 PM
+-- Thời gian đã tạo: Th5 31, 2025 lúc 09:06 AM
 -- Phiên bản máy phục vụ: 10.4.20-MariaDB
 -- Phiên bản PHP: 7.3.29
 
@@ -992,7 +992,7 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `created_date`, `order_status_id`, `staff_id`, `customer_id`, `shipping_fullname`, `shipping_mobile`, `payment_method`, `shipping_ward_id`, `shipping_housenumber_street`, `shipping_fee`, `delivered_date`, `price_total`, `discount_code`, `discount_amount`, `sub_total`, `tax`, `price_inc_tax_total`, `voucher_code`, `voucher_amount`, `payment_total`) VALUES
 (35, '2025-05-21 23:20:42', 1, NULL, 34, 'Đào Nguyễn', '0972366040', 0, '28231', '301/05 phước tân hưng', 50000, '2025-05-24', 600000, NULL, 0, 600000, 0, 600000, NULL, NULL, 650000),
-(36, '2025-05-21 23:21:01', 1, NULL, 34, 'Đào Nguyễn', '0972366040', 0, '28231', '301/05 phước tân hưng', 50000, '2025-05-24', 600000, NULL, 0, 600000, 0, 600000, 'TEST50', '50000', 600000);
+(36, '2025-05-21 23:21:01', 6, NULL, 34, 'Đào Nguyễn', '0972366040', 0, '28231', '301/05 phước tân hưng', 50000, '2025-05-24', 600000, NULL, 0, 600000, 0, 600000, 'TEST50', '50000', 600000);
 
 -- --------------------------------------------------------
 
@@ -1077,6 +1077,84 @@ INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
 (46, 'add_comment', 'Thêm đánh giá'),
 (47, 'edit_comment', 'Cập nhật đánh giá'),
 (48, 'delete_comment', 'Xóa đánh giá');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `permission_role`
+--
+
+CREATE TABLE `permission_role` (
+  `role_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `permission_role`
+--
+
+INSERT INTO `permission_role` (`role_id`, `permission_id`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(1, 33),
+(1, 34),
+(1, 35),
+(1, 36),
+(1, 37),
+(1, 38),
+(1, 39),
+(1, 40),
+(1, 41),
+(1, 42),
+(1, 43),
+(1, 44),
+(1, 45),
+(1, 46),
+(1, 47),
+(1, 48),
+(2, 1),
+(2, 2),
+(2, 3),
+(2, 4),
+(2, 40),
+(2, 41),
+(2, 48),
+(3, 34),
+(3, 36),
+(3, 46),
+(4, 1),
+(4, 2),
+(4, 3),
+(4, 4),
+(4, 5),
+(4, 6),
+(4, 7);
 
 -- --------------------------------------------------------
 
@@ -1241,80 +1319,20 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `role_permissions`
+-- Cấu trúc bảng cho bảng `role_staff`
 --
 
-CREATE TABLE `role_permissions` (
-  `role_id` int(11) NOT NULL,
-  `action_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `role_staff` (
+  `staff_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Đang đổ dữ liệu cho bảng `role_permissions`
+-- Đang đổ dữ liệu cho bảng `role_staff`
 --
 
-INSERT INTO `role_permissions` (`role_id`, `action_id`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(1, 5),
-(1, 6),
-(1, 7),
-(1, 8),
-(1, 9),
-(1, 10),
-(1, 11),
-(1, 12),
-(1, 13),
-(1, 14),
-(1, 15),
-(1, 16),
-(1, 17),
-(1, 18),
-(1, 19),
-(1, 20),
-(1, 21),
-(1, 22),
-(1, 23),
-(1, 24),
-(1, 25),
-(1, 26),
-(1, 27),
-(1, 28),
-(1, 33),
-(1, 34),
-(1, 35),
-(1, 36),
-(1, 37),
-(1, 38),
-(1, 39),
-(1, 40),
-(1, 41),
-(1, 42),
-(1, 43),
-(1, 44),
-(1, 45),
-(1, 46),
-(1, 47),
-(1, 48),
-(2, 1),
-(2, 2),
-(2, 3),
-(2, 4),
-(2, 40),
-(2, 41),
-(2, 48),
-(3, 34),
-(3, 36),
-(3, 46),
-(4, 1),
-(4, 2),
-(4, 3),
-(4, 4),
-(4, 5),
-(4, 6),
-(4, 7);
+INSERT INTO `role_staff` (`staff_id`, `role_id`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -1352,7 +1370,7 @@ CREATE TABLE `staffs` (
   `name` varchar(100) NOT NULL,
   `mobile` varchar(15) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `password` varchar(64) NOT NULL,
   `email` varchar(100) NOT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -1362,22 +1380,7 @@ CREATE TABLE `staffs` (
 --
 
 INSERT INTO `staffs` (`id`, `name`, `mobile`, `username`, `password`, `email`, `is_active`) VALUES
-(1, 'Nguyễn Hữu Lộc', '0932538468', 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'nguyenhuulocla200@gmail.com', 1),
-(2, 'Đinh Trọng Thái', '01675288916', 'dinhtrongthai', 'e10adc3949ba59abbe56e057f20f883e', 'a@gmail.com', 1),
-(4, 'Đinh Trọng Nghĩa', '0123456789', 'dinhtrongnghia', '202cb962ac59075b964b07152d234b70', 'b@gmail.com', 0),
-(5, 'Nguyen Van A', '0932538468', 'adminchua', 'e10adc3949ba59abbe56e057f20f883e', 'adminchua@gmail.com', 0),
-(7, 'Nguyen Huu Loc', '0932538468', 'aaa', 'e10adc3949ba59abbe56e057f20f883e', 'nguyentrangiabao20161@gmail.com', 0);
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `staff_roles`
---
-
-CREATE TABLE `staff_roles` (
-  `staff_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(1, 'Nguyễn Hữu Lộc', '0932538468', 'admin', '$2y$10$fVpMiBKHNvP0EGmu7ZcoZeKl8rXDYDKaayqAu6uBIUIhPo1ZJUTDy', 'nguyenhuulocla200@gmail.com', 1);
 
 -- --------------------------------------------------------
 
@@ -12243,6 +12246,14 @@ ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `permission_role`
+--
+ALTER TABLE `permission_role`
+  ADD PRIMARY KEY (`role_id`,`permission_id`),
+  ADD KEY `role_action_role_fk_1` (`role_id`),
+  ADD KEY `role_action_action_fk_1` (`permission_id`);
+
+--
 -- Chỉ mục cho bảng `products`
 --
 ALTER TABLE `products`
@@ -12264,12 +12275,11 @@ ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `role_permissions`
+-- Chỉ mục cho bảng `role_staff`
 --
-ALTER TABLE `role_permissions`
-  ADD PRIMARY KEY (`role_id`,`action_id`),
-  ADD KEY `role_action_role_fk_1` (`role_id`),
-  ADD KEY `role_action_action_fk_1` (`action_id`);
+ALTER TABLE `role_staff`
+  ADD PRIMARY KEY (`staff_id`,`role_id`),
+  ADD KEY `staff_role_ibfk_2` (`role_id`);
 
 --
 -- Chỉ mục cho bảng `shoppingcart`
@@ -12284,13 +12294,6 @@ ALTER TABLE `staffs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `email` (`email`);
-
---
--- Chỉ mục cho bảng `staff_roles`
---
-ALTER TABLE `staff_roles`
-  ADD PRIMARY KEY (`staff_id`,`role_id`),
-  ADD KEY `staff_role_ibfk_2` (`role_id`);
 
 --
 -- Chỉ mục cho bảng `statuses`
@@ -12445,6 +12448,13 @@ ALTER TABLE `order_items`
   ADD CONSTRAINT `order_detail_product_fk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
 
 --
+-- Các ràng buộc cho bảng `permission_role`
+--
+ALTER TABLE `permission_role`
+  ADD CONSTRAINT `role_action_action_fk_1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
+  ADD CONSTRAINT `role_action_role_fk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
+
+--
 -- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
@@ -12452,16 +12462,9 @@ ALTER TABLE `products`
   ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`);
 
 --
--- Các ràng buộc cho bảng `role_permissions`
+-- Các ràng buộc cho bảng `role_staff`
 --
-ALTER TABLE `role_permissions`
-  ADD CONSTRAINT `role_action_action_fk_1` FOREIGN KEY (`action_id`) REFERENCES `permissions` (`id`),
-  ADD CONSTRAINT `role_action_role_fk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
-
---
--- Các ràng buộc cho bảng `staff_roles`
---
-ALTER TABLE `staff_roles`
+ALTER TABLE `role_staff`
   ADD CONSTRAINT `staff_role_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `staffs` (`id`),
   ADD CONSTRAINT `staff_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 

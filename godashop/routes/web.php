@@ -16,11 +16,6 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\FacebookController;
 
-// Area Admin
-use App\Http\Controllers\Admin\LoginController as AdminLoginController;
-use App\Http\Controllers\Admin\DashboardController;
-
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
@@ -115,13 +110,15 @@ Route::get('password-render', function () {
     echo Hash::make('123456');
 });
 
-Route::prefix('admin')->group(function () {
-    Route::get('login', [AdminLoginController::class, 'index'])->name('admin.login.form');
-    Route::post('login', [AdminLoginController::class, 'login'])->name('admin.login');
-    Route::post('logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function () {
+    Route::get('login', 'LoginController@index')->name('admin.login.form');
+    Route::post('login', 'LoginController@login')->name('admin.login');
+    Route::post('logout', 'LoginController@logout')->name('admin.logout');
 
     Route::middleware(['authAdmin:admin'])->group(function () {
         // dashboard
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', 'DashboardController@index')->name('dashboard');
+        // category
+        Route::get('category/create', 'CategoryController@create')->name('admin.category.create');
     });
 });
