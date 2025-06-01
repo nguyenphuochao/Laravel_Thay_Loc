@@ -119,6 +119,10 @@ Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->group(function 
         // dashboard
         Route::get('/', 'DashboardController@index')->name('dashboard');
         // category
+        Route::get('category', 'CategoryController@index')->name('admin.category.index');
         Route::get('category/create', 'CategoryController@create')->name('admin.category.create');
+        // product
+        Route::get('product/create', 'ProductController@create')->name('admin.product.create');
+        Route::post('product/store', 'ProductController@store')->name('admin.product.store');
     });
 });

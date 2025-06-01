@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        echo 'Trang danh sach category';
+        //
     }
 
     /**
@@ -26,12 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $staff = Auth::guard('admin')->user();
-        if (!$staff->can('create', Category::class)) {
-            abort(403);
-        }
-
-        echo "Trang tạo category";
+        return view('admin.product.create');
     }
 
     /**
@@ -42,7 +35,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->hasFile('featured_image')) {
+            echo 'File hình bị lỗi';
+            exit;
+        }
+
+        $filename = $request->file('featured_image')->getClientOriginalName();
+        $request->file('featured_image')->storeAs(
+            "images", $filename
+        );
     }
 
     /**
