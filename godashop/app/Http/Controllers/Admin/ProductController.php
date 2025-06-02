@@ -40,9 +40,10 @@ class ProductController extends Controller
             exit;
         }
 
+        // Cấu hình trong filesystems.php
         $filename = $request->file('featured_image')->getClientOriginalName();
         $request->file('featured_image')->storeAs(
-            "images", $filename
+            'images', $filename, 'godapublic'
         );
     }
 
